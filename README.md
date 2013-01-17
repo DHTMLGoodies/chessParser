@@ -11,6 +11,7 @@ Example of use:
 <?php
 
 $parser = new PgnParser('my-games.pgn');
+
 echo json_encode($parser->getGames());
 
 ?>
