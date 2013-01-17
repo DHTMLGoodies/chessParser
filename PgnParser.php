@@ -112,13 +112,7 @@ require_once("MoveBuilder.php");
 require_once("Board0x88Config.php");
 require_once("../CHESS_JSON.php");
 
-echo "<p>";
-
-#$parser = new PgnParser('ChessUserRoles/winning-chess-sacrifices-and-combinations.pgn');
-
-$parser = new PgnParser('../ChessUserRoles/alf2.pgn');
-
-echo "<br><br>";
+$parser = new PgnParser('file.pgn');
 $games = $parser->getGames();
 echo json_encode($games[0]);
 echo "<br><br>";
