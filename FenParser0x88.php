@@ -48,13 +48,11 @@ class FenParser0x88
     }
 
     /**
-   	 * Return long notation for a move
-   	 * @method getLongNotationForAMove
-   	 * @param {Object} move
-   	 * @param {String} shortNotation
-   	 * @return {String} long notation
-   	 */
-   	public function getLongNotationForAMove($move, $shortNotation) {
+     * @param array $move
+     * @param bool $shortNotation
+     * @return string
+     */
+    public function getLongNotationForAMove($move, $shortNotation) {
    		if (strstr($shortNotation, 'O-')) {
    			return $shortNotation;
    		}
@@ -127,7 +125,6 @@ class FenParser0x88
                 $pos += intval($token);
             }
         }
-
     }
 
     public function getPieceOnSquare($square) {
@@ -176,11 +173,7 @@ class FenParser0x88
 
     function getEnPassantSquare()
     {
-        $enPassant = $this->fenParts['enPassant'];
-        if ($enPassant != '-') {
-            return $enPassant;
-        }
-        return null;
+        return ($this->fenParts['enPassant'] != '-') ? $this->fenParts['enPassant'] : null;
     }
 
     private function setEnPassantSquare($square)
@@ -570,11 +563,9 @@ class FenParser0x88
             $pinning = '';
             while ($square !== $king['s'] && $countOpposite < 2) {
                 $squares[] = $square;
-
                 if ($this->cache['board'][$square]) {
                     $countOpposite++;
                     if ((!$WHITE && $this->cache['board'][$square] & 0x8) || ($WHITE && !($this->cache['board'][$square] & 0x8))) {
-
                         $pinning = $square;
                     } else {
                         break;
@@ -1294,9 +1285,7 @@ class FenParser0x88
                 if ($this->isEnPassantMove($move) || $this->cache['board'][$move['to']]) {
                     $ret += Board0x88Config::$fileMapping[$move['from'] & 15] + 'x';
                 }
-
                 $ret += Board0x88Config::$fileMapping[$move['to'] & 15] + '' + Board0x88Config::$rankMapping[$move['to'] & 240];
-
                 if (isset($move['promoteTo']) && $move['promoteTo']) {
                     $numType = Board0x88Config::$typeToNumberMapping[$move['promoteTo']];
                     $ret .= '=' . Board0x88Config::$notationMapping[$numType];

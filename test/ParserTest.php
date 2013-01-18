@@ -25,7 +25,7 @@ class ParserTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldCreatParser()
+    public function shouldCreateParser()
     {
         // given
         $parser = $this->getParser();
@@ -1796,6 +1796,11 @@ class ParserTest extends PHPUnit_Framework_TestCase
         }
         return $ret;
     }
+
+    /**
+     * @param null $fen
+     * @return FenParser0x88
+     */
     private function getParser($fen = null)
     {
         if (!isset($fen)) {

@@ -64,7 +64,6 @@ class PgnGameParser{
                     if($i==0){
                         $this->moveBuilder->addCommentBeforeFirstMove($parts[$i+1]);
                     }else{
-
                         $this->moveBuilder->addComment($parts[$i+1]);
                     }
                     $i+=2;
