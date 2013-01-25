@@ -1765,7 +1765,7 @@ class ParserTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldDetermine3FoldReptition(){
+    public function shouldDetermine3FoldRepetition(){
         // given
         $parser = new FenParser0x88();
         // when

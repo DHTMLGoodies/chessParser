@@ -16,7 +16,8 @@ class FenParser0x88
         }
     }
 
-    public function newGame($fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'){
+    public function newGame($fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1')
+    {
         $this->validMoves = null;
         $this->setFen($fen);
     }
@@ -33,7 +34,7 @@ class FenParser0x88
             'blackSliding' => array(),
             'king' => array('white' => null, 'black' => null)
         );
-        if($this->fen){
+        if ($this->fen) {
             $this->previousFen = $this->fen;
         }
         $this->fen = $fen;
@@ -43,7 +44,8 @@ class FenParser0x88
 
     private $longNotation;
 
-    public function getLongNotation(){
+    public function getLongNotation()
+    {
         return $this->longNotation;
     }
 
@@ -52,25 +54,26 @@ class FenParser0x88
      * @param bool $shortNotation
      * @return string
      */
-    public function getLongNotationForAMove($move, $shortNotation) {
-   		if (strstr($shortNotation, 'O-')) {
-   			return $shortNotation;
-   		}
-   		$fromSquare = $move['from'];
-   		$toSquare = $move['to'];
+    public function getLongNotationForAMove($move, $shortNotation)
+    {
+        if (strstr($shortNotation, 'O-')) {
+            return $shortNotation;
+        }
+        $fromSquare = $move['from'];
+        $toSquare = $move['to'];
 
 
-   		$type = $this->cache['board'][Board0x88Config::$mapping[$move['from']]];
-   		$type = Board0x88Config::$typeMapping[$type];
-   		$separator = strstr($shortNotation, 'x') >= 0 ? 'x' : '-';
+        $type = $this->cache['board'][Board0x88Config::$mapping[$move['from']]];
+        $type = Board0x88Config::$typeMapping[$type];
+        $separator = strstr($shortNotation, 'x') >= 0 ? 'x' : '-';
 
-   		$ret = $type . $fromSquare .$separator .$toSquare;
+        $ret = $type . $fromSquare . $separator . $toSquare;
 
-   		if (isset($move['promoteTo'])) {
-   			$ret .= '=' + $move['promoteTo'];
-   		}
-   		return $ret;
-   	}
+        if (isset($move['promoteTo'])) {
+            $ret .= '=' + $move['promoteTo'];
+        }
+        return $ret;
+    }
 
     private function updateFenArray()
     {
@@ -127,14 +130,15 @@ class FenParser0x88
         }
     }
 
-    public function getPieceOnSquare($square) {
+    public function getPieceOnSquare($square)
+    {
         $piece = $this->cache['board'][$square];
         if (isset($piece)) {
             return array(
                 'square' => Board0x88Config::$numberToSquareMapping[$square],
                 's' => $square,
                 't' => $piece,
-                'type'  => Board0x88Config::$typeMapping[$piece],
+                'type' => Board0x88Config::$typeMapping[$piece],
                 'color' => $piece & 0x8 ? 'black' : 'white',
                 'sliding' => $piece & 0x4
             );
@@ -142,9 +146,10 @@ class FenParser0x88
         return null;
     }
 
-    public function isValid($move, $fen){
+    public function isValid($move, $fen)
+    {
         $this->setFen($fen);
-        if(!isset($move['from'])){
+        if (!isset($move['from'])) {
             $fromAndTo = $this->getFromAndToByNotation($move[CHESS_JSON::MOVE_NOTATION]);
             $move['from'] = $fromAndTo['from'];
             $move['to'] = $fromAndTo['to'];
@@ -155,7 +160,7 @@ class FenParser0x88
 
         $obj = $this->getValidMovesAndResult();
         $moves = $obj['moves'];
-        if(isset($moves[$from]) && in_array($to, $moves[$from])){
+        if (isset($moves[$from]) && in_array($to, $moves[$from])) {
             return true;
         }
         return false;
@@ -207,7 +212,8 @@ class FenParser0x88
         return Board0x88Config::$colorAbbreviations[$this->fenParts['color']];
     }
 
-    function switchColor() {
+    function switchColor()
+    {
         $this->fenParts['color'] = $this->fenParts['color'] == 'w' ? 'b' : 'w';
     }
 
@@ -310,7 +316,7 @@ class FenParser0x88
                             $paths[] = $piece['s'] - 15;
                         }
                     }
-                    if($piece['s'] - 17 >= 0){
+                    if ($piece['s'] - 17 >= 0) {
                         if (!isset($pinned[$piece['s']]) || ($pinned[$piece['s']] && $pinned[$piece['s']]['by'] === $piece['s'] - 17)) {
                             if ($enPassantSquare == $piece['s'] - 17 || ($this->cache['board'][$piece['s'] - 17]) && !($this->cache['board'][$piece['s'] - 17] & 0x8)) {
                                 $paths[] = $piece['s'] - 17;
@@ -391,8 +397,9 @@ class FenParser0x88
 
                     if ($kingSideCastle
                         && !strstr($protectiveMoves, Board0x88Config::$keySquares[$piece['s']])
-                        && ($piece['s'] < 118 && !strstr($protectiveMoves, Board0x88Config::$keySquares[$piece['s'] + 1]) )
-                        && ($piece['s'] < 117 && !strstr($protectiveMoves, Board0x88Config::$keySquares[$piece['s'] + 2]))) {
+                        && ($piece['s'] < 118 && !strstr($protectiveMoves, Board0x88Config::$keySquares[$piece['s'] + 1]))
+                        && ($piece['s'] < 117 && !strstr($protectiveMoves, Board0x88Config::$keySquares[$piece['s'] + 2]))
+                    ) {
                         $paths[] = $piece['s'] + 2;
 
                     }
@@ -411,8 +418,7 @@ class FenParser0x88
         $result = 0;
         if ($checks && !$totalCountMoves) {
             $result = $color === 'black' ? 1 : -1;
-        }
-        else if (!$checks && !$totalCountMoves) {
+        } else if (!$checks && !$totalCountMoves) {
             $result = .5;
         }
         $this->validMoves = array('moves' => $ret, 'result' => $result, 'check' => $checks);
@@ -525,8 +531,7 @@ class FenParser0x88
                     case 0x0E:
                         if ($numericDistance % 16 === 0) {
                             $ret[] = array('s' => $piece['s'], 'p' => $boardDistance);
-                        }
-                        else if (($piece['s'] & 240) == ($king['s'] & 240)) {
+                        } else if (($piece['s'] & 240) == ($king['s'] & 240)) {
                             $ret[] = array('s' => $piece['s'], 'p' => $numericDistance > 0 ? 1 : -1);
                         }
                         break;
@@ -535,8 +540,7 @@ class FenParser0x88
                     case 0x0F:
                         if ($numericDistance % 15 === 0 || $numericDistance % 17 === 0 || $numericDistance % 16 === 0) {
                             $ret[] = array('s' => $piece['s'], 'p' => $boardDistance);
-                        }
-                        else if (($piece['s'] & 240) == ($king['s'] & 240)) {
+                        } else if (($piece['s'] & 240) == ($king['s'] & 240)) {
                             $ret[] = (array('s' => $piece['s'], 'p' => $numericDistance > 0 ? 1 : -1));
                         }
                         break;
@@ -584,9 +588,11 @@ class FenParser0x88
         return $ret;
     }
 
-    public function getBoardCache(){
+    public function getBoardCache()
+    {
         return $this->cache['board'];
     }
+
     /**
      * Return valid squares for other pieces than king to move to when in check, i.e. squares
      * which avoids the check
@@ -806,16 +812,23 @@ class FenParser0x88
     }
 
 
-    public function getParsed($move){
-        if($move['m'] == '--'){
-            $this->fen = null;
-            $this->switchColor();
-            return array(
-                'm' => $move['m']    ,
-                'fen' => $this->getFen()
-            );
+    public function getParsed($move)
+    {
+        if (is_string($move)) $move = array('m' => $move);
+
+        if (isset($move['m'])) {
+            if ($move['m'] == '--') {
+                $this->fen = null;
+                $this->switchColor();
+                return array(
+                    'm' => $move['m'],
+                    'fen' => $this->getFen()
+                );
+            }
+            $fromAndTo = $this->getFromAndToByNotation($move['m']);
+        }else{
+            $fromAndTo = $move;
         }
-        $fromAndTo = $this->getFromAndToByNotation($move['m']);
         $this->makeMove($fromAndTo);
         $newProperties = array(
             'from' => $fromAndTo['from'],
@@ -858,17 +871,16 @@ class FenParser0x88
 
             $ret['to'] = $this->getToSquareByNotation($notation);
             switch ($pieceType) {
-
                 case 0x01:
                 case 0x09:
                     if ($color === 'black') {
-                        $offsets = array(15, 17,16);
-                        if($ret['to'] >= 64){
+                        $offsets = array(15, 17, 16);
+                        if ($ret['to'] >= 64) {
                             $offsets[] = 32;
                         }
                     } else {
-                        $offsets = array(-15, -17,-16);
-                        if($ret['to'] < 64){
+                        $offsets = array(-15, -17, -16);
+                        if ($ret['to'] < 64) {
                             $offsets[] = -32;
                         }
                     }
@@ -916,7 +928,7 @@ class FenParser0x88
                             if ($this->cache['board'][$sq] && $this->cache['board'][$sq] === $pieceType) {
                                 $foundPieces[] = ($sq);
                             }
-                            if($this->cache['board'][$sq]){
+                            if ($this->cache['board'][$sq]) {
                                 break;
                             }
                             $sq += $patterns[$i];
@@ -930,15 +942,14 @@ class FenParser0x88
             $ret['from'] = $foundPieces[0];
         } else {
 
-            if ($fromRank!==null && $fromRank >= 0) {
+            if ($fromRank !== null && $fromRank >= 0) {
                 for ($i = 0, $len = count($foundPieces); $i < $len; $i++) {
                     if ($this->isOnSameRank($foundPieces[$i], $fromRank)) {
                         $ret['from'] = $foundPieces[$i];
                         break;
                     }
                 }
-            }
-            else if ($fromFile !== null && $fromFile >= 0) {
+            } else if ($fromFile !== null && $fromFile >= 0) {
                 for ($i = 0, $len = count($foundPieces); $i < $len; $i++) {
                     if ($this->isOnSameFile($foundPieces[$i], $fromFile)) {
                         $ret['from'] = $foundPieces[$i];
@@ -946,11 +957,11 @@ class FenParser0x88
                     }
                 }
             }
-            if(!isset($ret['from'])){
+            if (!isset($ret['from'])) {
                 $config = $this->getValidMovesAndResult();
                 $moves = $config['moves'];
-                foreach($foundPieces as $piece){
-                    if(in_array($ret['to'], $moves[$piece])){
+                foreach ($foundPieces as $piece) {
+                    if (in_array($ret['to'], $moves[$piece])) {
                         $ret['from'] = $piece;
                         break;
                     }
@@ -958,8 +969,8 @@ class FenParser0x88
             }
         }
 
-        if(!isset($ret['from'])){
-            $msg = $this->fen .", ". $notation.", Rank:". $fromRank. ", File:". $fromFile.",". count($foundPieces).", ". $foundPieces[0];
+        if (!isset($ret['from'])) {
+            $msg = $this->fen . ", " . $notation . ", Rank:" . $fromRank . ", File:" . $fromFile . "," . count($foundPieces) . ", " . $foundPieces[0];
             throw new Exception($msg);
         }
         $ret['from'] = Board0x88Config::$numberToSquareMapping[$ret['from']];
@@ -968,29 +979,31 @@ class FenParser0x88
         return $ret;
     }
 
-    public function hasThreeFoldRepetition($fens = array()){
-        if(!count($fens))return false;
+    public function hasThreeFoldRepetition($fens = array())
+    {
+        if (!count($fens)) return false;
         $shortenedFens = array();
-        foreach($fens as $fen){
+        foreach ($fens as $fen) {
             $fen = array_slice(explode(" ", $fen), 0, 3);
             $fen = implode(" ", $fen);
             $shortenedFens[] = $fen;
 
         }
-        $lastFen = $shortenedFens[count($shortenedFens)-1];
+        $lastFen = $shortenedFens[count($shortenedFens) - 1];
         $count = array_count_values($shortenedFens);
         return $count[$lastFen] >= 2;
     }
 
-    public function getPromoteByNotation($notation){
-        if(strstr($notation,'=')){
-            $piece = preg_replace("/^.*?=([QRBN]).*$/",'$1', $notation);
+    public function getPromoteByNotation($notation)
+    {
+        if (strstr($notation, '=')) {
+            $piece = preg_replace("/^.*?=([QRBN]).*$/", '$1', $notation);
             return Board0x88Config::$pieceAbbr[$piece];
         }
 
-        if(preg_match("/[a-h][18][NBRQ]/", $notation)){
+        if (preg_match("/[a-h][18][NBRQ]/", $notation)) {
             $notation = preg_replace("/[^a-h18NBRQ]/s", "", $notation);
-            return Board0x88Config::$pieceAbbr[substr($notation, strlen($notation)-1, 1)];
+            return Board0x88Config::$pieceAbbr[substr($notation, strlen($notation) - 1, 1)];
         }
         return '';
     }
@@ -1016,7 +1029,7 @@ class FenParser0x88
     function getToSquareByNotation($notation)
     {
         $notation = preg_replace("/.*([a-h][1-8]).*/s", '$1', $notation);
-        if(isset(Board0x88Config::$mapping[$notation])){
+        if (isset(Board0x88Config::$mapping[$notation])) {
             return Board0x88Config::$mapping[$notation];
         }
         return '';
@@ -1024,28 +1037,26 @@ class FenParser0x88
 
     function getPieceTypeByNotation($notation, $color = null)
     {
-        $notation = preg_replace("/\=[QRNB]/s", "", $notation);
         if ($notation === 'O-O-O' || $notation === 'O-O') {
-            $notation = 'K';
+            $pieceType = 'K';
         } else {
-            $notation = preg_replace("/.*?([NRBQK]).*/s", '$1', $notation);
-            if (!$notation || strlen($notation) > 1) {
-                $notation = 'P';
-            }
+            $token = substr($notation, 0, 1);
+            $pieceType = preg_match("/[NRBQK]/", $token) ? $token : 'P';
         }
 
-        $notation = Board0x88Config::$pieces[$notation];
+        $pieceType = Board0x88Config::$pieces[$pieceType];
         if ($color === 'black') {
-            $notation += 8;
+            $pieceType += 8;
         }
 
-        return $notation;
+        return $pieceType;
 
     }
 
     private $piecesInvolved;
     private $notation;
     private $validMoves = null;
+
     function move($move)
     {
         $this->fen = null;
@@ -1092,7 +1103,8 @@ class FenParser0x88
         return $this->fenParts['castle'];
     }
 
-    function getCastleCode(){
+    function getCastleCode()
+    {
         return $this->fenParts['castleCode'];
     }
 
@@ -1306,8 +1318,7 @@ class FenParser0x88
                         if (array_search($move['to'], $moves) >= 0) {
                             if (($square & 15) != ($move['from'] & 15)) {
                                 $ret += Board0x88Config::$fileMapping[$move['from'] & 15];
-                            }
-                            else if (($square & 240) != ($move['from'] & 240)) {
+                            } else if (($square & 240) != ($move['from'] & 240)) {
                                 $ret += Board0x88Config::$rankMapping[$move['from'] & 240];
                             }
                         }
