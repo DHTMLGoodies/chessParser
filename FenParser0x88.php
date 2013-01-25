@@ -969,8 +969,8 @@ class FenParser0x88
             }
         }
 
-        if (!isset($ret['from'])) {
-            $msg = $this->fen . ", " . $notation . ", Rank:" . $fromRank . ", File:" . $fromFile . "," . count($foundPieces) . ", " . $foundPieces[0];
+        if(!isset($ret['from'])){
+            $msg = "Fen: ".$this->fen ."\nnotation: ". $notation."\nRank:". $fromRank. "\nFile:". $fromFile."\n". count($foundPieces).", ". $foundPieces[0];
             throw new Exception($msg);
         }
         $ret['from'] = Board0x88Config::$numberToSquareMapping[$ret['from']];
