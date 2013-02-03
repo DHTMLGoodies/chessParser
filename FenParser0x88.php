@@ -1353,16 +1353,13 @@ class FenParser0x88
 
     function setNewFen()
     {
-
         $board = $this->cache['board'];
         $fen = '';
         $emptyCounter = 0;
 
         for ($rank = 7; $rank >= 0; $rank--) {
-
             for ($file = 0; $file < 8; $file++) {
                 $index = ($rank * 8) + $file;
-
                 if ($board[Board0x88Config::$numericMapping[$index]]) {
                     if ($emptyCounter) {
                         $fen .= $emptyCounter;
@@ -1385,8 +1382,7 @@ class FenParser0x88
         if ($emptyCounter) {
             $fen .= $emptyCounter;
         }
-
-        return implode(" ", array($fen, $this->getColorCode(), $this->getCastle(), $this->fenParts['enPassant'], $this->getHalfMoves(), $this->getFullMoves()));
+        return $fen . " ". $this->getColorCode(). " ". $this->getCastle()." ". $this->fenParts['enPassant']." ". $this->getHalfMoves()." ". $this->getFullMoves();
     }
 
 }
