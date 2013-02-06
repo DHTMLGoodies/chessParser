@@ -100,23 +100,3 @@ class PgnParser {
         return $this->games;
     }
 }
-
-/*
-error_reporting(E_ALL);
-ini_set('display_errors','on');
-
-require_once("GameParser.php");
-require_once("FenParser0x88.php");
-require_once("PgnGameParser.php");
-require_once("MoveBuilder.php");
-require_once("Board0x88Config.php");
-require_once("../CHESS_JSON.php");
-
-$parser = new PgnParser('file.pgn');
-$games = $parser->getGames();
-echo json_encode($games[0]);
-echo "<br><br>";
-#outputTime();
-
-*/
-

@@ -8,27 +8,35 @@ class PgnGameParser{
 
     private $gameData = array();
 
+    private $specialMetadata = array(
+        'event','site','white','black','result','plycount','eco','fen','timecontrol','round','date','annotator','termination'
+    );
+
     public function __construct($pgnGame){
         $this->pgnGame = trim($pgnGame);
-        #echo $this->pgnGame."<br>";
         $this->moveBuilder = new MoveBuilder();
     }
 
     public function getParsedData(){
-        $this->gameData = array();
-        $this->gameData[CHESS_JSON::GAME_METADATA] = $this->getMetadata();
+        $this->gameData = $this->getMetadata();
         $this->gameData[CHESS_JSON::MOVE_MOVES] = $this->getMoves();
         return $this->gameData;
     }
 
     private function getMetadata(){
-        $ret = array();
+        $ret = array(
+            CHESS_JSON::GAME_METADATA=>array()
+        );
         $lines = explode("\n", $this->pgnGame);
         foreach($lines as $line){
             $line = trim($line);
             if(substr($line, 0, 1) === '[' && substr($line, strlen($line)-1, 1) === ']'){
                 $metadata = $this->getMetadataKeyAndValue($line);
-                $ret[$metadata['key']] = $metadata['value'];
+                if(in_array($metadata['key'], $this->specialMetadata)){
+                    $ret[$metadata['key']] = $metadata['value'];
+                }else{
+                    $ret[CHESS_JSON::GAME_METADATA][$metadata['key']] = $metadata['value'];
+                }
             }
         }
         if(!isset($ret[CHESS_JSON::FEN])) {

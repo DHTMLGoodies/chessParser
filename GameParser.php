@@ -54,6 +54,6 @@ class GameParser {
     }
 
     private function getStartFen(){
-        return $this->game[CHESS_JSON::GAME_METADATA][CHESS_JSON::FEN];
+        return $this->game[CHESS_JSON::FEN];
     }
 }

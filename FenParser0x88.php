@@ -1384,5 +1384,4 @@ class FenParser0x88
         }
         return $fen . " ". $this->getColorCode(). " ". $this->getCastle()." ". $this->fenParts['enPassant']." ". $this->getHalfMoves()." ". $this->getFullMoves();
     }
-
 }
