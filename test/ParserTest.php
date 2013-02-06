@@ -16,7 +16,6 @@ class ParserTest extends PHPUnit_Framework_TestCase
     private function getNumericSquare($square)
     {
         return isset(Board0x88Config::$mapping[$square]) ? Board0x88Config::$mapping[$square] : null;
-
     }
 
     /**

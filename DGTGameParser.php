@@ -10,7 +10,7 @@ class DGTGameParser {
 
     }
 
-    public function getPgnFromDGTData($remoteUrl, $toLocalPgnFile, $eventId=null) {
+    public function getPgnFromDGTData($remoteUrl) {
         $this->remoteUrl = $this->getCorrectUrl($remoteUrl);
         $gameIds = $this->getGameIds();
 
@@ -46,7 +46,6 @@ class DGTGameParser {
 
     private function getGameIds(){
     	$ret = array();
-    	$i = 1;
     	$content = $this->readRemoteFile($this->remoteUrl . 'tocks.txt');
     	preg_match_all("/<(.*?)>/s", $content,$matches, PREG_SET_ORDER);
     	for($i=0,$count = count($matches);$i<$count; $i+=2){
