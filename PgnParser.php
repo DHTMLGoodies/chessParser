@@ -1,25 +1,31 @@
 <?php
 
-class PgnParser {
+class PgnParser
+{
 
     private $pgnFile;
     private $pgnContent;
     private $pgnGames;
     private $games;
     private $gameParser;
+    private $pgnGameParser;
 
-    public function __construct($pgnFile = ""){
-        if($pgnFile){
+    public function __construct($pgnFile = "")
+    {
+        if ($pgnFile) {
             $this->pgnFile = $pgnFile;
         }
         $this->gameParser = new GameParser();
+        $this->pgnGameParser = new PgnGameParser();
     }
 
-    public function setPgnContent($content){
+    public function setPgnContent($content)
+    {
         $this->pgnContent = $content;
     }
 
-    private function cleanPgn(){
+    private function cleanPgn()
+    {
         $c = $this->pgnContent;
         $c = preg_replace("/\\$[0-9]+/s", "", $c);
         $c = preg_replace("/{([^\[]*?)\[([^}]?)}/s", '{$1-SB-$2}', $c);
@@ -30,65 +36,80 @@ class PgnParser {
         $c = preg_replace("/([^\]])(\n+)\[/si", "$1\n\n[", $c);
         $c = preg_replace("/\n{3,}/s", "\n\n", $c);
         $c = str_replace("-SB-", "[", $c);
-        $this->pgnContent = $c;
+        return $c;
     }
 
-    public static function getArrayOfGames($pgn) {
+    public static function getArrayOfGames($pgn)
+    {
         return self::getPgnGamesAsArray($pgn);
     }
-    private function splitPgnIntoGames(){
-        $this->pgnGames = $this->getPgnGamesAsArray($this->pgnContent);
+
+    private function splitPgnIntoGames($pgnString)
+    {
+        return $this->getPgnGamesAsArray($pgnString);
     }
 
-    private function getPgnGamesAsArray($pgn){
+    private function getPgnGamesAsArray($pgn)
+    {
         $ret = array();
         $content = "\n\n" . $pgn;
         $games = preg_split("/\n\n\[/s", $content, -1, PREG_SPLIT_DELIM_CAPTURE);
-        for($i=1, $count = count($games); $i<$count; $i++){
-            array_push($ret, trim("[". $games[$i]));
+        for ($i = 1, $count = count($games); $i < $count; $i++) {
+            array_push($ret, trim("[" . $games[$i]));
         }
         return $ret;
     }
 
-    public function getGamesAsJSON(){
+    public function getGamesAsJSON()
+    {
         return json_encode($this->getGames());
     }
 
-    private function isLazy(){
+    private function isLazy()
+    {
         return false;
     }
 
-    public function getUnparsedGames() {
-        if(!isset($this->pgnGames)){
-            if($this->pgnFile && !isset($this->pgnContent)){
-               $this->pgnContent = file_get_contents($this->pgnFile);
-           }
-           $this->cleanPgn();
-           $this->splitPgnIntoGames();
+    public function getUnparsedGames()
+    {
+        if (!isset($this->pgnGames)) {
+            if ($this->pgnFile && !isset($this->pgnContent)) {
+                $this->pgnContent = file_get_contents($this->pgnFile);
+            }
+            $this->pgnGames = $this->splitPgnIntoGames($this->cleanPgn($this->pgnContent));
         }
         return $this->pgnGames;
     }
 
-    public function getFirstGame(){
-        $games = $this->getGames();
-        if(count($games)){
-            return $games[0];
+    public function getFirstGame()
+    {
+        return $this->getGameByIndex(0);
+    }
+
+    public function getGameByIndex($index){
+        $games = $this->getUnparsedGames();
+        if (count($games) && count($games) > $index) {
+            return $this->getParsedGame($games[$index]);
         }
         return null;
     }
 
-    public function getGames(){
-
+    public function getGames()
+    {
         $games = $this->getUnparsedGames();
-        $this->games = array();
-        for($i=0, $count = count($games);$i<$count; $i++){
-            $gameParser = new PgnGameParser($games[$i]);
-            $this->games[$i] = $gameParser->getParsedData();
-
-            if(!$this->isLazy()){
-                $this->games[$i] = $this->gameParser->getParsedGame($this->games[$i]);
-            }
+        $ret = array();
+        for ($i = 0, $count = count($games); $i < $count; $i++) {
+            $ret[] = $this->getParsedGame($games[$i]);
         }
-        return $this->games;
+        return $ret;
+    }
+
+    private function getParsedGame($unParsedGame){
+        $this->pgnGameParser->setPgn($unParsedGame);
+        $ret = $this->pgnGameParser->getParsedData();
+        if (!$this->isLazy()) {
+            $ret = $this->gameParser->getParsedGame($ret);
+        }
+        return $ret;
     }
 }

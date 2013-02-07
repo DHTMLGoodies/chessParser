@@ -12,8 +12,16 @@ class PgnGameParser{
         'event','site','white','black','result','plycount','eco','fen','timecontrol','round','date','annotator','termination'
     );
 
-    public function __construct($pgnGame){
+    public function __construct($pgnGame = null){
+        if(isset($pgnGame)){
+            $this->pgnGame = trim($pgnGame);
+            $this->moveBuilder = new MoveBuilder();
+        }
+    }
+
+    public function setPgn($pgnGame){
         $this->pgnGame = trim($pgnGame);
+        $this->gameData = array();
         $this->moveBuilder = new MoveBuilder();
     }
 
