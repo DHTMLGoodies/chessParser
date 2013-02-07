@@ -19,16 +19,10 @@ class PgnParser {
         $this->pgnContent = $content;
     }
 
-    private function readPgn(){
-        $fh = fopen($this->pgnFile, 'r');
-        $this->pgnContent = fread($fh, filesize($this->pgnFile));
-        fclose($fh);
-    }
-
     private function cleanPgn(){
         $c = $this->pgnContent;
         $c = preg_replace("/\\$[0-9]+/s", "", $c);
-        $c = preg_replace("/{(.*?)\[(.*?)}/s", '{$1-SB-$2}', $c);
+        $c = preg_replace("/{([^\[]*?)\[([^}]?)}/s", '{$1-SB-$2}', $c);
         $c = preg_replace("/\r/s", "", $c);
         $c = preg_replace("/\t/s", "", $c);
         $c = preg_replace("/\]\s+\[/s", "]\n[", $c);
@@ -65,11 +59,13 @@ class PgnParser {
     }
 
     public function getUnparsedGames() {
-        if($this->pgnFile){
-            $this->readPgn();
+        if(!isset($this->pgnGames)){
+            if($this->pgnFile && !isset($this->pgnContent)){
+               $this->pgnContent = file_get_contents($this->pgnFile);
+           }
+           $this->cleanPgn();
+           $this->splitPgnIntoGames();
         }
-        $this->cleanPgn();
-        $this->splitPgnIntoGames();
         return $this->pgnGames;
     }
 
@@ -82,16 +78,12 @@ class PgnParser {
     }
 
     public function getGames(){
-        if($this->pgnFile){
-            $this->readPgn();
-        }
-        $this->cleanPgn();
-        $this->splitPgnIntoGames();
 
-        for($i=0, $count = count($this->pgnGames);$i<$count; $i++){
-            $gameParser = new PgnGameParser($this->pgnGames[$i]);
+        $games = $this->getUnparsedGames();
+        $this->games = array();
+        for($i=0, $count = count($games);$i<$count; $i++){
+            $gameParser = new PgnGameParser($games[$i]);
             $this->games[$i] = $gameParser->getParsedData();
-
 
             if(!$this->isLazy()){
                 $this->games[$i] = $this->gameParser->getParsedGame($this->games[$i]);
