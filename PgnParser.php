@@ -6,18 +6,21 @@ class PgnParser
     private $pgnFile;
     private $pgnContent;
     private $pgnGames;
-    private $games;
     private $gameParser;
     private $pgnGameParser;
+    private $_fullParsing = true;
 
-    public function __construct($pgnFile = "")
+    public function __construct($pgnFile = "", $fullParsing =true)
     {
         if ($pgnFile) {
             $this->pgnFile = $pgnFile;
         }
+        $this->_fullParsing = $fullParsing;
         $this->gameParser = new GameParser();
         $this->pgnGameParser = new PgnGameParser();
     }
+
+
 
     public function setPgnContent($content)
     {
@@ -65,9 +68,9 @@ class PgnParser
         return json_encode($this->getGames());
     }
 
-    private function isLazy()
+    private function fullParsing()
     {
-        return false;
+        return $this->_fullParsing;
     }
 
     public function getUnparsedGames()
@@ -107,7 +110,7 @@ class PgnParser
     private function getParsedGame($unParsedGame){
         $this->pgnGameParser->setPgn($unParsedGame);
         $ret = $this->pgnGameParser->getParsedData();
-        if (!$this->isLazy()) {
+        if ($this->fullParsing()) {
             $ret = $this->gameParser->getParsedGame($ret);
         }
         return $ret;

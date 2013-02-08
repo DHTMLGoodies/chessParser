@@ -1,7 +1,5 @@
 <?php
 
-
-
 class DGTGameParser {
 
     private $remoteUrl;

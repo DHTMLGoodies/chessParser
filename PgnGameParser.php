@@ -35,6 +35,7 @@ class PgnGameParser{
         $ret = array(
             CHESS_JSON::GAME_METADATA=>array()
         );
+        // TODO set lastmoves property by reading last 3-4 moves in moves array
         $lines = explode("\n", $this->pgnGame);
         foreach($lines as $line){
             $line = trim($line);

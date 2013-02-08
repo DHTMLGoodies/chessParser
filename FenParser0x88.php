@@ -1,8 +1,5 @@
 <?php
 
-error_reporting(E_ALL);
-ini_set('display_errors', 'on');
-
 class FenParser0x88
 {
     private $fen;
@@ -1278,7 +1275,7 @@ class FenParser0x88
     function getFen()
     {
         if (!$this->fen) {
-            $this->fen = $this->setNewFen();
+            $this->fen = $this->getNewFen();
         }
         return $this->fen;
     }
@@ -1351,7 +1348,7 @@ class FenParser0x88
 
     }
 
-    function setNewFen()
+    private function getNewFen()
     {
         $board = $this->cache['board'];
         $fen = '';

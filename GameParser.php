@@ -6,7 +6,6 @@ class GameParser {
     private $game;
     private $fen;
 
-
     public function __construct(){
         $this->moveParser = new FenParser0x88();
     }
