@@ -6,10 +6,8 @@ class MoveBuilder {
     private $pointer = 0;
     private $currentIndex = 0;
 
-
     public function __construct(){
         $this->moveReferences[0] =& $this->moves;
-
     }
 
     public function addMoves($moveString){

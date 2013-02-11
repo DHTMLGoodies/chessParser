@@ -9,7 +9,8 @@ class PgnGameParser{
     private $gameData = array();
 
     private $specialMetadata = array(
-        'event','site','white','black','result','plycount','eco','fen','timecontrol','round','date','annotator','termination'
+        'event','site','white','black','result','plycount','eco','fen',
+        'timecontrol','round','date','annotator','termination'
     );
 
     public function __construct($pgnGame = null){
