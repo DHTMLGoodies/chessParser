@@ -4,10 +4,10 @@
  * User: Alf Magne
  * Date: 03.11.12
  * Time: 19:50
- * To change$this template use File | Settings | File Templates.
+ *
  */
 
-require_once(__DIR__."/../autoload.php");
+require_once(__DIR__."/../../autoload.php");
 
 
 class ParserTest extends PHPUnit_Framework_TestCase
@@ -1772,6 +1772,21 @@ class ParserTest extends PHPUnit_Framework_TestCase
         // then
         $this->assertTrue($parser->hasThreeFoldRepetition($fens));
 
+    }
+
+    /**
+     * @test
+     */
+    public function shouldParseProblematicGame(){
+        // given
+
+        $pgnParser = new PgnParser("pgn/problematic.pgn");
+
+        // when
+        $game = $pgnParser->getFirstGame();
+
+        // then
+        $this->assertEquals((36*2)+1, count($game['moves']));
     }
 
     private function getSpasskyFischerGameWith3FoldReptition(){

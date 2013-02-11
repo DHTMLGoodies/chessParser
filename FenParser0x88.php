@@ -839,6 +839,8 @@ class FenParser0x88
     function getFromAndToByNotation($notation)
     {
 
+        $notation = str_replace(".","", $notation);
+
         $ret = array('promoteTo' => $this->getPromoteByNotation($notation));
         $color = $this->getColor();
         $offset = 0;
@@ -967,7 +969,7 @@ class FenParser0x88
         }
 
         if(!isset($ret['from'])){
-            $msg = "Fen: ".$this->fen ."\nnotation: ". $notation."\nRank:". $fromRank. "\nFile:". $fromFile."\n". count($foundPieces).", ". $foundPieces[0];
+            $msg = "Fen: ".$this->fen ."\ncolor: ". $color. "\nnotation: ". $notation."\nRank:". $fromRank. "\nFile:". $fromFile."\n". count($foundPieces).", ". implode(",", $foundPieces);
             throw new Exception($msg);
         }
         $ret['from'] = Board0x88Config::$numberToSquareMapping[$ret['from']];
