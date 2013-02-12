@@ -838,11 +838,10 @@ class FenParser0x88
 
     function getFromAndToByNotation($notation)
     {
-
-        $notation = str_replace(".","", $notation);
-
+        $notation = str_replace(".", "", $notation);
         $ret = array('promoteTo' => $this->getPromoteByNotation($notation));
         $color = $this->getColor();
+
         $offset = 0;
         if ($color === 'black') {
             $offset = 112;
@@ -956,6 +955,7 @@ class FenParser0x88
                     }
                 }
             }
+
             if (!isset($ret['from'])) {
                 $config = $this->getValidMovesAndResult();
                 $moves = $config['moves'];
@@ -967,8 +967,17 @@ class FenParser0x88
                 }
             }
         }
+        // TODO some pgn files may not have correct notations for all moves. Example Nd7 which may be from b2 or f6.
+        // this may cause problems later on in the game. Figure out a way to handle this.
+        #if (count($foundPieces) === 2){
+            #$ret['from'] = $foundPieces[1];
+            #throw new Exception("Unable to decide which move to take for notation: ". $notation);
+        #}
 
         if(!isset($ret['from'])){
+
+
+
             $msg = "Fen: ".$this->fen ."\ncolor: ". $color. "\nnotation: ". $notation."\nRank:". $fromRank. "\nFile:". $fromFile."\n". count($foundPieces).", ". implode(",", $foundPieces);
             throw new Exception($msg);
         }
