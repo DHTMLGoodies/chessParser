@@ -55,4 +55,64 @@
 33. Qc4 Nxg3+ 34. hxg3
 {White is now winning easily.}
 34...Qd8 35. Qc1 Rb3 36. Kg2 Qf8 37. Qc7
-1-0 
+1-0
+
+[Event "?"]
+[White "Capablanca"]
+[Black "Spielmann"]
+[Date "1927.??.??"]
+[Result "1-0"]
+
+{Queens' Gambit Declined, 26 moves. Capablanca gets an advantage out of the opening. Just when Spielmann finds a move that appears to hold everything together, Capablanca makes a brilliant piece sacrifice. Capablanca was world champion from 1921-1927.}
+1. d4 {A move that usually leads to closed positions.}
+1... d5
+2. Nf3
+2... e6
+3. c4 {The opening is now a Queen's Gambit Declined by transposition of moves. This position could have arisen from 1. d4 d5 2. c4 e6 3. Nf3.}
+3... Nd7 {Not 3... Nc6 blocking the c pawn.}
+4. Nc3
+4... Ngf6 {Defending the pawn on d5.}
+5. Bg5 {Pinning the knight and therefore threatening the pawn on d5. The usual move for Black here is 5... Be7 breaking the pin.}
+5... Bb4 {This is an aggressive way to protect the pawn.}
+6. cxd5
+6... exd5
+7. Qa4
+7... Bxc3+
+8. bxc3
+8... 0-0
+9. e3 {White is developing normally.}
+9... c5 {Putting some presure on White's center.}
+10. Bd3
+10... c4 {Although this move gains space on the queenside, it takes pressure off the center. White now strives to play e4.}
+11. Bc2
+11... Qe7
+12. 0-0 {The rook will go to e1 to support the pawn move to e4.}
+12... a6
+13. Rfe1 {White now threatens 14. e4 dxe4 15. Bxe4 with an overwhelming position. The pin of the knight prevents 15... Nxe4.}
+13... Qe6 {Breaking the pin. Note that White has developed all his pieces except the rook on a1; Black hasn't developed either rook or the queen's bishop.}
+14. Nd2 {The point is to play 15. e4.}
+14... b5
+15. Qa5
+15... Ne4 {Stopping 16. e4. White now turns his attention to Black's weak pawns.}
+16. Nxe4
+16... dxe4 {Black has successfully prevented e4, but at a cost. White is ahead in development and Black is left with weak queenside pawns that White can use his advantave in development to attack.}
+17. a4 {Threatening 18. axb5 and Black cannot play 18... axb5 because of 19. Qxa8. If Black plays 17... bxa4 then his pawn formation is shattered. }
+17... Qd5 {This looks like a saving move since it gains time by attacking the bishop. After 18. Bf4 Black can play 18... Bb7 guarding the rook on a8 so that 19. axb5 could be answered with 19... axb5.}
+18. axb5 $3 {When you are ahead in development, you must strike before your opponent has time to mobilize. Black cannot play 18... axb5 because of 19. Qxa1.}
+18... Qxg5
+19. Bxe4 {If now 19... Ra7 then 20. b6 $1 Qxa5 21. bxa7 $1 Bb7 22. Rxa5 Bxe4 23. Rxa6 with a winning position.}
+19... Rb8
+20. bxa6 {White has enormous compensation for the knight including a threatening passed pawn on a6, a lead in development, and very actively placed pieces. Black cannot hold on for long. If 21... Qxa5 then 22. Rxa5 and the threat of 23. a7 cannot be stopped.}
+20... Rb5
+21. Qc7 {The threat is 22. a7 and 23 a8=Q.}
+21... Nb6
+22. a7
+22... Bh3 {The pawn on g2 cannot capture the bishop because it is pinned. This move indirectly reduces the bishop on e4's support of the a pawn's advance since the biship is needed to prevent ... Qxg2#.}
+23. Reb1
+23... Rxb1+
+24. Rxb1 {If 24... Na4 then 25. Rg8 wins immediately.}
+24... f5
+25. Bf3
+25... f4 {Desperation.}
+26. exf4 {Black resigned. If 26... Qxf4 27. Qxf4 Rxf4 28. Rxb6.}
+1-0

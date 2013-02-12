@@ -39,6 +39,8 @@ class PgnParser
         $c = preg_replace("/([^\]])(\n+)\[/si", "$1\n\n[", $c);
         $c = preg_replace("/\n{3,}/s", "\n\n", $c);
         $c = str_replace("-SB-", "[", $c);
+        $c = str_replace("0-0-0", "O-O-O", $c);
+        $c = str_replace("0-0", "O-O", $c);
         return $c;
     }
 

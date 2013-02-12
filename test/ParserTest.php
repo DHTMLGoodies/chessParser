@@ -1788,6 +1788,20 @@ class ParserTest extends PHPUnit_Framework_TestCase
         // then
         $this->assertEquals((36*2)+1, count($game['moves']));
     }
+    /**
+     * @test
+     */
+    public function shouldParseProblematicGame2(){
+        // given
+
+        $pgnParser = new PgnParser("pgn/problematic.pgn");
+
+        // when
+        $game = $pgnParser->getGameByIndex(1);
+
+        // then
+        $this->assertEquals(52, count($game['moves']));
+    }
 
     private function getSpasskyFischerGameWith3FoldReptition(){
         $parser = $this->getParser();
