@@ -21,6 +21,7 @@ class MoveBuilder {
         if(!$move || $move == '..' || $move == '*' || strstr($move, '1-') || strstr($move, '-1') || strstr($move, '1/2')){
             return;
         }
+        $move = preg_replace("/^([a-h])([18])([QRNB])$/", "$1$2=$3", $move );
         $this->moveReferences[$this->pointer][] = array(CHESS_JSON::MOVE_NOTATION => $move);
         $this->currentIndex ++;
     }
