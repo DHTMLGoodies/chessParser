@@ -839,6 +839,7 @@ class FenParser0x88
     function getFromAndToByNotation($notation)
     {
         $notation = str_replace(".", "", $notation);
+
         $ret = array('promoteTo' => $this->getPromoteByNotation($notation));
         $color = $this->getColor();
 

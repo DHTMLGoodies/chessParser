@@ -289,4 +289,50 @@ was for Black to prevent this is to play as he does.}
 easily.})
 52. Qxh7#
 1-0
+
+[Event "?"]
+[White "Botvinnik"]
+[Black "Capablanca"]
+[Date "1938.??.??"]
+[Result "1-0"]
+
+{Nimzo-Indian, 41 moves. Botvinnik gives up a pawn for a king-side attack in which he sacrifices a bishop and then a knight as part of a brilliant combination. Capablance was world champion from 1921-1927; Botvinnik from 1948-1957, 1958-1960, and 1961-1963.}
+1. d4 {This move often leads to positional struggles.}
+1... Nf6 {Prevents 2. e4 and keeps open numerous options.}
+2. c4 {The normal follow-up to 1. d4. White puts pressure on d5.}
+2... e6 {Black frees the bishop on f8 and leaves open the possibility of a future ...d5.}
+3. Nc3 {White is threatening 4. e4.}
+3... Bb4 {Stopping 4. e4. This variation is called the Nimzo-Indian.}
+4. e3 {This is one of many possible moves for White including 4. Qc2, 4. Nf3, 4. a3, and 4. Qb3}
+4... d5 {Black does not want to give up the center to White.}
+5. a3 Bxc3+ 6. bxc3 c5 {Trying to put pressure on White's center which is, however, pretty solidly defended.}
+7. cxd5 exd5 8. Bd3 {This is White's active bishop. The other bishop is blocked by its own pawns.}
+8... 0-0 9. Ne2 {Better than 9. Nf3 that allows the annoying pin 9... Bg4.}
+9... b6 {Black plans to move the bishop to a6 and trade it for White's powerful bishop.}
+10. 0-0 Ba6 11. Bxa6 Nxa6
+12. Bb2 {The bishop has little mobility.}
+12... Qd7 {Black plans ... Qa4 if White moves his queen away.}
+13. a4 Rfe8 14. Qd3 c4 {This move takes the pressure off the center, which is usually bad. Here, Black calculates that he will have a strong queenside attack after moving his knight to b3 via b8, c6, and a5.}
+15. Qc2 {White's next several moves are in preparation for e4.}
+15... Nb8 {The first step toward b3.}
+16. Rae1 Nc6 17. Ng3 Na5
+18. f3 {The preparations for e4 are complete.}
+18... Nb3 {Cutting off the defense of the pawn on a4.}
+19. e4 {Will White's attack be worth the loss of a pawn?}
+19... Qxa4 20. e5 Nd7 {Black now plans 21... Nbc5 22. Qe2 (Not 22. dxc5 Qxc2) Nd3.}
+21. Qf2 {White would like to play 22. Nf5 with threats against the Black king and the possibility of playing Nd6.}
+21... g6 22. f4 {Intending f5 opening lines against the Black king.}
+22... f5 23. exf6 Nxf6 24. f5 {White has a strong attack.}
+24... Rxe1 {Black decides to trade off as much material as possible.}
+25. Rxe1 Re8 26. Re6 $1 {Forcing Black to give White a powerful passed pawn.}
+26... Rxe6 ( 26... Kg7  27.Rxf6 Kxf6 28. fxg6+ Kxg6 29. Qf5+ Kg7 30. Nh5+ Kh6 31. g4 {Threatening Qf6#} Qc6 27. Ba3 Qg6 28. Bf8+ Rxf8 29 Qxf8+ Kg5 30. Qf4+ Kh4 31. Qg3+ Kg5 32. h4+ Kh6 33. Qf4+ Qg5 34. Qxg5#) 27. fxe6 Kg7 28. Qf4 {Threatening 29. Nf5+ gxf5 30. Qb5+ Kf8 31. Qxf6+}
+28... Qe8 29. Qe5 {Defending the pawn and preparing to bring the long-lost bishop into play with 30. Ba3.}
+29... Qe7 {To prevent Ba3.}
+30. Ba3 $3 Qxa3 {Black cannot afford to let the bishop into play.}
+31. Nh5+ $1 gxh5 {All White is left to attack with is his queen and his advanced e pawn, but that is enough.}
+ 32. Qg5+ {Forcing the king away from the knight.}
+32... Kf8 33. Qxf6+ Kg8 34. e7 {White threatens e8=queen and Qf8#.}
+34... Qc1+ {Black's only hope is to try for a perpetual check.}
+35. Kf2 Qc2+ 36. Kg3 Qd3+ 37. Kh4 Qe4+ 38. Kxh5 Qe2+
+39. Kh4 Qe4+ 40. g4 Qe1+ 41. Kh5
 1-0

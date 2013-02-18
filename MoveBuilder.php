@@ -18,12 +18,16 @@ class MoveBuilder {
     }
 
     private function addMove($move){
-        if(!$move || $move == '..' || $move == '*' || strstr($move, '1-') || strstr($move, '-1') || strstr($move, '1/2')){
+        if(!$this->isChessMove($move)){
             return;
         }
         $move = preg_replace("/^([a-h])([18])([QRNB])$/", "$1$2=$3", $move );
         $this->moveReferences[$this->pointer][] = array(CHESS_JSON::MOVE_NOTATION => $move);
         $this->currentIndex ++;
+    }
+
+    private function isChessMove($move){
+        return preg_match("/([PNBRQK]?[a-h]?[1-8]?x?[a-h][1-8](?:\=[PNBRQK])?|O(-?O){1,2})[\+#]?(\s*[\!\?]+)?/s", $move);
     }
 
     public function addCommentBeforeFirstMove($comment){
