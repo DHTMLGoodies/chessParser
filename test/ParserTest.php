@@ -108,6 +108,24 @@ class ParserTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function shouldNotBeAbleToCastleInInvalidPositions(){
+        // given
+        $fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+
+        // when
+        $parser = $this->getParser($fen);
+        $legalMoves = $parser->getValidMovesAndResult("white");
+        $moves = $legalMoves['moves'];
+
+        // then
+        $this->assertEquals(array(), $moves[4]);
+
+
+    }
+
+    /**
+     * @test
+     */
     public function shouldSetCastleCode(){
         // given
         $fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';

@@ -393,6 +393,9 @@ class FenParser0x88
                     }
 
                     if ($kingSideCastle
+                        && !($this->cache['board'][$piece['s']+1])
+                        && !($this->cache['board'][$piece['s']+2])
+                        && ($this->cache['board'][$piece['s']+3])
                         && !strstr($protectiveMoves, Board0x88Config::$keySquares[$piece['s']])
                         && ($piece['s'] < 118 && !strstr($protectiveMoves, Board0x88Config::$keySquares[$piece['s'] + 1]))
                         && ($piece['s'] < 117 && !strstr($protectiveMoves, Board0x88Config::$keySquares[$piece['s'] + 2]))
@@ -401,7 +404,12 @@ class FenParser0x88
 
                     }
 
-                    if ($queenSideCastle && $piece['s'] - 2 != -1 && !strstr($protectiveMoves, Board0x88Config::$keySquares[$piece['s']]) && !strstr($protectiveMoves, Board0x88Config::$keySquares[$piece['s'] - 1]) && !strstr($protectiveMoves, Board0x88Config::$keySquares[$piece['s'] - 2])) {
+                    if ($queenSideCastle && $piece['s'] - 2 != -1
+                        && !($this->cache['board'][$piece['s']-1])
+                        && !($this->cache['board'][$piece['s']-2])
+                        && !($this->cache['board'][$piece['s']-3])
+                        && ($this->cache['board'][$piece['s']-4])
+                        && !strstr($protectiveMoves, Board0x88Config::$keySquares[$piece['s']]) && !strstr($protectiveMoves, Board0x88Config::$keySquares[$piece['s'] - 1]) && !strstr($protectiveMoves, Board0x88Config::$keySquares[$piece['s'] - 2])) {
                         $paths[] = $piece['s'] - 2;
                     }
                     break;
