@@ -27,9 +27,8 @@ class PgnParser
         $this->pgnContent = $content;
     }
 
-    private function cleanPgn()
+    public function cleanPgn($c)
     {
-        $c = $this->pgnContent;
         $c = preg_replace("/\\$[0-9]+/s", "", $c);
         $c = str_replace("({", "( {", $c);
         $c = preg_replace("/{([^\[]*?)\[([^}]?)}/s", '{$1-SB-$2}', $c);
@@ -37,7 +36,7 @@ class PgnParser
         $c = preg_replace("/\t/s", "", $c);
         $c = preg_replace("/\]\s+\[/s", "]\n[", $c);
         $c = str_replace(" [", "[", $c);
-        $c = preg_replace("/([^\]])(\n+)\[/si", "$1\n\n[", $c);
+        $c = preg_replace("/([^\]])(\n+)\[([a-z])/si", "$1\n\n[$3", $c);
         $c = preg_replace("/\n{3,}/s", "\n\n", $c);
         $c = str_replace("-SB-", "[", $c);
         $c = str_replace("0-0-0", "O-O-O", $c);
