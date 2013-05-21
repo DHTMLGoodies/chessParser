@@ -3,7 +3,7 @@ PHP class for conversion of Chess PGN files to PHP array or JSON.
 
 This is the chess parser used in DHTML Chess at dhtml-chess.com
 
-####License: GPL
+####License: LGPL (Lesser General Public License).
 
 Example of use: 
 
