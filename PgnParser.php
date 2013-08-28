@@ -25,7 +25,7 @@ class PgnParser
         if($extension != 'pgn')return null;
         if(substr($filePath,0,1)==="/")return null;
         if(!file_exists($filePath))return null;
-        return preg_replace("/[^0-9\.a-z_\-]/si", "", $filePath);
+        return preg_replace("/[^0-9\.a-z_\-\/]/si", "", $filePath);
     }
 
     private function getExtension($filePath){
