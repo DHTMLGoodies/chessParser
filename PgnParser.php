@@ -13,13 +13,25 @@ class PgnParser
     public function __construct($pgnFile = "", $fullParsing =true)
     {
         if ($pgnFile) {
-            $this->pgnFile = $pgnFile;
+            $this->pgnFile = $this->sanitize($pgnFile);
         }
         $this->_fullParsing = $fullParsing;
         $this->gameParser = new GameParser();
         $this->pgnGameParser = new PgnGameParser();
     }
 
+    private function sanitize($filePath){
+        $extension = $this->getExtension($filePath);
+        if($extension != 'pgn')return null;
+        if(substr($filePath,0,1)==="/")return null;
+        if(!file_exists($filePath))return null;
+        return preg_replace("/[^0-9\.a-z_\-]/si", "", $filePath);
+    }
+
+    private function getExtension($filePath){
+        $tokens = explode(".", $filePath);
+        return strtolower(array_pop($tokens));
+    }
 
 
     public function setPgnContent($content)
