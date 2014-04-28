@@ -1845,7 +1845,7 @@ class ParserTest extends PHPUnit_Framework_TestCase
         // when
         $games = $pgnParser->getUnparsedGames();
         // then
-        $this->assertEquals(994, count($games));
+        $this->assertEquals(995, count($games));
 
     }
 
