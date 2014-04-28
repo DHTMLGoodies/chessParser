@@ -1,0 +1,11 @@
+[Event "unknown"]
+[Site "?"]
+[Date "2003.11.22"]
+[Round "4"]
+[White "anonymous"]
+[Black "anonymous"]
+[Result "1-0"]
+[ECO "C64"]
+[PlyCount "85"]
+
+1.e4 e5 2.Nf3 Nc6 3.Bb5 Bc5 4.O-O Nd4 5.Nxd4 Bxd4 6.c3 Bb6 7.d4 c6 8.Bc4 d6 9.dxe5 ( 9.Qh5 Qe7 10.Be3 Nf6 11.Qg5 Nxe4 12.Qxg7 Qf6 13.Bxf7+ Ke7 14.Qxf6+ Kxf6 15.Bh5 exd4 16.cxd4 Bf5 ) 9...dxe5 10.Qe2 Qh4 11.Be3 Nf6 12.Bxb6 axb6 13.f3 O-O 14.Na3 Nh5 15.Qf2 Qg5 16.Kh1 ( 16.Qxb6 Bh3 17.Rf2 Nf4 18.g3 Rad8 19.Re1 ) 16...Nf4 17.Rfd1 ( 17.g3 Nh3 18.Qxb6 h5 19.Nc2 h4 20.Qe3 ) ( 17.Rad1 ) 17...Rd8 ( 17...b5 18.Bb3 Be6 19.Bxe6 Nxe6 20.Nc2 Rfd8 21.a3 ) 18.g3 Nh5 ( 18...Nh3 19.Qxb6 Rd2 20.Rxd2 Qxd2 21.Rf1 Ng5 22.Nb1 ) 19.f4 ( 19.Qxb6 Rd2 20.Rxd2 Qxd2 21.Nc2 Nf6 22.Ne3 h6 23.Rd1 ) 19...exf4 20.gxf4 Qe7 21.Rxd8+ Qxd8 22.Be2 Nf6 23.Rd1 Qe7 24.e5 Ng4 ( 24...Ne4 25.Qxb6 Bf5 26.Qe3 Qh4 27.Kg1 Re8 28.Bf3 f6 29.Rd4 fxe5 30.Rxe4 Bxe4 31.Qxe4 Qxf4 32.Qxf4 exf4 33.Nc4 ) 25.Qg3 Nh6 26.Qg5 f6 ( 26...Qxg5 27.fxg5 Bg4 28.gxh6 Bxe2 29.Rd7 gxh6 30.Rxb7 b5 ) 27.exf6 Qe4+ ( 27...Qxf6 28.Rd8+ Kf7 29.Bh5+ Ke7 30.Re8+ Kd7 31.Nc4 ) 28.Qg2 ( 28.Kg1 Qe3+ 29.Kf1 Bh3+ 30.Ke1 Nf5 31.Nc4 h6 ( 31...Qe6 32.Ne5 Qxf6 33.Bc4+ Kh8 34.Rd3 ) 32.f7+ Kf8 33.Rd8+ Kxf7 34.Qh5+ g6 35.Nxe3 gxh5 36.Bxh5+ Kf6 37.Rxa8 ) 28...Qxg2+ 29.Kxg2 gxf6 30.Nc4 Be6 31.a3 Nf5 ( 31...b5 32.Nb6 Re8 33.Bh5 Re7 ) 32.Kf2 b5 33.Nb6 Re8 34.Nd7 Kf7 ( 34...Bxd7 35.Rxd7 Re4 36.Rxb7 Rxf4+ 37.Kg1 Re4 ) 35.Bh5+ Ke7 36.Bxe8 Kxe8 37.Nxf6+ Kf7 38.Nxh7 Bd5 39.Ng5+ Kg6 40.Nf3 Kh5 41.Rg1 Nd6 42.Nd4 Nc4 43.Nf5 1-0

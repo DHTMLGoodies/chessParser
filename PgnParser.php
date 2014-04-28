@@ -10,7 +10,7 @@ class PgnParser
     private $pgnGameParser;
     private $_fullParsing = true;
 
-    public function __construct($pgnFile = "", $fullParsing =true)
+    public function __construct($pgnFile = "", $fullParsing = true)
     {
         if ($pgnFile) {
             $this->pgnFile = $this->sanitize($pgnFile);
@@ -20,19 +20,32 @@ class PgnParser
         $this->pgnGameParser = new PgnGameParser();
     }
 
-    private function sanitize($filePath){
+    private function sanitize($filePath)
+    {
         $extension = $this->getExtension($filePath);
-        if($extension != 'pgn')return null;
-        if(substr($filePath,0,1)==="/")return null;
+        if ($extension != 'pgn') return null;
+
+        if (class_exists("LudoDBRegistry")) {
+            $tempPath = LudoDBRegistry::get('FILE_UPLOAD_PATH');
+        }else{
+            $tempPath = null;
+        }
+
+        if (isset($tempPath) && substr($filePath, 0, strlen($tempPath)) == $tempPath) {
+
+        } else {
+            if (substr($filePath, 0, 1) === "/") return null;
+        }
         $filePath = preg_replace("/[^0-9\.a-z_\-\/]/si", "", $filePath);
 
-        if(!file_exists($filePath))return null;
+        if (!file_exists($filePath)) return null;
 
         return $filePath;
 
     }
 
-    private function getExtension($filePath){
+    private function getExtension($filePath)
+    {
         $tokens = explode(".", $filePath);
         return strtolower(array_pop($tokens));
     }
@@ -46,6 +59,9 @@ class PgnParser
     private function cleanPgn()
     {
         $c = $this->pgnContent;
+
+        $c = preg_replace("/{\s{0,6}\[%emt[^\}]*?\}/","",$c);
+
         $c = preg_replace("/\\$[0-9]+/s", "", $c);
         $c = str_replace("({", "( {", $c);
         $c = preg_replace("/{([^\[]*?)\[([^}]?)}/s", '{$1-SB-$2}', $c);
@@ -58,6 +74,9 @@ class PgnParser
         $c = str_replace("-SB-", "[", $c);
         $c = str_replace("0-0-0", "O-O-O", $c);
         $c = str_replace("0-0", "O-O", $c);
+
+
+
         return $c;
     }
 
@@ -77,7 +96,10 @@ class PgnParser
         $content = "\n\n" . $pgn;
         $games = preg_split("/\n\n\[/s", $content, -1, PREG_SPLIT_DELIM_CAPTURE);
         for ($i = 1, $count = count($games); $i < $count; $i++) {
-            array_push($ret, trim("[" . $games[$i]));
+            $gameContent = trim("[" . $games[$i]);
+            if(strlen($gameContent) > 10){
+                array_push($ret, $gameContent);
+            }
         }
         return $ret;
     }
@@ -96,11 +118,17 @@ class PgnParser
     {
         if (!isset($this->pgnGames)) {
             if ($this->pgnFile && !isset($this->pgnContent)) {
+
                 $this->pgnContent = file_get_contents($this->pgnFile);
             }
             $this->pgnGames = $this->splitPgnIntoGames($this->cleanPgn($this->pgnContent));
         }
+
         return $this->pgnGames;
+    }
+
+    public function getCleanPgn(){
+        return $this->cleanPgn($this->pgnContent);
     }
 
     public function getFirstGame()
@@ -108,7 +136,8 @@ class PgnParser
         return $this->getGameByIndex(0);
     }
 
-    public function getGameByIndex($index){
+    public function getGameByIndex($index)
+    {
         $games = $this->getUnparsedGames();
         if (count($games) && count($games) > $index) {
             return $this->getParsedGame($games[$index]);
@@ -126,7 +155,8 @@ class PgnParser
         return $ret;
     }
 
-    private function getParsedGame($unParsedGame){
+    private function getParsedGame($unParsedGame)
+    {
         $this->pgnGameParser->setPgn($unParsedGame);
         $ret = $this->pgnGameParser->getParsedData();
         if ($this->fullParsing()) {
