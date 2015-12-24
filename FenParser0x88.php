@@ -21,7 +21,15 @@ class FenParser0x88
 
     private $fenParts = array();
 
-    function setFen($fen)
+    /**
+     * Set new fen position
+     * Example:
+     * $parser = new FenParser0x88();
+     * $parser->setFen('8/7P/8/8/1k15/8/P7/K7 w - - 0 1');
+     *
+     * @param string $fen
+     */
+    public function setFen($fen)
     {
         $this->cache = array(
             'board' => array(),
@@ -1102,7 +1110,23 @@ class FenParser0x88
         $this->move($fromAndTo);
     }
 
-    function move($move)
+    /**
+     * Make a move on the board
+     * Example:
+     *
+     * $parser = new FenParser0x88();
+     * $parser->newGame();
+     * $parser->move("Nf3");
+     * $notation =  $parser->getNotation();
+     *
+     *
+     *
+     * @param mixed $move
+     * @throws Exception
+     *
+     * $move can be a string like Nf3, g1f3 or an array with from and to squares, like array("from" => "g1", "to"=>"f3")
+     */
+    public function move($move)
     {
 
         if(is_string($move) && strlen($move) == 4){
