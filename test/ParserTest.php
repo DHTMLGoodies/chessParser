@@ -90,7 +90,7 @@ Qe7 28. e4 Nh7 29. h5 Nf8 30. Qb8 g5 31. Qc8 Ne6 32. Bxe6 Qxe6 33. Qxe6 fxe6
         $game = $pgnParser->getFirstGame();
 
         $parser = new FenParser0x88();
-        $parser->newGame();
+        $parser->setFen('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
         $parser->move("g1f3");
         $notation =  $parser->getNotation();
 
@@ -104,6 +104,38 @@ Qe7 28. e4 Nh7 29. h5 Nf8 30. Qb8 g5 31. Qc8 Ne6 32. Bxe6 Qxe6 33. Qxe6 fxe6
         $parser->move("Nf3");
         $notation =  $parser->getNotation();
         $this->assertEquals("Nf3", $notation);
+
+
+    }
+
+
+    /**
+     * @test
+     */
+    public function shouldParseProblematic2(){
+        $game = '[Event "ProofOfConcept"]
+[Site "Exploit"]
+[Date "2015.??.??"]
+[Round "?"]
+[White "N.N."]
+[Black "N.N."]
+[Result "1-0"]
+[Annotator ""]
+[SetUp "1"]
+[FEN "8/7P/8/8/1k15/8/P7/K7 w - - 0 1"]
+[PlyCount "1"]
+[EventDate "2015.??.??"]
+[EventType "game"]
+[EventCountry "GER"]
+
+1. a3+';
+        $pgnParser = new PgnParser();
+        $pgnParser->setPgnContent($game);
+        $game = $pgnParser->getFirstGame();
+
+        var_dump($game);
+
+
 
 
     }

@@ -118,10 +118,6 @@ class FenParser0x88
                 }
                 $pos++;
             } else if ($i < $len - 1 && isset(Board0x88Config::$numbers[$token])) {
-                $token2 = $this->fenParts['pieces'][$i + 1];
-                if (preg_match("/[0-9]/", $token2)) {
-                    $token = $token . $token2;
-                }
                 $pos += intval($token);
             }
         }
