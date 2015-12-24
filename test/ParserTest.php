@@ -7,7 +7,7 @@
  *
  */
 
-require_once(__DIR__."/../../autoload.php");
+require_once(__DIR__."/../autoload.php");
 
 
 class ParserTest extends PHPUnit_Framework_TestCase
@@ -53,6 +53,59 @@ class ParserTest extends PHPUnit_Framework_TestCase
 
         // then
         $this->assertEquals('d6', $parser->getEnPassantSquare());
+    }
+
+    /**
+     * @test
+     */
+    public function shouldSolveProblematicFen1(){
+        $fen = '[Event "Bundesliga 2014/15"]
+[Site "Solingen GER"]
+[Date "2014.10.18"]
+[Round "1"]
+[White "Jakovenko, Dmitry"]
+[Black "Navara, David"]
+[Result "1/2-1/2"]
+[ECO "D11"]
+[WhiteElo "2747"]
+[BlackElo "2718"]
+[PlyCount "74"]
+[EventDate "2014.10.18"]
+[EventType "team"]
+[WhiteTeam "SK Schwaebisch Hall"]
+[BlackTeam "SV Muelheim Nord"]
+
+
+
+1. Nf3 d5 2. d4 Nf6 3. c4 c6 4. e3 Bg4 5. h3 Bxf3 6. Qxf3 e6 7. Nc3 Nbd7 8. Bd2
+Bb4 9. Bd3 O-O 10. a3 Bxc3 11. Bxc3 Re8 12. O-O e5 13. dxe5 Nxe5 14. Bxe5 Rxe5
+15. Rfd1 Qe7 16. cxd5 Rxd5 17. Bc4 Rdd8 18. Rxd8+ Rxd8 19. Rd1 g6 20. Rxd8+
+Qxd8 21. g4 h6 22. Qf4 Kg7 23. Kg2 Qe7 24. h4 c5 25. a4 b6 26. b3 Qb7+ 27. f3
+Qe7 28. e4 Nh7 29. h5 Nf8 30. Qb8 g5 31. Qc8 Ne6 32. Bxe6 Qxe6 33. Qxe6 fxe6
+34. e5 a6 35. Kf2 b5 36. axb5 axb5 37. Ke3 Kf7 1/2-1/2';
+
+
+        $pgnParser = new PgnParser();
+        $pgnParser->setPgnContent($fen);
+        $game = $pgnParser->getFirstGame();
+
+        $parser = new FenParser0x88();
+        $parser->newGame();
+        $parser->move("g1f3");
+        $notation =  $parser->getNotation();
+
+
+
+        $this->assertEquals("Nf3", $notation);
+
+
+        $parser = new FenParser0x88();
+        $parser->newGame();
+        $parser->move("Nf3");
+        $notation =  $parser->getNotation();
+        $this->assertEquals("Nf3", $notation);
+
+
     }
 
     /**
