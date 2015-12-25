@@ -295,7 +295,7 @@ class FenParser0x88
                             $paths[] = $piece['s'] + 15;
                         }
                     }
-                    if (!isset($pinned[$piece['s']]) || ($pinned[$piece['s']] && $pinned[$piece['s']]['by'] === $piece['s'] + 17)) {
+                    if (isset($this->cache['board'][$piece['s'] + 17]) && (!isset($pinned[$piece['s']]) || ($pinned[$piece['s']] && $pinned[$piece['s']]['by'] === $piece['s'] + 17))) {
                         if ($enPassantSquare == $piece['s'] + 17 || ($this->cache['board'][$piece['s'] + 17]) && $this->cache['board'][$piece['s'] + 17] & 0x8) {
                             $paths[] = $piece['s'] + 17;
                         }
