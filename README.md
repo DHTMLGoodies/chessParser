@@ -5,9 +5,9 @@ This is the chess parser used in DHTML Chess at dhtml-chess.com
 
 ####License: LGPL (Lesser General Public License).
 
-Example of use: 
+#####Example of use: 
 
-1) Import games from PGN file:
+######1) Import games from PGN file:
 
 ```PHP
 <?php
@@ -253,7 +253,7 @@ This will give you data in this format:
 ```
 
 
-2) Create parser from PGN String
+######2) Create parser from PGN String
 
 ```PHP
 $pgn = '[Event "Moscow Championship (blitz) 2015"]
@@ -282,9 +282,20 @@ Ne4 59. Ra6+ Kd7 60. Ra5 Nf2+ 61. Kf5 d3 62. Rd5+ Kc7 63. h5 Rf3 64. Ke5 Re3+
 65. Kf5 Rf3 66. h6 Nh3 67. h7 Rxf4+ 68. Kg6 Rh4 69. Kg7 Nf4 70. Rc5+ Kd6 71.
 Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
 
-        $parser = new PgnParser();
-        $parser->setPgnContent($pgn);
-        $game = $parser->getFirstGame();
-        echo json_encode($game);
+$parser = new PgnParser();
+$parser->setPgnContent($pgn);
+$game = $parser->getFirstGame();
+echo json_encode($game);
 
 ```
+
+######3) Create a game programatically.
+This uses the FenParser0x88 class:
+
+```PHP
+$parser = new FenParser0x88();
+$parser->newGame();
+$parser->move("g1f3");
+$notation =  $parser->getNotation(); // returns Nf3
+$fen = $parser->getFen();
+// returns fen: rnbqkbnr/pppppppp/8/8/8/5N2/PPPPPPPP/RNBQKB1R b KQkq - 1 1

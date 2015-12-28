@@ -109,6 +109,7 @@ Qe7 28. e4 Nh7 29. h5 Nf8 30. Qb8 g5 31. Qc8 Ne6 32. Bxe6 Qxe6 33. Qxe6 fxe6
         $parser->newGame();
         $parser->move("Nf3");
         $notation =  $parser->getNotation();
+        echo $parser->getFen();
         $this->assertEquals("Nf3", $notation);
 
 
