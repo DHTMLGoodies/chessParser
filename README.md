@@ -314,8 +314,8 @@ which outputs
 {"g8":["f7","h7","f8","h8"],"g7":["g6","g5"],"e6":[]}
 ```
 
-where key, example "g8" is from square and ["f7","h7","f8","h8"] are all the valid moves
-for the king on "g8".
+where key, example "g8" is the square of a piece and ["f7","h7","f8","h8"] are all the valid moves
+for the piece on that square.
 
-In this example, there's a king on e6. However, it cannot move because it is pinned by a white
-bishop on a2.
+In this example, there's a knight on e6. However, it cannot move because it is pinned by a white
+bishop on a2. Thus, the valid moves array for "e6" is empty.
