@@ -75,7 +75,7 @@ class FenParser0x88
         $ret = $type . $fromSquare . $separator . $toSquare;
 
         if (isset($move['promoteTo'])) {
-            $ret .= '=' + $move['promoteTo'];
+            $ret .= '=' . $move['promoteTo'];
         }
         return $ret;
     }
@@ -131,6 +131,37 @@ class FenParser0x88
         }
     }
 
+    /**
+     * Returns piece on given square
+     * @param string $square
+     * @return array|null
+     */
+    public function getPieceOnSquareBoardCoordinate($square){
+        return $this->getPieceOnSquare(Board0x88Config::$mapping[$square]);
+    }
+
+    /**
+     * Returns piece on a square.
+     * Example:
+     * $fenBishopOnB3CheckingKingOnG7 = '6k1/6pp/8/8/8/1B6/8/6K1 b - - 0 1';
+     * $parser = new FenParser0x88($fenBishopOnB3CheckingKingOnG7);
+     * $bishop = $parser->getPieceOnSquare(Board0x88Config::$mapping['b3']);
+     * var_dump($bishop).
+     *
+     * Returns an array
+     * {
+     *   "square" : "b3",
+     *   "s" : 33,
+     *   "t" : 5,
+     *   "type" : "bishop",
+     *   "color": "white",
+     *   "sliding" : 4
+     * }
+     *
+     * sliding is greater than 0 for bishop, rook and queen.
+     * @param int $square
+     * @return array|null
+     */
     public function getPieceOnSquare($square)
     {
         $piece = $this->cache['board'][$square];
@@ -167,16 +198,69 @@ class FenParser0x88
         return false;
     }
 
+    /**
+     * Return square of white king, example: "g1"
+     * Example:
+     * $parser = new FenParser0x88('6k1/6pp/8/8/8/1B6/8/6K1 b - - 0 1');
+     * $whiteKing = $parser->getWhiteKingSquare(); // returns g1
+     * @return string
+     */
+    public function getWhiteKingSquare(){
+        return $this->getKingSquareBoardCoordinates("white");
+    }
+
+    /**
+     * Returns square of black king, example "g8"
+     * Example:
+     * $parser = new FenParser0x88('6k1/6pp/8/8/8/1B6/8/6K1 b - - 0 1');
+     * $whiteKing = $parser->getBlackKingSquare(); // returns g8
+     * @return string
+     */
+    public function getBlackKingSquare(){
+        return $this->getKingSquareBoardCoordinates("black");
+    }
+
+    public function getKingSquareBoardCoordinates($color){
+        $king = $this->getKing($color);
+        return Board0x88Config::$numberToSquareMapping[$king["s"]];
+
+    }
+
+    /**
+     * Returns king square in numeric format.
+     * Example:
+     * $fenBishopOnB3CheckingKingOnG7 = '6k1/6pp/8/8/8/1B6/8/6K1 b - - 0 1';
+     * $parser = new FenParser0x88($fenBishopOnB3CheckingKingOnG7);
+     * $king = $parser->getKing("black");
+     *
+     * returns array("t" : 11, "s" : 128).
+     *
+     * where "t" is type, and "s" is square. Square can be converted to board coordinates using
+     * Board0x88Config::$numberToSquareMapping[$array["s"]]
+     * @param string $color
+     * @return array
+     */
     function getKing($color)
     {
         return $this->cache['king' . $color];
     }
 
+    /**
+     * Returns pieces in given color,
+     * example:
+     *
+     * @param $color
+     * @return array
+     */
     function getPiecesOfAColor($color)
     {
         return $this->cache[$color];
     }
 
+    /**
+     * Returns en passant square or null
+     * @return string|null
+     */
     function getEnPassantSquare()
     {
         return ($this->fenParts['enPassant'] != '-') ? $this->fenParts['enPassant'] : null;
@@ -189,25 +273,71 @@ class FenParser0x88
 
     function getSlidingPieces($color)
     {
-        return $this->cache[$color + 'Sliding'];
+        return $this->cache[$color . 'Sliding'];
     }
 
+    /**
+     * Returns count half moves made(1. e4 e5 2 Nf3 Nf6 counts as 4 half moves)
+     * @return int
+     */
     function getHalfMoves()
     {
         return $this->fenParts['halfMoves'];
     }
 
+    /**
+     * Returns count full moves made(1. e4 e5 2 Nf3 Nf6 counts as 2 full moves);
+     * @return int
+     */
     function getFullMoves()
     {
         return $this->fenParts['fullMoves'];
     }
 
-    function canCastleKingSide($color)
-    {
-        $code = $color === 'white' ? Board0x88Config::$castle['K'] : Board0x88Config::$castle['k'];
-        return $this->fenParts['castleCode'] & $code;
+    /**
+     * Returns true if white can castle king side
+     * Example:
+     * $fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+     * $parser = new FenParser0x88($fen);
+     * $whiteCanCastle = $parser->canWhiteCastleKingSide();
+     * @return bool
+     */
+    public function canWhiteCastleKingSide(){
+        return $this->canCastleKingSide("white");
     }
 
+    /**
+     * Returns true if black can castle king side
+     * Example:
+     * $fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+     * $parser = new FenParser0x88($fen);
+     * $whiteCanCastle = $parser->canBlackCastleKingSide();
+     * @return bool
+     */
+    public function canBlackCastleKingSide(){
+        return $this->canCastleKingSide("black");
+    }
+
+    /**
+     * Return boolean true if king side castling is possible
+     * Example:
+     * $fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+     * $parser = new FenParser0x88($fen);
+     * $whiteCanCastle = $parser->canCastleKingSide("white");
+     * $blackCanCastle = $parser->canCastleKingSide("black");
+     * @param string $color
+     * @return bool
+     */
+    public function canCastleKingSide($color)
+    {
+        $code = $color === 'white' ? Board0x88Config::$castle['K'] : Board0x88Config::$castle['k'];
+        return ($this->fenParts['castleCode'] & $code) ? true : false;
+    }
+
+    /**
+     * Return color to move, "white" or "black"
+     * @return string
+     */
     function getColor()
     {
         return Board0x88Config::$colorAbbreviations[$this->fenParts['color']];
@@ -223,10 +353,31 @@ class FenParser0x88
         return $this->fenParts['color'];
     }
 
+    /**
+     * Returns true if white can castle queen side(from current fen)
+     * @return bool
+     */
+    public function canWhiteCastleQueenSide(){
+        return $this->canCastleQueenSide("white");
+    }
+
+    /**
+     * Returns true if black can castle queen side (from current fen)
+     * @return bool
+     */
+    public function canBlackCastleQueenSide(){
+        return $this->canCastleQueenSide("black");
+    }
+
+    /**
+     * Returns true if queen side castle for given color is possible(based on fen only, i.e. no checks or obstructions is checked).
+     * @param string $color
+     * @return bool
+     */
     function canCastleQueenSide($color)
     {
         $code = $color === 'white' ? Board0x88Config::$castle['Q'] : Board0x88Config::$castle['q'];
-        return $this->fenParts['castleCode'] & $code;
+        return ($this->fenParts['castleCode'] & $code) ? true : false;
     }
 
     function isOnSameRank($square1, $square2)
@@ -239,6 +390,55 @@ class FenParser0x88
         return ($square1 & 15) === ($square2 & 15);
     }
 
+    /**
+     * Returns array of valid moves for given color in real board coordinates.
+     * @param string|null $color
+     * @return array
+     *
+     * Example:
+     * $parser = new FenParser0x88('6k1/6p1/4n3/8/8/8/B7/6K1 b - - 0 1');
+     * $validBlackMoves = $parser->getValidMovesBoardCoordinates("black");
+     *
+     * returns {"g8":["f7","h7","f8","h8"],"g7":["g6","g5"],"e6":[]}
+     *
+     * where the array key(example "g8") is from square and ["f7","h7","f8","h8"] are valid square for
+     * the piece on "g8"
+     *
+     */
+    public function getValidMovesBoardCoordinates($color = null){
+        $movesAndResult = $this->getValidMovesAndResult($color);
+        $moves = $movesAndResult["moves"];
+
+        $ret = array();
+        foreach($moves as $from => $toSquares){
+            $fromSquare = Board0x88Config::$numberToSquareMapping[$from];
+
+            $squares = array();
+            foreach($toSquares as $square){
+                $squares[] = Board0x88Config::$numberToSquareMapping[$square];
+            }
+
+            $ret[$fromSquare] = $squares;
+
+        }
+
+        return $ret;
+    }
+
+    /**
+     * Returns result(0 = undecided, 0.5 = draw, 1 = white wins, -1 = black wins)
+     * @return int
+     */
+    public function getResult(){
+        $movesAndResult = $this->getValidMovesAndResult();
+        return $movesAndResult["result"];
+    }
+
+    /**
+     * Returns valid moves in 0x88 numeric format and result
+     * @param null $color
+     * @return array|null
+     */
     function getValidMovesAndResult($color = null)
     {
         if (!$color) {
@@ -560,6 +760,49 @@ class FenParser0x88
         return $ret;
     }
 
+    /**
+     * Returns array of pinned pieces in standard chess coordinate system.
+     * Example:
+     * $parser = new FenParser0x88('5k2/8/8/8/8/8/r5PK/8 w - - 0 1'); // pawn on g2 pinned by rook on a2
+     * $pinned = $parser->getPinnedBoardCoordinates('white'); // find pinned white pieces
+     * var_dump($pinned);
+     *
+     * returns
+     * array(1) {
+     * [0]=>
+     * array(3) {
+     * ["square"]=>
+     * string(2) "g2"
+     * ["pinnedBy"]=>
+     * string(2) "a2"
+     * ["direction"]=>
+     * int(1)
+     * }
+     * }
+     *
+     * @param string $color
+     * @return array
+     */
+    public function getPinnedBoardCoordinates($color){
+        $pinned = $this->getPinned($color);
+
+        $ret = array();
+        foreach($pinned as $square=>$by){
+            $ret[] = array(
+                "square" => Board0x88Config::$numberToSquareMapping[$square],
+                "pinnedBy" => Board0x88Config::$numberToSquareMapping[$by["by"]],
+                "direction" => $by["direction"]
+            );
+        }
+
+        return $ret;
+
+    }
+    /**
+     * Return numeric squares(0x88) of pinned pieces
+     * @param $color
+     * @return array|null
+     */
     function getPinned($color)
     {
         $ret = array();
@@ -603,9 +846,29 @@ class FenParser0x88
         return $this->cache['board'];
     }
 
+
+    /**
+     * returns getValidSquaresOnCheck($color) in chess coordinates system(example: array("g2","g3","g4","g5","g6",g7","g8")
+     * $color is either "white" or "black"
+     * @param string $color
+     * @return array
+     */
+    public function getValidSquaresOnCheckBoardCoordinates($color){
+        $squares = $this->getValidSquaresOnCheck($color);
+
+        $ret = array();
+        foreach($squares as $square){
+            $ret[] = Board0x88Config::$numberToSquareMapping[$square];
+        }
+        return $ret;
+    }
+
     /**
      * Return valid squares for other pieces than king to move to when in check, i.e. squares
-     * which avoids the check
+     * which avoids the check.
+     * Example: if white king on g1 is checked by rook on g8, then valid squares for other pieces
+     * are the squares g2,g3,g4,g5,g6,g7,g8.
+     * Squares are returned in numeric format
      * @method getValidSquaresOnCheck
      * @param $color
      * @return array|null
@@ -724,6 +987,11 @@ class FenParser0x88
         return null;
     }
 
+    /**
+     * @param $kingColor
+     * @param $moves
+     * @return int
+     */
     function getCountChecks($kingColor, $moves)
     {
         $king = $this->cache['king' . $kingColor];
@@ -1072,6 +1340,10 @@ class FenParser0x88
         return Board0x88Config::$files[$notation];
     }
 
+    /**
+     * @param $notation
+     * @return int
+     */
     function getToSquareByNotation($notation)
     {
         $notation = preg_replace("/.*([a-h][1-8]).*/s", '$1', $notation);

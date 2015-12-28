@@ -93,7 +93,7 @@ Qe7 28. e4 Nh7 29. h5 Nf8 30. Qb8 g5 31. Qc8 Ne6 32. Bxe6 Qxe6 33. Qxe6 fxe6
 
         $pgnParser = new PgnParser();
         $pgnParser->setPgnContent($fen);
-        $game = $pgnParser->getFirstGame();
+        $pgnParser->getFirstGame();
 
         $parser = new FenParser0x88();
         $parser->setFen('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
@@ -180,12 +180,7 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
 1. a3+';
         $pgnParser = new PgnParser();
         $pgnParser->setPgnContent($game);
-        $game = $pgnParser->getFirstGame();
-
-        var_dump($game);
-
-
-
+        $pgnParser->getFirstGame();
 
     }
 
@@ -278,7 +273,7 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
         // given
         $fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
         // when
-        $parser = $this->getParser($fen);
+        $parser = new FenParser0x88($fen);
         // then
 
 
@@ -395,17 +390,17 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
 
     private function assertHasSquares($expectedSquares, $moves)
     {
-        $originalMoves = $moves;
+
         if(is_array($moves))$moves = implode(",",$moves);
-        if (strstr($moves, ',')) {
-            $newMoves = explode(",", $moves);
-            $moves = array();
-            foreach($newMoves as $move){
-                if(isset($move) && strlen($move)){
-                    $moves[] = $move;
-                }
+
+        $newMoves = explode(",", $moves);
+        $moves = array();
+        foreach($newMoves as $move){
+            if(isset($move) && strlen($move)){
+                $moves[] = $move;
             }
         }
+
         for ($i = 0; $i < count($expectedSquares); $i++) {
             $this->assertTrue($this->isSquareInPaths($expectedSquares[$i], $moves), $expectedSquares[$i] . ' is not in path(' . $this->getReadableSquares($moves)."), expected squares: ". implode(",", $expectedSquares));
         }
@@ -868,6 +863,9 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
         $this->assertEquals(2, $parser->getCountChecks('black', $moves));
     }
 
+    /**
+     * @test
+     */
     public function OnlyKingShouldbeAbleToMoveOnDoubleCheck()
     {
 
@@ -876,12 +874,14 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
         $parser = $this->getParser($fen);
         // when
         $validMoves = $parser->getValidMovesAndResult('black');
+
         $pLegal = $validMoves['moves'];
 
-        $pawnMoves = $this->getValidMovesForSquare($pLegal, 'g8');
+        $kingMoves = $this->getValidMovesForSquare($pLegal, 'g8');
+
         $expectedSquares = array('h7');
         // then
-        $this->assertHasSquares($expectedSquares, $pawnMoves);
+        $this->assertHasSquares($expectedSquares, $kingMoves);
 
     }
 
@@ -985,7 +985,31 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
     }
 
 
-    public function KnightShouldNotbeableToMoveWhenPinned()
+    /**
+     * @test
+     */
+    public function shouldGetValidMovesInBoardCoordinates(){
+        // given
+        $parser = new FenParser0x88('6k1/6p1/4n3/8/8/8/B7/6K1 b - - 0 1');
+
+        // when
+        $validBlackMoves = $parser->getValidMovesBoardCoordinates("black");
+        $validKingMoves = $validBlackMoves["g8"];
+        // then
+
+        $expectedSquares = array("f7","h7","f8","h8");
+
+        $this->assertEquals(count($expectedSquares), count($validKingMoves));
+        foreach($validKingMoves as $move){
+            $this->assertTrue(in_array($move, $expectedSquares));
+        }
+
+    }
+
+    /**
+     * @test
+     */
+    public function knightShouldNotbeableToMoveWhenPinned()
     {
         // given
         $fen = '6k1/6p1/4n3/8/8/8/B7/6K1 b - - 0 1';
@@ -993,6 +1017,7 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
 
         // when
         $validMoves = $parser->getValidMovesAndResult('black');
+        var_dump($validMoves);
         $pLegal = $validMoves['moves'];
         $knightMoves = $this->getValidMovesForSquare($pLegal, 'e6');
         $expectedSquares = array();
@@ -1001,19 +1026,23 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
 
     }
 
+    /**
+     * @test
+     */
     public function PawnShouldNotbeAbleToMoveWhenPinnedByRook()
     {
         // given
         $fenPawnOnG2KingOnH2BlackRookOnA2 = '5k2/8/8/8/8/8/r5PK/8 w - - 0 1';
         $parser = $this->getParser($fenPawnOnG2KingOnH2BlackRookOnA2);
         $pinned = $parser->getPinned('white');
-
+        $pinned2 = $parser->getPinnedBoardCoordinates('white');
         // then
         $this->assertSquareIsPinnedBy('g2', 'a2', $pinned);
         // when
         $validMoves = $parser->getValidMovesAndResult('white');
         $pLegal = $validMoves['moves'];
         $pawnMoves = $this->getValidMovesForSquare($pLegal, 'g2');
+        var_dump($pawnMoves);
         $expectedSquares = array();
         // then
         $this->assertHasSquares($expectedSquares, $pawnMoves);
@@ -1051,6 +1080,9 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
         $this->assertHasSquares($expectedSquares, $pawnMoves);
     }
 
+    /**
+     * @test
+     */
     public function PinnedBishopSlidingPiecesShouldOnlybeAbleToBetweenPinningAndKing()
     {
         // given
@@ -1066,6 +1098,9 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
 
     }
 
+    /**
+     * @test
+     */
     public function PinnedRookSlidingPiecesShouldOnlybeAbleToBetweenPinningAndKing()
     {
         // given
@@ -1103,10 +1138,10 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
     {
         // given
         $fenPawnOng2CheckingKingOng1 = '5k2/8/8/8/8/8/5p2/6K1 w - - 0 1';
-        $parser = $this->getParser($fenPawnOng2CheckingKingOng1);
+        $parser = new FenParser0x88($fenPawnOng2CheckingKingOng1);
         // when
         $checks = $parser->getValidSquaresOnCheck('white');
-
+        var_dump($checks);
         // then
         $this->assertEquals(1, count($checks));
         $this->assertEquals($this->getNumericSquare('f2'), $checks[0]);
@@ -1132,16 +1167,39 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
     /**
      * @test
      */
+    public function shouldFindKingSquare(){
+        // King on g1(white) and g8(black)
+        $parser = new FenParser0x88('6k1/6pp/8/8/8/1B6/8/6K1 b - - 0 1');
+
+        // when
+        $blackKing = $parser->getBlackKingSquare();
+        // then
+        $this->assertEquals("g8", $blackKing);
+
+
+        // when
+        $whiteKing = $parser->getWhiteKingSquare();
+        // then
+        $this->assertEquals("g1", $whiteKing);
+
+    }
+
+    /**
+     * @test
+     */
     public function shouldFindValidSquaresWhenCheckedByBishop()
     {
         // given
         $fenBishopOnB3CheckingKingOnG7 = '6k1/6pp/8/8/8/1B6/8/6K1 b - - 0 1';
-        $parser = $this->getParser($fenBishopOnB3CheckingKingOnG7);
+        $parser = new FenParser0x88($fenBishopOnB3CheckingKingOnG7);
 
         $blackKing = $parser->getKing('black');
+        var_dump($blackKing);
         $this->assertEquals(Board0x88Config::$mapping['g8'], $blackKing['s']);
         $sq = Board0x88Config::$mapping['b3'];
         $bishop = $parser->getPieceOnSquare($sq);
+
+
         $bishopCheckPaths = $parser->getBishopCheckPath($bishop, $blackKing);
 
 
