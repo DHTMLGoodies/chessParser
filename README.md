@@ -7,6 +7,8 @@ This is the chess parser used in DHTML Chess at dhtml-chess.com
 
 Example of use: 
 
+1) Import games from PGN file:
+
 ```PHP
 <?php
 $parser = new PgnParser('my-games.pgn');
@@ -248,4 +250,41 @@ This will give you data in this format:
         ]
     }
 ]
+```
+
+
+2) Create parser from PGN String
+
+```PHP
+$pgn = '[Event "Moscow Championship (blitz) 2015"]
+[Site "Moscow RUS"]
+[Date "2015.09.06"]
+[Round "19"]
+[White "Morozevich, Alexander"]
+[Black "Dubov, Daniil"]
+[Result "0-1"]
+[ECO "B20"]
+[WhiteElo "2711"]
+[BlackElo "2661"]
+[PlyCount "146"]
+[EventDate "2015.09.06"]
+
+1. e4 c5 2. g3 g6 3. Bg2 Bg7 4. d3 Nc6 5. f4 e6 6. Nf3 d5 7. O-O Nf6 8. e5 Nd7
+9. c4 Nb6 10. Qe2 O-O 11. Nc3 f6 12. exf6 Bxf6 13. Kh1 Bd7 14. Bd2 Nd4 15. Nxd4
+cxd4 16. Nd1 dxc4 17. dxc4 Bc6 18. Bxc6 bxc6 19. Nf2 c5 20. Rae1 Qd7 21. b3
+Rfe8 22. Nd3 Rac8 23. Qe4 Qc6 24. g4 Qxe4+ 25. Rxe4 Nd7 26. Be1 h5 27. gxh5
+gxh5 28. Rf3 Kh7 29. Bf2 Kg6 30. Rxe6 Kf5 31. Rd6 Nb6 32. Rh3 h4 33. Kg2 Be7
+34. Rh6 Ke4 35. Re6+ Kf5 36. Re5+ Kg6 37. Kf3 Nd7 38. Re6+ Kf7 39. f5 Bf6 40.
+Bxh4 Rxe6 41. fxe6+ Kxe6 42. Bg3 Rf8 43. Rh5 Bg5+ 44. Kg2 Be3 45. Rd5 Re8 46.
+Rd6+ Ke7 47. Ra6 Ra8 48. h4 Nf6 49. Nxc5 Nd7 50. Nd3 Rg8 51. Kf3 Rf8+ 52. Ke2
+Rg8 53. Bf4 Bxf4 54. Nxf4 Nc5 55. Rxa7+ Kd6 56. b4 Re8+ 57. Kf3 Re3+ 58. Kg4
+Ne4 59. Ra6+ Kd7 60. Ra5 Nf2+ 61. Kf5 d3 62. Rd5+ Kc7 63. h5 Rf3 64. Ke5 Re3+
+65. Kf5 Rf3 66. h6 Nh3 67. h7 Rxf4+ 68. Kg6 Rh4 69. Kg7 Nf4 70. Rc5+ Kd6 71.
+Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
+
+        $parser = new PgnParser();
+        $parser->setPgnContent($pgn);
+        $game = $parser->getFirstGame();
+        echo json_encode($game);
+
 ```
