@@ -299,3 +299,23 @@ $parser->move("g1f3");
 $notation =  $parser->getNotation(); // returns Nf3
 $fen = $parser->getFen();
 // $fen = rnbqkbnr/pppppppp/8/8/8/5N2/PPPPPPPP/RNBQKB1R b KQkq - 1 1
+
+######4) Get valid moves
+
+```PHP
+$parser = new FenParser0x88('6k1/6p1/4n3/8/8/8/B7/6K1 b - - 0 1');
+$validBlackMoves = $parser->getValidMovesBoardCoordinates("black");
+echo json_encode($validBlackMoves);
+```
+
+which outputs
+
+```JSON
+{"g8":["f7","h7","f8","h8"],"g7":["g6","g5"],"e6":[]}
+```
+
+where key, example "g8" is from square and ["f7","h7","f8","h8"] are all the valid moves
+for the king on "g8".
+
+In this example, there's a king on e6. However, it cannot move because it is pinned by a white
+bishop on a2.

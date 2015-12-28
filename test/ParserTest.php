@@ -994,6 +994,9 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
 
         // when
         $validBlackMoves = $parser->getValidMovesBoardCoordinates("black");
+
+        echo json_encode($validBlackMoves);
+
         $validKingMoves = $validBlackMoves["g8"];
         // then
 
