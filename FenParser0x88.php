@@ -6,6 +6,13 @@ class FenParser0x88
     private $previousFen;
     private $cache;
 
+
+    private $piecesInvolved;
+    private $notation;
+    private $validMoves = null;
+    private $fenParts = array();
+    private $longNotation;
+
     public function __construct($fen = null)
     {
         if (isset($fen)) {
@@ -19,7 +26,6 @@ class FenParser0x88
         $this->setFen($fen);
     }
 
-    private $fenParts = array();
 
     /**
      * Set new fen position
@@ -47,7 +53,6 @@ class FenParser0x88
         $this->parseFen();
     }
 
-    private $longNotation;
 
     public function getLongNotation()
     {
@@ -240,7 +245,7 @@ class FenParser0x88
      * @param string $color
      * @return array
      */
-    function getKing($color)
+    public function getKing($color)
     {
         return $this->cache['king' . $color];
     }
@@ -252,7 +257,7 @@ class FenParser0x88
      * @param $color
      * @return array
      */
-    function getPiecesOfAColor($color)
+    public function getPiecesOfAColor($color)
     {
         return $this->cache[$color];
     }
@@ -271,6 +276,11 @@ class FenParser0x88
         $this->fenParts['enPassant'] = $square;
     }
 
+    /**
+     * Returns array of sliding pieces(i.e. bishop, rook and queens)
+     * @param string $color
+     * @return array
+     */
     function getSlidingPieces($color)
     {
         return $this->cache[$color . 'Sliding'];
@@ -348,7 +358,7 @@ class FenParser0x88
         $this->fenParts['color'] = $this->fenParts['color'] == 'w' ? 'b' : 'w';
     }
 
-    function getColorCode()
+    private function getColorCode()
     {
         return $this->fenParts['color'];
     }
@@ -380,11 +390,23 @@ class FenParser0x88
         return ($this->fenParts['castleCode'] & $code) ? true : false;
     }
 
+    /**
+     * Returns true if two squares are on the same rank.
+     * @param int $square1
+     * @param int $square2
+     * @return bool
+     */
     function isOnSameRank($square1, $square2)
     {
         return ($square1 & 240) === ($square2 & 240);
     }
 
+    /**
+     * Returns true if two squares are on the same file
+     * @param int $square1
+     * @param int $square2
+     * @return bool
+     */
     function isOnSameFile($square1, $square2)
     {
         return ($square1 & 15) === ($square2 & 15);
@@ -635,7 +657,8 @@ class FenParser0x88
         return $this->validMoves;
     }
 
-    function excludeInvalidSquares($squares, $validSquares)
+
+    private function excludeInvalidSquares($squares, $validSquares)
     {
         $ret = array();
         for ($i = 0, $len = count($squares); $i < $len; $i++) {
@@ -646,7 +669,11 @@ class FenParser0x88
         return $ret;
     }
 
-    /* This method returns a commaseparated string of moves since it's faster to work with than arrays*/
+    /**
+     * Returns comma-separated string of moves(since it's faster to work with than arrays).
+     * @param string $color
+     * @return string
+     */
     function getCaptureAndProtectiveMoves($color)
     {
         $ret = array();
@@ -1371,9 +1398,6 @@ class FenParser0x88
 
     }
 
-    private $piecesInvolved;
-    private $notation;
-    private $validMoves = null;
 
 
     function moveByLongNotation($notation){
@@ -1433,7 +1457,7 @@ class FenParser0x88
 
     }
 
-    function setCastle($castle)
+    private function setCastle($castle)
     {
         if (!$castle) {
             $castle = '-';
@@ -1458,7 +1482,7 @@ class FenParser0x88
         return $this->fenParts['castleCode'];
     }
 
-    function updateBoardData($move)
+    private function updateBoardData($move)
     {
 
         $move = array(
@@ -1546,7 +1570,7 @@ class FenParser0x88
 
     }
 
-    function updateCastleForMove($movedPiece, $from)
+    private function updateCastleForMove($movedPiece, $from)
     {
         switch ($movedPiece) {
             case 0x03:
@@ -1576,7 +1600,7 @@ class FenParser0x88
 
     }
 
-    function updatePieces()
+    private function updatePieces()
     {
         $this->cache['white'] = array();
         $this->cache['black'] = array();
@@ -1600,17 +1624,18 @@ class FenParser0x88
         }
     }
 
-    function incrementFullMoves()
+    private function incrementFullMoves()
     {
         $this->fenParts['fullMoves']++;
     }
 
-    function incrementHalfMoves()
+
+    private function incrementHalfMoves()
     {
         $this->fenParts['halfMoves']++;
     }
 
-    function resetHalfMoves()
+    private function resetHalfMoves()
     {
         $this->fenParts['halfMoves'] = 0;
     }
@@ -1625,7 +1650,11 @@ class FenParser0x88
         return $this->notation;
     }
 
-    function getFen()
+    /**
+     * Returns FEN for current position
+     * @return string
+     */
+    public function getFen()
     {
         if (!$this->fen) {
             $this->fen = $this->getNewFen();
@@ -1633,17 +1662,13 @@ class FenParser0x88
         return $this->fen;
     }
 
-    function getNotationForAMove($move)
+    private function getNotationForAMove($move)
     {
         $move['from'] = Board0x88Config::$mapping[$move['from']];
         $move['to'] = Board0x88Config::$mapping[$move['to']];
         $type = $this->cache['board'][$move['from']];
 
-
-
         $ret = Board0x88Config::$notationMapping[$this->cache['board'][$move['from']]];
-
-
 
         switch ($type) {
             case 0x01:
