@@ -1510,12 +1510,10 @@ class FenParser0x88
             }
 
             if (($move['from'] & 15) == ($move['to'] & 15) && $this->getDistance($move['from'], $move['to']) == 2) {
-                if ($this->cache['board'][$move['to'] - 1] || $this->cache['board'][$move['to'] + 1]) {
-                    if ($color === 'white') {
-                        $enPassant = Board0x88Config::$numberToSquareMapping[$move['from'] + 16];
-                    } else {
-                        $enPassant = Board0x88Config::$numberToSquareMapping[$move['from'] - 16];
-                    }
+                if ($color === 'white') {
+                    $enPassant = Board0x88Config::$numberToSquareMapping[$move['from'] + 16];
+                } else {
+                    $enPassant = Board0x88Config::$numberToSquareMapping[$move['from'] - 16];
                 }
             }
         }

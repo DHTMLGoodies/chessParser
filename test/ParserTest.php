@@ -61,6 +61,64 @@ class ParserTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('d6', $parser->getEnPassantSquare());
     }
 
+
+    /**
+     * @test
+     */
+    public function shouldFindEnPassantInPgn(){
+        $pgn = '[Event "Millionaire Chess KO 2015"]
+[Site "Las Vegas USA"]
+[Date "2015.10.12"]
+[Round "1.1"]
+[White "Yu Yangyi"]
+[Black "Nakamura, Hikaru"]
+[Result "1/2-1/2"]
+[ECO "C67"]
+[WhiteElo "2721"]
+[BlackElo "2816"]
+[PlyCount "44"]
+[EventDate "2015.10.12"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 Nf6 4. O-O Nxe4 5. Re1 Nd6 6. Nxe5 Be7 7. Bf1 Nxe5
+8. Rxe5 O-O 9. Nc3 Ne8 10. Nd5 Bd6 11. Re1 c6 12. Ne3 Be7 13. Qe2 Bf6 14. Nf5
+d5 15. Ne7+ Kh8 16. Nxc8 Rxc8 17. Qd1 Nd6 18. c3 Bg5 19. d4 Bxc1 20. Rxc1 Rc7
+21. Bd3 Re7 22. Rxe7 Qxe7 1/2-1/2';
+        $pgnParser = new PgnParser();
+        $pgnParser->setPgnContent($pgn);
+        $game = $pgnParser->getFirstGame();
+
+        echo json_encode($game);
+
+
+
+
+
+    }
+    /**
+     * @test
+     */
+    public function shouldGenerateEnPassantSquareInFen(){
+        // given
+        $parser = new FenParser0x88();
+        $parser->newGame();
+
+
+        // when
+        $parser->move("e2e4");
+        $parser->move("e7e5");
+
+
+        // then
+        $this->assertEquals("e6", $parser->getEnPassantSquare());
+
+
+        $parser->move("e4e5");
+        $parser->move("f7f5");
+
+        // then
+        $this->assertEquals("f6", $parser->getEnPassantSquare());
+    }
+
     /**
      * @test
      */
@@ -1363,7 +1421,7 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
         // when
         $parser->move(array('from' => 'e2', 'to' => 'e4'));
         $newFen = $parser->getFen();
-        $expectedFen = 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1';
+        $expectedFen = 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1';
         // then
 
         $this->assertEquals($expectedFen, $newFen);
@@ -1960,10 +2018,10 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
         $parser->newGame();
         $parser->move(array('from' => 'e2', 'to' => 'e4'));
 
-        $this->assertEquals('rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1', $parser->getFen());
+        $this->assertEquals('rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1', $parser->getFen());
 
         $parser->move(array('from' => 'e7', 'to' => 'e5'));
-        $this->assertEquals('rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2', $parser->getFen());
+        $this->assertEquals('rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq e6 0 2', $parser->getFen());
 
     }
     /**
@@ -2043,6 +2101,10 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
         $this->assertEquals(995, count($games));
 
     }
+
+
+
+
 
 
     private function getSpasskyFischerGameWith3FoldReptition(){
