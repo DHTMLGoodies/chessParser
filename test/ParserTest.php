@@ -61,39 +61,6 @@ class ParserTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('d6', $parser->getEnPassantSquare());
     }
 
-
-    /**
-     * @test
-     */
-    public function shouldFindEnPassantInPgn(){
-        $pgn = '[Event "Millionaire Chess KO 2015"]
-[Site "Las Vegas USA"]
-[Date "2015.10.12"]
-[Round "1.1"]
-[White "Yu Yangyi"]
-[Black "Nakamura, Hikaru"]
-[Result "1/2-1/2"]
-[ECO "C67"]
-[WhiteElo "2721"]
-[BlackElo "2816"]
-[PlyCount "44"]
-[EventDate "2015.10.12"]
-
-1. e4 e5 2. Nf3 Nc6 3. Bb5 Nf6 4. O-O Nxe4 5. Re1 Nd6 6. Nxe5 Be7 7. Bf1 Nxe5
-8. Rxe5 O-O 9. Nc3 Ne8 10. Nd5 Bd6 11. Re1 c6 12. Ne3 Be7 13. Qe2 Bf6 14. Nf5
-d5 15. Ne7+ Kh8 16. Nxc8 Rxc8 17. Qd1 Nd6 18. c3 Bg5 19. d4 Bxc1 20. Rxc1 Rc7
-21. Bd3 Re7 22. Rxe7 Qxe7 1/2-1/2';
-        $pgnParser = new PgnParser();
-        $pgnParser->setPgnContent($pgn);
-        $game = $pgnParser->getFirstGame();
-
-        echo json_encode($game);
-
-
-
-
-
-    }
     /**
      * @test
      */
