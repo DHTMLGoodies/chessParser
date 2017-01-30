@@ -18,7 +18,6 @@ class PgnParser
             if(!file_exists($this->pgnFile)){
                 throw new Exception("File not found: ". $this->pgnFile);
             }
-            
         }
 
         $this->_fullParsing = $fullParsing;

@@ -45,6 +45,15 @@ class MoveBuilder {
             return;
         }
         $index = count($this->moveReferences[$this->pointer])-1;
+
+        if(strstr($comment,'[%clk' )){
+            $clk = preg_replace('/\[%clk[^0-9]*?([0-9\:]+?)[\]]/si', '$1', $comment);
+            $comment = str_replace('[%clk ' . $clk . ']', '', $comment);
+            $this->moveReferences[$this->pointer][$index][CHESS_JSON::MOVE_CLOCK] = $clk;
+        }
+        if(empty($comment))return;
+
+
         $this->moveReferences[$this->pointer][$index][CHESS_JSON::MOVE_COMMENT] = $comment;
     }
 

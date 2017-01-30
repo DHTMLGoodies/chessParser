@@ -7,6 +7,7 @@ class CHESS_JSON {
     const MOVE_NOTATION = 'm';
     const FEN = 'fen';
     const MOVE_COMMENT = 'comment';
+    const MOVE_CLOCK = 'clock';
     const MOVE_ACTION = 'action';
     const MOVE_VARIATIONS = 'variations';
     const MOVE_MOVES = 'moves';

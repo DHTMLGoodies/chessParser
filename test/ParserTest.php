@@ -2026,6 +2026,29 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
         // then
         $this->assertEquals((36*2)+1, count($game['moves']));
     }
+
+    /**
+     * @test
+     */
+    public function shouldParseClockComments(){
+        // given
+
+        $pgnParser = new PgnParser("pgn/lcc2016.pgn");
+
+        // when
+        $game = $pgnParser->getGameByIndex(0);
+
+        // then
+        $this->assertNotEmpty($game['white'], $game);
+        $this->assertNotEmpty($game['moves'][0]);
+        $m = json_encode($game['moves'][0]);
+        echo $m;
+        $this->assertNotEmpty($game['moves'][0]['clock'], "Move: ". $m);
+        $this->assertEquals('1:59:56',$game['moves'][0]['clock']);
+
+
+    }
+
     /**
      * @test
      */
