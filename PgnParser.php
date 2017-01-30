@@ -14,7 +14,13 @@ class PgnParser
     {
         if ($pgnFile) {
             $this->pgnFile = $this->sanitize($pgnFile);
+
+            if(!file_exists($this->pgnFile)){
+                throw new Exception("File not found: ". $this->pgnFile);
+            }
+            
         }
+
         $this->_fullParsing = $fullParsing;
         $this->gameParser = new GameParser();
         $this->pgnGameParser = new PgnGameParser();
