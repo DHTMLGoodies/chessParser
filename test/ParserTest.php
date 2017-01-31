@@ -2043,8 +2043,8 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
         $this->assertNotEmpty($game['moves'][0]);
         $m = json_encode($game['moves'][0]);
         echo $m;
-        $this->assertNotEmpty($game['moves'][0]['clock'], "Move: ". $m);
-        $this->assertEquals('1:59:56',$game['moves'][0]['clock']);
+        $this->assertNotEmpty($game['moves'][0]['clk'], "Move: ". $m);
+        $this->assertEquals('1:59:56',$game['moves'][0]['clk']);
 
 
     }
