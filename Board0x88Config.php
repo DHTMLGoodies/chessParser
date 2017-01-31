@@ -47,10 +47,10 @@ class Board0x88Config{
     );
 
     public static $pieceAbbr = array(
-        'Q' => 'queen',
-        'R' => 'rook',
-        'N' => 'knight',
-        'B' => 'bishop'
+        'Q' => 'q',
+        'R' => 'r',
+        'N' => 'n',
+        'B' => 'b'
     );
 
     public static $numberToSquareMapping = array(
@@ -137,12 +137,12 @@ class Board0x88Config{
     );
 
     public static $typeToNumberMapping = array(
-        'pawn' => 0x01,
-        'knight' => 0x02,
-        'king' => 0x03,
-        'bishop' => 0x05,
-        'rook' => 0x06,
-        'queen' => 0x07
+        'p' => 0x01,
+        'n' => 0x02,
+        'k' => 0x03,
+        'b' => 0x05,
+        'r' => 0x06,
+        'q' => 0x07
 
     );
 
