@@ -2030,6 +2030,15 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
     /**
      * @test
      */
+    public function shouldParseProblemCurio(){
+        $pgnParser = new PgnParser("pgn/CURIO.pgn");
+
+        $games = $pgnParser->getGames();
+    }
+
+    /**
+     * @test
+     */
     public function shouldParseClockComments(){
         // given
 

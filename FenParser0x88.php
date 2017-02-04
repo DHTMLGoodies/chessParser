@@ -141,7 +141,8 @@ class FenParser0x88
      * @param string $square
      * @return array|null
      */
-    public function getPieceOnSquareBoardCoordinate($square){
+    public function getPieceOnSquareBoardCoordinate($square)
+    {
         return $this->getPieceOnSquare(Board0x88Config::$mapping[$square]);
     }
 
@@ -210,7 +211,8 @@ class FenParser0x88
      * $whiteKing = $parser->getWhiteKingSquare(); // returns g1
      * @return string
      */
-    public function getWhiteKingSquare(){
+    public function getWhiteKingSquare()
+    {
         return $this->getKingSquareBoardCoordinates("white");
     }
 
@@ -221,11 +223,13 @@ class FenParser0x88
      * $whiteKing = $parser->getBlackKingSquare(); // returns g8
      * @return string
      */
-    public function getBlackKingSquare(){
+    public function getBlackKingSquare()
+    {
         return $this->getKingSquareBoardCoordinates("black");
     }
 
-    public function getKingSquareBoardCoordinates($color){
+    public function getKingSquareBoardCoordinates($color)
+    {
         $king = $this->getKing($color);
         return Board0x88Config::$numberToSquareMapping[$king["s"]];
 
@@ -312,7 +316,8 @@ class FenParser0x88
      * $whiteCanCastle = $parser->canWhiteCastleKingSide();
      * @return bool
      */
-    public function canWhiteCastleKingSide(){
+    public function canWhiteCastleKingSide()
+    {
         return $this->canCastleKingSide("white");
     }
 
@@ -324,7 +329,8 @@ class FenParser0x88
      * $whiteCanCastle = $parser->canBlackCastleKingSide();
      * @return bool
      */
-    public function canBlackCastleKingSide(){
+    public function canBlackCastleKingSide()
+    {
         return $this->canCastleKingSide("black");
     }
 
@@ -367,7 +373,8 @@ class FenParser0x88
      * Returns true if white can castle queen side(from current fen)
      * @return bool
      */
-    public function canWhiteCastleQueenSide(){
+    public function canWhiteCastleQueenSide()
+    {
         return $this->canCastleQueenSide("white");
     }
 
@@ -375,7 +382,8 @@ class FenParser0x88
      * Returns true if black can castle queen side (from current fen)
      * @return bool
      */
-    public function canBlackCastleQueenSide(){
+    public function canBlackCastleQueenSide()
+    {
         return $this->canCastleQueenSide("black");
     }
 
@@ -427,16 +435,17 @@ class FenParser0x88
      * the piece on "g8"
      *
      */
-    public function getValidMovesBoardCoordinates($color = null){
+    public function getValidMovesBoardCoordinates($color = null)
+    {
         $movesAndResult = $this->getValidMovesAndResult($color);
         $moves = $movesAndResult["moves"];
 
         $ret = array();
-        foreach($moves as $from => $toSquares){
+        foreach ($moves as $from => $toSquares) {
             $fromSquare = Board0x88Config::$numberToSquareMapping[$from];
 
             $squares = array();
-            foreach($toSquares as $square){
+            foreach ($toSquares as $square) {
                 $squares[] = Board0x88Config::$numberToSquareMapping[$square];
             }
 
@@ -451,7 +460,8 @@ class FenParser0x88
      * Returns result(0 = undecided, 0.5 = draw, 1 = white wins, -1 = black wins)
      * @return int
      */
-    public function getResult(){
+    public function getResult()
+    {
         $movesAndResult = $this->getValidMovesAndResult();
         return $movesAndResult["result"];
     }
@@ -810,11 +820,12 @@ class FenParser0x88
      * @param string $color
      * @return array
      */
-    public function getPinnedBoardCoordinates($color){
+    public function getPinnedBoardCoordinates($color)
+    {
         $pinned = $this->getPinned($color);
 
         $ret = array();
-        foreach($pinned as $square=>$by){
+        foreach ($pinned as $square => $by) {
             $ret[] = array(
                 "square" => Board0x88Config::$numberToSquareMapping[$square],
                 "pinnedBy" => Board0x88Config::$numberToSquareMapping[$by["by"]],
@@ -825,6 +836,7 @@ class FenParser0x88
         return $ret;
 
     }
+
     /**
      * Return numeric squares(0x88) of pinned pieces
      * @param $color
@@ -880,11 +892,12 @@ class FenParser0x88
      * @param string $color
      * @return array
      */
-    public function getValidSquaresOnCheckBoardCoordinates($color){
+    public function getValidSquaresOnCheckBoardCoordinates($color)
+    {
         $squares = $this->getValidSquaresOnCheck($color);
 
         $ret = array();
-        foreach($squares as $square){
+        foreach ($squares as $square) {
             $ret[] = Board0x88Config::$numberToSquareMapping[$square];
         }
         return $ret;
@@ -1127,9 +1140,9 @@ class FenParser0x88
 
     }
 
-    public function getExtendedMoveInfo($move){
+    public function getExtendedMoveInfo($move)
+    {
         $move = $this->getParsed($move);
-
 
 
         return $move;
@@ -1201,17 +1214,19 @@ class FenParser0x88
             $notation = preg_replace("/^(.*?)[QRBN]$/s", "$1", $notation);
             $pieceType = $this->getPieceTypeByNotation($notation, $color);
 
+            $capture = strpos($notation, "x") > 0;
+
             $ret['to'] = $this->getToSquareByNotation($notation);
             switch ($pieceType) {
                 case 0x01:
                 case 0x09:
                     if ($color === 'black') {
-                        $offsets = array(15, 17, 16);
+                        $offsets = $capture ? array(15, 17) : array(16);
                         if ($ret['to'] >= 64) {
                             $offsets[] = 32;
                         }
                     } else {
-                        $offsets = array(-15, -17, -16);
+                        $offsets = $capture ? array(-15, -17) : array(-16);
                         if ($ret['to'] < 64) {
                             $offsets[] = -32;
                         }
@@ -1273,7 +1288,6 @@ class FenParser0x88
         if (count($foundPieces) === 1) {
             $ret['from'] = $foundPieces[0];
         } else {
-
             if ($fromRank !== null && $fromRank >= 0) {
                 for ($i = 0, $len = count($foundPieces); $i < $len; $i++) {
                     if ($this->isOnSameRank($foundPieces[$i], $fromRank)) {
@@ -1309,8 +1323,6 @@ class FenParser0x88
         #}
 
         if (!isset($ret['from'])) {
-
-
             $msg = "Fen: " . $this->fen . "\ncolor: " . $color . "\nnotation: " . $notation . "\nRank:" . $fromRank . "\nFile:" . $fromFile . "\n" . count($foundPieces) . ", " . implode(",", $foundPieces);
             throw new Exception($msg);
         }
@@ -1399,8 +1411,8 @@ class FenParser0x88
     }
 
 
-
-    function moveByLongNotation($notation){
+    function moveByLongNotation($notation)
+    {
         $fromAndTo = $this->getFromAndToByLongNotation($notation);
 
         $this->move($fromAndTo);
@@ -1425,9 +1437,9 @@ class FenParser0x88
     public function move($move)
     {
 
-        if(is_string($move) && strlen($move) == 4){
+        if (is_string($move) && strlen($move) == 4) {
             $move = $this->getFromAndToByLongNotation($move);
-        }else if(is_string($move)){
+        } else if (is_string($move)) {
             $move = $this->getFromAndToByNotation($move);
         }
 
@@ -1446,7 +1458,6 @@ class FenParser0x88
                 $this->notation .= '+';
             }
         }
-
 
 
     }
