@@ -131,6 +131,11 @@ class PgnParser
 
         return $this->pgnGames;
     }
+    
+    public function countGames(){
+        $games = $this->getUnparsedGames();
+        return count($games);
+    }
 
     public function getCleanPgn(){
         return $this->cleanPgn($this->pgnContent);
