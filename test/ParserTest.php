@@ -2140,4 +2140,15 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
         return new FenParser0x88($fen);
 
     }
+
+    /**
+     * @test
+     */
+    public function shouldParseArtAttack(){
+        $pgnParser = new PgnParser("pgn/art_attack.pgn");
+
+        // when
+        $game = $pgnParser->getGames();
+
+    }
 }

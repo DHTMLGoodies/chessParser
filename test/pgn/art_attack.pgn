@@ -1,0 +1,37 @@
+[Event "022 Art of Attack"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "Smyslow"]
+[Black "Florian"]
+[Result "1-0"]
+[SetUp "1"]
+[FEN "r3r3/pp3pkp/n5p1/q1pP1b2/4n2Q/P1N2N2/1P2BPPP/R4RK1 w - - 0 1"]
+[PlyCount "21"]
+
+1. Ng5 Nxc3 (1... Nxg5 $142 2. Qxg5 $14) 2. Qxh7+ Kf6 3. bxc3 Kxg5 $2 (3...
+Rxe2 4. f4 Rf8 $1 $11 (4... Qc7 5. d6 Qd7 6. Rae1 Bd3 (6... Bg4 $16 7. Ne4+
+Rxe4 (7... Ke6 8. Qg7) 8. Rxe4 Qxd6 9. f5 (9. Qh4+ $143 Kg7 10. Qxg4 (10. Rfe1
+Bf5)) 9... Bxf5 10. g4) (6... Ree8 7. g4 Bxg4 (7... Rh8 8. Ne6 Qxd6 9. Qg7+ Ke7
+10. gxf5 Kd7 11. Rd1 Qxd1 12. Qxf7+ Kc6 13. Rxd1) 8. Re5 Bf3 (8... Rxe5 9.
+fxe5+ Kxe5 10. Nxf7+ Kd5 11. c4+) 9. Rxf3 Rxe5 10. fxe5+ Kxg5 11. h4+ Kg4 12.
+Rxf7 Qe6 13. Rf6 Qe8 14. Qxb7 Qxe5 15. Rxg6+ Kf4 16. Qf7+ Ke4 17. Qc4+ Ke3 18.
+Re6 Qxe6 19. Qxe6+) (6... Rae8 7. Rxe2 Rxe2 8. Qh8#) 7. Rxe2 Bxe2 8. Re1 Re8 9.
+Rxe2 Rxe2 ({otherwise} 9... -- 10. Re5 {and mate.} Rxe5 11. Qh8+ Kf5 12. Qxe5+
+Kg4 13. h3+ Kh4 14. Nf3+ Kg3 15. f5#) 10. Qh8+ Kf5 11. Qh3+ Kxf4 12. Qxd7 {
+and white wins.}) 5. Qh4 Kg7 6. Qh7+ Kf6 7. Qh6 Rfe8 8. Nh7+ Ke7 9. Qg7 (9.
+Qg5+ Kd6 10. Qf6+ Kxd5 11. Rfd1+ Kc4 12. Qxf7+ Kxc3 13. Rac1+ Bc2 (13... Kb2
+14. Qg7+ Ka2 15. Qf7+ Kb2 16. Qxb7+ Kxa3 17. Ra1+ Ra2 18. g4 Bc2 19. Rdc1 (19.
+Qf7 c4 $8 20. Qxc4 Qc5+ 21. Qxc5+ Nxc5 22. Rxa2+ Kxa2 $19) 19... Nb4 20. Rxa2+
+$11 Kxa2 21. Qf7+ Kb2 22. Rxc2+ Nxc2 23. Qxe8 Qa1+ 24. Kf2 Qh1 25. Kg3 Qg1+ 26.
+Kh3 Qf1+ 27. Kg3 Qg1+ $11 28. Kh4 Qxh2+ 29. Kg5 Qxh7 30. Qb5+)) 9... Kd6 10.
+Qf6+ (10. Nf6 R8e7 11. Ng8 R7e3 12. Qxf7 Rxc3 13. Qf8+ Kxd5 14. Ne7+ Rxe7 15.
+Rfd1+ Rd3 16. Rxd3+ Bxd3 17. Qxe7 Qc7 $15) 10... Kxd5 11. Rfd1+ Kc4 12. Qxf7+
+Kxc3 13. Rdc1+ Bc2 14. Rxc2+ Kxc2 15. Qa2+ Kd3 16. Rd1+ Rd2 17. Qb1+ Kc4 18.
+Qc1+ Kd3 19. Qb1+ $11) (3... Rh8 4. Qxf7+ Kxg5 5. Qg7 Kf4 6. Rae1 -- (6... Ke4
+7. Bc4+ Kf4 8. g3+ Kg5 (8... Kg4 9. Kg2 Rae8 10. f3+ Kh5 11. Rxe8 Rh6 12. g4+
+Bxg4 13. fxg4+ Kxg4 14. Be2+ Kg5 15. Qf6#) 9. Qe7+ Kh6 10. Qh4+ Kg7 11. Re7+
+Kg8 12. d6+ Be6 13. Bxe6+ Kf8 14. Qxh8#) 7. g3+ Ke4 8. f4) 4. Qg7 Re4 5. f4+
+Rxf4 6. Rxf4 Kxf4 7. Rf1+ Ke3 8. Qe5+ Kd2 9. Bc4 Qxc3 (9... Re8 10. Rf2+ Kd1
+11. Bb3+ Bc2 12. Qxe8 Qxc3 13. Rf1+ Kd2 14. Qe1+ Kd3 15. Rf3+ Kd4 16. Qxc3+ Ke4
+17. Qe3#) 10. Rf2+ Kc1 11. Qxc3+ 1-0

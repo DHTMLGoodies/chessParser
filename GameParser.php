@@ -52,6 +52,7 @@ class GameParser
 
     private function parseVariations(&$variations)
     {
+
         foreach ($variations as &$variation) {
             $fen = $this->fenParser0x88->getFen();
             $this->parseMoves($variation);

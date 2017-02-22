@@ -160,7 +160,13 @@ class PgnParser
         $games = $this->getUnparsedGames();
         $ret = array();
         for ($i = 0, $count = count($games); $i < $count; $i++) {
-            $ret[] = $this->getParsedGame($games[$i]);
+            try{
+                $g = $this->getParsedGame($games[$i]);
+                $ret[] = $g;
+
+            }catch(Exception $e){
+
+            }
         }
         return $ret;
     }
