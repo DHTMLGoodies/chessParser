@@ -27,6 +27,7 @@ class MoveBuilder {
     }
 
     private function isChessMove($move){
+        if($move == '--')return true;
         return preg_match("/([PNBRQK]?[a-h]?[1-8]?x?[a-h][1-8](?:\=[PNBRQK])?|O(-?O){1,2})[\+#]?(\s*[\!\?]+)?/s", $move);
     }
 

@@ -1042,7 +1042,6 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
 
         // when
         $validMoves = $parser->getValidMovesAndResult('black');
-        var_dump($validMoves);
         $pLegal = $validMoves['moves'];
         $knightMoves = $this->getValidMovesForSquare($pLegal, 'e6');
         $expectedSquares = array();
@@ -1067,7 +1066,6 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
         $validMoves = $parser->getValidMovesAndResult('white');
         $pLegal = $validMoves['moves'];
         $pawnMoves = $this->getValidMovesForSquare($pLegal, 'g2');
-        var_dump($pawnMoves);
         $expectedSquares = array();
         // then
         $this->assertHasSquares($expectedSquares, $pawnMoves);
@@ -1166,7 +1164,6 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
         $parser = new FenParser0x88($fenPawnOng2CheckingKingOng1);
         // when
         $checks = $parser->getValidSquaresOnCheck('white');
-        var_dump($checks);
         // then
         $this->assertEquals(1, count($checks));
         $this->assertEquals($this->getNumericSquare('f2'), $checks[0]);
@@ -1219,7 +1216,6 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
         $parser = new FenParser0x88($fenBishopOnB3CheckingKingOnG7);
 
         $blackKing = $parser->getKing('black');
-        var_dump($blackKing);
         $this->assertEquals(Board0x88Config::$mapping['g8'], $blackKing['s']);
         $sq = Board0x88Config::$mapping['b3'];
         $bishop = $parser->getPieceOnSquare($sq);
@@ -2218,7 +2214,17 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
             $this->assertCount($moves, $game["moves"]);
         }
 
-        echo json_encode($games2[0]);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldHandleNullMoves(){
+        $parser = new PgnParser("pgn/nullmoves.pgn");
+
+        $game = $parser->getGameByIndex(0);
+
+
 
     }
 }
