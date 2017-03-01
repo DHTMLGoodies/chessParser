@@ -134,7 +134,6 @@ Qe7 28. e4 Nh7 29. h5 Nf8 30. Qb8 g5 31. Qc8 Ne6 32. Bxe6 Qxe6 33. Qxe6 fxe6
         $parser->newGame();
         $parser->move("Nf3");
         $notation =  $parser->getNotation();
-        echo $parser->getFen();
         $this->assertEquals("Nf3", $notation);
 
 
@@ -179,7 +178,6 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
         $parser = new PgnParser();
         $parser->setPgnContent($pgn);
         $game = $parser->getFirstGame();
-        echo json_encode($game);
     }
 
 
@@ -1020,7 +1018,6 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
         // when
         $validBlackMoves = $parser->getValidMovesBoardCoordinates("black");
 
-        echo json_encode($validBlackMoves);
 
         $validKingMoves = $validBlackMoves["g8"];
         // then
@@ -2051,7 +2048,6 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
         $this->assertNotEmpty($game['white'], $game);
         $this->assertNotEmpty($game['moves'][0]);
         $m = json_encode($game['moves'][0]);
-        echo $m;
         $this->assertNotEmpty($game['moves'][0]['clk'], "Move: ". $m);
         $this->assertEquals('1:59:56',$game['moves'][0]['clk']);
 
@@ -2101,11 +2097,6 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
 
     }
 
-
-
-
-
-
     private function getSpasskyFischerGameWith3FoldReptition(){
         $parser = $this->getParser();
         $moves = 'e4,d6,d4,g6,Nc3,Nf6,f4,Bg7,Nf3,c5,dxc5,Qa5,Bd3,Qxc5,Qe2,O-O,Be3,Qa5,O-O,Bg4,Rad1,Nc6,Bc4,Nh5,Bb3,Bxc3,bxc3,Qxc3,f5,Nf6,h3,Bxf3,Qxf3,Na5,Rd3,Qc7,Bh6,Nxb3,cxb3,Qc5+,Kh1,Qe5,Bxf8,Rxf8,Re3,Rc8,fxg6,hxg6,Qf4,Qxf4,Rxf4,Nd7,Rf2,Ne5,Kh2,Rc1,Ree2,Nc6,Rc2,Re1,Rfe2,Ra1,Kg3,Kg7,Rcd2,Rf1,Rf2,Re1,Rfe2,Rf1,Re3,a6,Rc3,Re1,Rc4,Rf1,Rdc2,Ra1,Rf2,Re1,Rfc2,g5,Rc1,Re2,R1c2,Re1,Rc1,Re2,R1c2';
@@ -2149,6 +2140,79 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
 
         // when
         $game = $pgnParser->getGames();
+
+    }
+
+    /**
+     * @test
+     */
+    public function shouldParseTwoLinesPgn(){
+        // given
+        $pgnParser = new PgnParser("pgn/greatgames-twolines.pgn");
+
+        // when
+        $games = $pgnParser->getGames();
+
+
+
+        // then
+        $this->assertCount(10, $games);
+
+        $this->assertEquals("McDonnell,A", $games[0]["white"]);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldParseGreatGamesSameAsTwoLine(){
+        $parser1 = new PgnParser("pgn/greatgames-twolines.pgn");
+        $parser2 = new PgnParser("pgn/greatgames.pgn");
+
+        $games1 = $parser1->getGames();
+        $games2 = $parser2->getGames();
+
+        $this->assertCount(count($games2), $games1);
+
+        $count = count($games2);
+
+        for($i=0;$i<$count;$i++){
+
+            $expected = $games2[$i];
+            $game = $games1[$i];
+
+            $this->assertEquals($expected["white"], $game["white"]);
+            $this->assertEquals($expected["site"], $game["site"]);
+            $this->assertEquals($expected["black"], $game["black"]);
+
+        }
+
+    }
+    /**
+     * @test
+     */
+    public function shouldParseGreatGamesSameAsOneLine(){
+        $parser1 = new PgnParser("pgn/greatgames-onelines.pgn");
+        $parser2 = new PgnParser("pgn/greatgames.pgn");
+
+        $games1 = $parser1->getGames();
+        $games2 = $parser2->getGames();
+
+        $this->assertCount(count($games2), $games1);
+
+        $count = count($games2);
+
+
+        $this->assertEquals("Immortal game", $games1[1]["event"]);
+        for($i=0;$i<$count;$i++){
+
+            $expected = $games2[$i];
+            $game = $games1[$i];
+
+            $this->assertEquals($expected["white"], $game["white"]);
+            $this->assertEquals($expected["site"], $game["site"]);
+            $this->assertEquals($expected["black"], $game["black"]);
+
+        }
 
     }
 }
