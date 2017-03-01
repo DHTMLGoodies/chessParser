@@ -2184,6 +2184,8 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
             $this->assertEquals($expected["site"], $game["site"]);
             $this->assertEquals($expected["black"], $game["black"]);
 
+            $moves = count($expected["moves"]);
+            $this->assertCount($moves, $game["moves"]);
         }
 
     }
@@ -2212,7 +2214,11 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
             $this->assertEquals($expected["site"], $game["site"]);
             $this->assertEquals($expected["black"], $game["black"]);
 
+            $moves = count($expected["moves"]);
+            $this->assertCount($moves, $game["moves"]);
         }
+
+        echo json_encode($games2[0]);
 
     }
 }
