@@ -7,6 +7,7 @@ spl_autoload_register(
         static $classes = null;
         if ($classes === null) {
             $classes = array(
+                'jsontopgnparser' => '/JsonToPgnParser.php',
                 'chess_json' => '/CHESS_JSON.php',
                 'board0x88config' => '/Board0x88Config.php',
                 'dgtgameparser' => '/DGTGameParser.php',

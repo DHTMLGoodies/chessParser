@@ -2223,8 +2223,7 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
         $parser = new PgnParser("pgn/nullmoves.pgn");
 
         $game = $parser->getGameByIndex(0);
-
-
-
+        // No exception
+        $this->assertCount(5, $game["moves"] );
     }
 }

@@ -37,8 +37,6 @@ class GameParser
 
     private function parseAMove(&$move)
     {
-        
-
         if (!isset($move[CHESS_JSON::MOVE_NOTATION]) || (isset($move[CHESS_JSON::FEN]) && isset($move[CHESS_JSON::MOVE_FROM]) && isset($move[CHESS_JSON::MOVE_TO]))) {
             return;
         }

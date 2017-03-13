@@ -1,0 +1,58 @@
+[Event ""]
+[Site ""]
+[Date ""]
+[White "Svidler"]
+[Black "Shirov"]
+[Result "1-0"]
+[Source "Russian Chess"]
+[Annotator "Svidler"]
+
+1. e4 e5
+{In my preparation to this tournament, I (and probably everybody else) paid the most serious attention to two openingsx Ruy Lopez with Bc5 and Najdorf, since most of the participants seem to play them both. Needless to say, refuting Najdorf is tough, but I thought I came close to refuting Ruy Lopez with 5...b5 and 6...Bc5, provided Black responded to 7.a4 with 7...Rb8. But the opening ceremony dealt a heavy blow to mex I was the last one to play Shirov with White. And indeed, in Rounds 7&8 Shirov faced the position after 7.a4 against Kasparov & Anand. But to my relief, he must have thought that these guys know something and replied 7...Bb7. I was still in business.}
+2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. O-O b5 6. Bb3 Bc5 7. a4 Rb8
+{Played without hesitation, as I and Nigel correctly guessed he wouldx his 7...Bb7 was not broken, but quite bent in the game vs Vishy, and also I probably don't give the impression of a man capable to prepare anything at all.}
+8. c3 d6 9. d4 Bb6 10. Na3 Bg4 11. axb5 axb5 12. Nxb5 O-O
+{One of the strangest tabyias of modern times. Black is a pawn down and is prepared to take on f3, strengthening White's centre and giving him the advantage of two Bishops.}
+13. Re1
+{This position saw also 13.Bc2 and 13.Be3, but Black is doing relatively fine there.}
+13...Bxf3 14. gxf3 Nh5
+{Shirov is repeating his game vs Ivanchuk from Belgrade, where he had no problems whatsoever.}
+15. Kh1 $1
+{Novelty which, in my opinion, almost kills the entire line. Kasparov, however, seemed to be sceptical. During the closing ceremony he asked me a couple of questions concerning the game, and then remarked that he would do a far better job as White if he was given a chance. It remains a mystery whether his improvement over my play was before or after move 15. Anand, on the other hand, is rumoured to have prepared the same stuff. } (15.Be3 Qf6 16.Kh1 exd4 17.cxd4 Ba5 $1 18.Rg1 Rxb5 19.Ba4 Rxb2 20.Bxc6 Bb6) { was played in Ivanchuk-Shirov. Black is completely out of danger.}
+15...Qf6
+{Played very quickly again. Other moves arex } (15...Qh4 16.Be3 exd4 17.cxd4 Ba5 18.Nc3 { and since Black queen is not attacking f3, White is just a pawn up. })
+(15...exd4 16.Nxd4 $1 (16.cxd4 $6 Qf6 17.Be3 Ba5 {transposes to Ivanchuk-Shirov}) 16...Bxd4 (16...Nxd4 17.cxd4 Qf6 18.Ra4+) 17.cxd4 Nxd4 (17...Qf6 18.Ra4+) 18.Qxd4 Rxb3 { and here comes the highpoint of White's ideax } 19.Qd5 $1 $20)
+16. Rg1 $1
+{Winning an important tempo.}
+16...Nf4
+(16...h6 17.Be3 {is much better for White, since his rook is on g1 and cannot be attacked by Ba5 }) (16...exd4 17.Bg5 Qe5 18.Bd5+)
+17. Be3 Ne6 $133
+{The only possible source of counterplay.}
+18. Bxe6 fxe6 19. Rg3 Kh8 $1
+{A good prophylactic move} (19...exd4 20.Nxd4 $5 (20.cxd4 {is also OK, since} 20...e5 {is bad} 21.Bg5 $1 Qf7 22.Bh6 $20) 20...Ne5 (20...Bxd4 21.cxd4 Rxb2 22.Rc1 Ne7 23.Bg5 $1 Qf7 24.Rxc7 $20) 21.f4 Nc4 22.Qe2 Nxe3 (22...Nxb2 23.Ra2 $20) 23.fxe3+)
+20. Qd3
+{This move does not spoil anything, but it was probably better to play 20.Rc1, and Black is left with almost no counterplay at all.}
+20...exd4 21. cxd4 e5 22. d5
+(22.Rc1 $2 Nxd4 23.Bxd4 exd4 24.Nxc7 $4 Rbc8 $21)
+22...Ne7
+{Here I spent half an hour calculating this position to the end, and played}
+23. Bxb6 Rxb6 24. Nxc7 Rxb2
+(24...Ng6 25.Ne6 Nf4 26.Qe3 $20)
+25. Ne6 Rg8 26. Kg1 $1
+{Many other ideas are tempting, but this is the best. White chases away the enemy rook and then goes on the offensive.}
+26...Ng6 27. Qa3 Rb6
+(27...Rc2 $5 {A very nice variation could happen if Black went} 28.Qxd6 Nf4 {Here Black's initiative is quite strong, so White returns some of the material: } 29.Qd7 Ne2+ (29...Rgc8 30.Rf1 Ne2+ 31.Kg2 Nxg3 32.hxg3 R2c3 33.f4 exf4 34.Nxf4 $20) 30.Kg2 Nxg3 31.hxg3 Rc3 $1 32.f4 $1 {going for it!} 32...exf4 33.Nxf4 Rxg3+ 34.fxg3 Qb2+ $1 (34...Qxa1 {is a big mistakex } 35.Ng6+ hxg6 36.Qh3#) 35.Kf3 Qc3+ 36.Ke2 Qb2+ 37.Kd3 Qb3+ 38.Kd4 Qb2+ (38...Qb4+ 39.Ke5 Qb6 $5 {trying to discoordinate White's pieces} 40.Qe7 $1 Qb2+ 41.Ke6 Qxa1 {and once again} 42.Ng6+ hxg6 43.Qh4#) 39.Kc5 Qc3+ 40.Kd6 Qb4+ (40...Qf6+ 41.Qe6 Rd8+ 42.Kc7 $20) 41.Ke6 Qxe4+ 42.Kf7 {what a journey!} 42...g5 43.Qe6 Rg7+ 44.Kf6 Qd4+ 45.Qe5 $20)
+28. Kh1 $1
+{The point. White is perfectly coordinated and is ready to tie Black completely with 29.Rag1.}
+28...Nf4 $2
+({During the game I was very worried about} 28...Nf8 $5. {I had seen the right ideax} 29.Qa7 $1 Rb3 $1 30.Ng5 h6 31.Nf7+ Kh7  32.Rh3 $1 ({after} 32.Rag1 $2 {with idea 33.Nxd6} Rxf3 $1) {Black is suddenly even better and Black is forced to go for} 32...Rxf3 (32...Ng6 33.Rxh6+ gxh6 34.Ng5+ Kh8 35.Qh7#) 33.Ng5+ Qxg5 34.Rxf3 $20})
+29. Nxg7 Ne2 30. Nf5 $1
+{That's what Alexei probably missed. White has no intention of protecting the exchange - once Black take on g3, the game will be over.}
+30...Rgb8 31. Qd3 Rb2 32. Rf1 $1
+{Probably something like 32.Rg4 was winning also, but this move is better- Black will be forced to take on g3 quite soon.}
+32...Ra8
+(32...Nxg3+ 33.hxg3 R2b3 34.Qd1 $1 (34.Qe2 Rb1 {with some chances}) 34...Rb1 35.Qxb1 Rxb1 36.Rxb1 {offers no hopes.})
+33. Qc4 Nxg3+ 34. hxg3
+{White is now winning easily.}
+34...Qd8 35. Qc1 Rb3 36. Kg2 Qf8 37. Qc7
+1-0
