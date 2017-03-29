@@ -8,7 +8,7 @@ class CHESS_JSON {
     const FEN = 'fen';
     const MOVE_COMMENT = 'comment';
     const MOVE_CLOCK = 'clk';
-    const MOVE_ACTION = 'action';
+    const MOVE_ACTIONS = 'actions';
     const MOVE_VARIATIONS = 'variations';
     const MOVE_MOVES = 'moves';
     const MOVE_CAPTURE = 'capture';
@@ -21,6 +21,9 @@ class CHESS_JSON {
     const GAME_WHITE = 'white';
     const GAME_BLACK = 'black';
     const GAME_ECO = 'black';
+
+    const PGN_KEY_ACTION_ARROW = "ar";
+    const PGN_KEY_ACTION_HIGHLIGHT = "hl";
 
 
     protected static $jsKeys = array('MOVE_FROM', 'MOVE_TO', 'MOVE_NOTATION', 'FEN','MOVE_COMMENT',

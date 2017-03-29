@@ -2046,9 +2046,98 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
         $m = json_encode($game['moves'][0]);
         $this->assertNotEmpty($game['moves'][0]['clk'], "Move: ". $m);
         $this->assertEquals('1:59:56',$game['moves'][0]['clk']);
-
-
     }
+
+    /* START action tests */
+
+	/**
+	 * @test
+	 */
+	public function shouldHandleArrowsInComments(){
+		// given
+		$pgnParser = new PgnParser("pgn/pgn-with-arrows.pgn");
+
+		// when
+		$game = $pgnParser->getGameByIndex(0);
+		$m = $game["moves"][7];
+
+		// then
+		$this->assertEquals("e3", $m["m"]);
+
+		$this->assertNotEmpty($m[CHESS_JSON::MOVE_ACTIONS]);
+		$this->assertCount(2, $m[CHESS_JSON::MOVE_ACTIONS], json_encode($m));
+		$this->assertFalse(isset($m[CHESS_JSON::MOVE_COMMENT]));
+
+		$actions = $m[CHESS_JSON::MOVE_ACTIONS];
+		$this->assertEquals("a1", $actions[0]["from"]);
+		$this->assertEquals("a8", $actions[0]["to"]);
+		$this->assertEquals("a8", $actions[1]["from"]);
+		$this->assertEquals("h8", $actions[1]["to"]);
+	}
+
+	/**
+	 * @test
+	 */
+	public function shouldParseColorsOfArrows(){
+		// given
+		$pgnParser = new PgnParser("pgn/pgn-with-arrows.pgn");
+
+		// when
+		$game = $pgnParser->getGameByIndex(0);
+		$m = $game["moves"][10];
+
+		// then
+		$this->assertEquals("d5", $m["m"]);
+
+		$this->assertNotEmpty($m[CHESS_JSON::MOVE_ACTIONS]);
+		$this->assertCount(5, $m[CHESS_JSON::MOVE_ACTIONS], json_encode($m));
+
+		$actions = $m[CHESS_JSON::MOVE_ACTIONS];
+		$this->assertEquals("h1", $actions[0]["from"]);
+		$this->assertEquals("h8", $actions[0]["to"]);
+		$this->assertEquals("#f00", $actions[0]["color"]);
+	}
+
+	/**
+	 * @test
+	 */
+	public function shouldHandlePrefaceArrows(){
+		// given
+		$pgnParser = new PgnParser("pgn/pgn-with-arrows.pgn");
+
+		// when
+		$game = $pgnParser->getGameByIndex(0);
+		$m = $game["moves"][0];
+
+		// then
+		$this->assertFalse(isset($m['m']));
+		$this->assertNotEmpty($m[CHESS_JSON::MOVE_ACTIONS]);
+		$this->assertCount(4, $m[CHESS_JSON::MOVE_ACTIONS], json_encode($m));
+		$actions = $m[CHESS_JSON::MOVE_ACTIONS];
+		$this->assertEquals("e2", $actions[0]["from"]);
+		$this->assertEquals("e4", $actions[0]["to"]);
+
+	}
+	/**
+	 * @test
+	 */
+	public function shouldHandleHighlightedSquaresBeforeFirstMove(){
+		// given
+		$pgnParser = new PgnParser("pgn/pgn-with-arrows.pgn");
+
+		// when
+		$game = $pgnParser->getGameByIndex(0);
+		$m = $game["moves"][0];
+
+		// then
+		$this->assertFalse(isset($m['m']));
+		$this->assertNotEmpty($m[CHESS_JSON::MOVE_ACTIONS]);
+		$this->assertCount(4, $m[CHESS_JSON::MOVE_ACTIONS], json_encode($m));
+		$actions = $m[CHESS_JSON::MOVE_ACTIONS];
+		$this->assertEquals("e2", $actions[2]["square"]);
+		$this->assertEquals("highlight", $actions[2]["type"]);
+
+	}
 
     /**
      * @test
@@ -2225,5 +2314,20 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
         $game = $parser->getGameByIndex(0);
         // No exception
         $this->assertCount(5, $game["moves"] );
+    }
+
+    /**
+     * @test
+     */
+    public function shouldParseProblematic_3(){
+        // given
+        $parser = new PgnParser("pgn/problematic3.pgn");
+
+
+        // when
+        $games = $parser->getGames();
+
+        // then
+        $this->assertEquals(30, count($games));
     }
 }

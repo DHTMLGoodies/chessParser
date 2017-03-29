@@ -52,10 +52,76 @@ class MoveBuilder {
             $comment = str_replace('[%clk ' . $clk . ']', '', $comment);
             $this->moveReferences[$this->pointer][$index][CHESS_JSON::MOVE_CLOCK] = $clk;
         }
+
+        $actions = $this->getActions($comment);
+        if(!empty($actions)){
+        	if(empty($this->moveReferences[$this->pointer][$index][CHESS_JSON::MOVE_ACTIONS])){
+		        $this->moveReferences[$this->pointer][$index][CHESS_JSON::MOVE_ACTIONS] = array();
+	        }
+	        foreach($actions as $action){
+		        $this->moveReferences[$this->pointer][$index][CHESS_JSON::MOVE_ACTIONS][] = $action;
+	        }
+        }
+
+        $comment = preg_replace('/\[%'.CHESS_JSON::PGN_KEY_ACTION_ARROW . '[^\]]+?\]/si', '', $comment );
+        $comment = preg_replace('/\[%'.CHESS_JSON::PGN_KEY_ACTION_HIGHLIGHT . '[^\]]+?\]/si', '', $comment );
+	    $comment = trim($comment);
+
         if(empty($comment))return;
 
 
         $this->moveReferences[$this->pointer][$index][CHESS_JSON::MOVE_COMMENT] = $comment;
+    }
+
+    private function getActions($comment){
+    	$ret = array();
+	    if(strstr($comment,'[%' . CHESS_JSON::PGN_KEY_ACTION_ARROW )){
+		    $arrow = preg_replace('/.*?\[%'. CHESS_JSON::PGN_KEY_ACTION_ARROW . ' ([^\]]+?)\].*/si', '$1', $comment);
+		    $arrows = explode(",", $arrow);
+
+		    foreach($arrows as $arrow){
+		    	$tokens = explode(";", $arrow);
+		    	if(strlen($tokens[0]) == 4){
+				    $action = array(
+					    "from" => substr($arrow,0,2),
+					    "to" => substr($arrow, 2,2)
+				    );
+				    if(count($tokens) > 1){
+					    $action["color"] = $tokens[1];
+				    }
+				    $ret[] = $this->toAction("arrow", $action);
+			    }
+		    }
+	    }
+	    if(strstr($comment,'[%' . CHESS_JSON::PGN_KEY_ACTION_HIGHLIGHT )){
+		    $arrow = preg_replace('/.*?\[%'. CHESS_JSON::PGN_KEY_ACTION_HIGHLIGHT . ' ([^\]]+?)\].*/si', '$1', $comment);
+		    $arrows = explode(",", $arrow);
+
+		    foreach($arrows as $arrow){
+		    	$tokens = explode(";", $arrow);
+		    	if(strlen($tokens[0]) == 2){
+				    $action = array(
+					    "square" => substr($arrow,0,2)
+				    );
+				    if(count($tokens) > 1){
+					    $action["color"] = $tokens[1];
+				    }
+				    $ret[] = $this->toAction("highlight", $action);
+			    }
+		    }
+	    }
+	    return $ret;
+    }
+
+	/**
+	 * @param string $key
+	 * @param array $val
+	 *
+	 * @return array
+	 */
+    private function toAction($key, $val){
+    	$val["type"] = $key;
+    	return $val;
     }
 
     public function startVariation(){

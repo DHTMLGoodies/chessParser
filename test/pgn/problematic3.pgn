@@ -1,0 +1,423 @@
+[Event "The Complete Chess Workout - Palliser"]
+[Site "chess.edu.vn"]
+[Date "2013.12.06"]
+[Round "?"]
+[White "You"]
+[Black "Opponent"]
+[Result "1-0"]
+[SetUp "1"]
+[FEN "r5k1/3R1ppp/4pb2/8/p7/4P3/5PPP/1R4K1 w - - 0 1"]
+[PlyCount "3"]
+[EventDate "2013.??.??"]
+
+1. Ra7 Rc8 2. Rxa4 1-0
+
+[Event "The Complete Chess Workout - Palliser"]
+[Site "chess.edu.vn"]
+[Date "2013.12.06"]
+[Round "?"]
+[White "You"]
+[Black "Opponent"]
+[Result "1-0"]
+[SetUp "1"]
+[FEN "1r3r1k/1pqb3p/pR1N4/P2P4/8/5pQ1/2P2PPP/1R4K1 w - - 0 1"]
+[PlyCount "4"]
+[EventDate "2013.??.??"]
+
+1. Nf7+ Rxf7 2. Qxc7 Re8 1-0
+
+[Event "The Complete Chess Workout - Palliser"]
+[Site "chess.edu.vn"]
+[Date "2013.12.06"]
+[Round "?"]
+[White "You"]
+[Black "Opponent"]
+[Result "1-0"]
+[Annotator "WANDEROZ"]
+[SetUp "1"]
+[FEN "4r1k1/1pb3qp/p1b2p2/3p4/3P4/P2BBQ2/1P3PP1/2R3K1 w - - 0 1"]
+[PlyCount "3"]
+[EventDate "2013.??.??"]
+
+1. Bxa6 Qf7 2. Bd3 (2. Be2) (2. Bf1) 1-0
+
+[Event "The Complete Chess Workout - Palliser"]
+[Site "chess.edu.vn"]
+[Date "2013.12.06"]
+[Round "?"]
+[White "Opponent"]
+[Black "You"]
+[Result "0-1"]
+[SetUp "1"]
+[FEN "2k1r3/pp2r3/1np4n/3p2qN/8/1Q6/PPP5/1K4RR b - - 0 1"]
+[PlyCount "5"]
+
+1... Qxg1+ 2. Rxg1 Re1+ 3. Rxe1 Rxe1# 0-1
+
+[Event "The Complete Chess Workout - Palliser"]
+[Site "chess.edu.vn"]
+[Date "2013.12.06"]
+[Round "?"]
+[White "You"]
+[Black "Opponent"]
+[Result "1-0"]
+[SetUp "1"]
+[FEN "r6k/6rp/1n3N1Q/pq1PNp2/1pp5/P7/1PR3PP/6K1 w - - 0 1"]
+[PlyCount "3"]
+
+1. Ng6+ Rxg6 2. Qxh7# 1-0
+
+[Event "The Complete Chess Workout - Palliser"]
+[Site "chess.edu.vn"]
+[Date "2013.12.06"]
+[Round "?"]
+[White "Opponent"]
+[Black "You"]
+[Result "0-1"]
+[SetUp "1"]
+[FEN "1r2r1k1/1p4p1/p2pp2p/4N1q1/Pp2Pn2/1P4N1/3Q1PPP/R3R1K1 b - - 0 1"]
+[PlyCount "23"]
+
+1... Nh3+ 2. gxh3 Qxd2 3. Nc4 Qc2 4. Rab1 Rf8 5. Rb2 Qc3 6. Rbb1 d5 7. exd5
+exd5 8. Ne3 d4 9. Nef5 Rbe8 10. Red1 Qf3 11. Rxd4 Rxf5 12. Nxf5 Qxf5 0-1
+
+[Event "The Complete Chess Workout - Palliser"]
+[Site "chess.edu.vn"]
+[Date "2013.12.06"]
+[Round "?"]
+[White "You"]
+[Black "Opponent"]
+[Result "1-0"]
+[SetUp "1"]
+[FEN "3Rrk2/p1r1ppbp/2p1b1p1/2B5/8/2P2B2/PP3PPP/3R2K1 w - - 0 1"]
+[PlyCount "17"]
+[EventDate "2013.??.??"]
+
+1. Bxa7 Bd5 2. Rxe8+ Kxe8 3. Bxd5 cxd5 4. Bd4 e5 5. Re1 Re7 6. Bc5 Rb7 7. b4 e4
+8. Rc1 Kd7 9. a4 1-0
+
+[Event "The Complete Chess Workout - Palliser"]
+[Site "chess.edu.vn"]
+[Date "2013.12.06"]
+[Round "?"]
+[White "You"]
+[Black "Opponent"]
+[Result "1-0"]
+[SetUp "1"]
+[FEN "r2qk2r/pppnbp1p/3nb1pQ/3pN3/3P4/3B4/PPP2PPP/RNB1R1K1 w kq - 0 1"]
+[PlyCount "17"]
+[EventDate "2013.??.??"]
+
+1. Nxg6 Rg8 2. Nf4 Nf8 3. Qh5 Rg5 4. Qe2 Rg8 5. Nc3 c6 6. Bxh7 Nxh7 7. Nxe6
+fxe6 8. Qh5+ Kd7 9. Qxh7 1-0
+
+[Event "The Complete Chess Workout - Palliser"]
+[Site "chess.edu.vn"]
+[Date "2013.12.06"]
+[Round "?"]
+[White "Opponent"]
+[Black "You"]
+[Result "0-1"]
+[SetUp "1"]
+[FEN "8/3k4/p1n1p1p1/1p1pPpP1/1P1P1P2/P4R2/2N4r/3K4 b - - 0 1"]
+[PlyCount "19"]
+[EventDate "2013.??.??"]
+
+1... Rxc2 2. Rh3 Rf2 3. Rh7+ Kd8 4. Rh8+ Ke7 5. Rh7+ Kf8 6. Rh8+ Kf7 7. Rh7+
+Kg8 8. Rc7 Nxd4 9. Ra7 Rxf4 10. Rxa6 Rg4 0-1
+
+[Event "The Complete Chess Workout - Palliser"]
+[Site "chess.edu.vn"]
+[Date "2013.12.06"]
+[Round "?"]
+[White "You"]
+[Black "Opponent"]
+[Result "1-0"]
+[SetUp "1"]
+[FEN "1r4kr/p4p2/1npNp2p/2q1b3/2P4Q/5N2/1P1R1PP1/3R2K1 w - - 0 1"]
+[PlyCount "7"]
+[EventDate "2013.??.??"]
+
+1. b4 Qxd6 2. Rxd6 Bxd6 3. Rxd6 Re8 4. Rxc6 1-0
+
+[Event "The Complete Chess Workout - Palliser"]
+[Site "chess.edu.vn"]
+[Date "2013.12.06"]
+[Round "?"]
+[White "Opponent"]
+[Black "You"]
+[Result "0-1"]
+[SetUp "1"]
+[FEN "4r1k1/p5bp/3qn1p1/1R6/2Q1BPP1/2P5/P6K/1RBr4 b - - 0 1"]
+[PlyCount "8"]
+[EventDate "2013.??.??"]
+
+1... Rxc1 2. Bd5 Rxc3 3. Qb4 Qd8 4. g5 Rc2+ 5. Kh1 0-1
+
+[Event "The Complete Chess Workout - Palliser"]
+[Site "chess.edu.vn"]
+[Date "2013.12.06"]
+[Round "?"]
+[White "You"]
+[Black "Opponent"]
+[Result "1-0"]
+[Annotator "WANDEROZ"]
+[SetUp "1"]
+[FEN "3rk2r/pBpq1pp1/1n2p1p1/3n4/6P1/2b1BQ1P/PPP5/3R1RK1 w k - 0 1"]
+[PlyCount "3"]
+[EventDate "2013.??.??"]
+
+1. Bc6 Qxc6 (1... Bf6 2. Bxd7+ Rxd7) 2. Qxf7# 1-0
+
+[Event "The Complete Chess Workout - Palliser"]
+[Site "chess.edu.vn"]
+[Date "2013.12.06"]
+[Round "?"]
+[White "Opponent"]
+[Black "You"]
+[Result "0-1"]
+[SetUp "1"]
+[FEN "3r2k1/5pp1/p6p/1p1r1q2/1Pnbp2P/PR4B1/4QPP1/3RN1K1 b - - 0 1"]
+[PlyCount "6"]
+[EventDate "2013.??.??"]
+
+1... Bxf2+ 2. Qxf2 Qxf2+ 3. Kxf2 Rxd1 4. Bf4 0-1
+
+[Event "The Complete Chess Workout - Palliser"]
+[Site "chess.edu.vn"]
+[Date "2013.12.06"]
+[Round "?"]
+[White "You"]
+[Black "Opponent"]
+[Result "1-0"]
+[SetUp "1"]
+[FEN "4rqrk/p4p1p/2p2Pp1/1p4Q1/3P2PR/3b3N/P1P4P/6K1 w - - 0 1"]
+[PlyCount "7"]
+
+1. Rxh7+ Kxh7 2. Qh4+ Qh6 3. Ng5+ Kh8 4. Qxh6# 1-0
+
+[Event "The Complete Chess Workout - Palliser"]
+[Site "chess.edu.vn"]
+[Date "2013.12.06"]
+[Round "?"]
+[White "You"]
+[Black "Opponent"]
+[Result "1-0"]
+[SetUp "1"]
+[FEN "4r2k/p3q1p1/1np1pp1p/3r4/3P2Q1/5NR1/PP3PPP/4R1K1 w - - 0 1"]
+[PlyCount "1"]
+[EventDate "2013.??.??"]
+
+1. Rxe6 1-0
+
+[Event "The Complete Chess Workout - Palliser"]
+[Site "chess.edu.vn"]
+[Date "2013.12.06"]
+[Round "?"]
+[White "You"]
+[Black "Opponent"]
+[Result "1-0"]
+[SetUp "1"]
+[FEN "1n1r1r1k/pq2NBpp/bp3n2/2p1b1N1/8/4P2P/PPQB1PP1/R3R1K1 w - - 0 1"]
+[PlyCount "3"]
+
+1. Qxh7+ Nxh7 2. Ng6# 1-0
+
+[Event "The Complete Chess Workout - Palliser"]
+[Site "chess.edu.vn"]
+[Date "2013.12.06"]
+[Round "?"]
+[White "Opponent"]
+[Black "You"]
+[Result "0-1"]
+[SetUp "1"]
+[FEN "3r1rk1/1bq1bppp/p2p4/1p2pP2/2n1P3/P1N2B2/1PP1Q1PP/2BR1RK1 b - - 0 1"]
+[PlyCount "8"]
+[EventDate "2013.??.??"]
+
+1... Nxa3 2. Rf2 Nc4 3. Nd5 Bxd5 4. Rxd5 Nb6 5. Rd1 0-1
+
+[Event "The Complete Chess Workout - Palliser"]
+[Site "chess.edu.vn"]
+[Date "2013.12.06"]
+[Round "?"]
+[White "You"]
+[Black "Opponent"]
+[Result "1-0"]
+[Annotator "WANDEROZ"]
+[SetUp "1"]
+[FEN "1b3rk1/pR3p2/5n2/6pp/8/PBN1PK1P/1P6/8 w - - 0 1"]
+[PlyCount "24"]
+[EventDate "2013.??.??"]
+
+1. Ne2 Be5 (1... Kg7 2. Nd4 g4+ 3. hxg4 hxg4+ 4. Kg2 Kg6 5. Nc6) 2. Nd4 g4+ 3.
+hxg4 hxg4+ 4. Kg2 a5 5. Ra7 a4 6. Rxa4 Kg7 7. Ra7 Bxd4 8. exd4 Rb8 9. Bxf7
+Rxb2+ 10. Kg3 Rd2 11. Bh5+ Kh6 12. Bxg4 Rxd4 1-0
+
+[Event "The Complete Chess Workout - Palliser"]
+[Site "chess.edu.vn"]
+[Date "2013.12.06"]
+[Round "?"]
+[White "Opponent"]
+[Black "You"]
+[Result "0-1"]
+[SetUp "1"]
+[FEN "6qk/3b1p1p/p7/2pNb3/2Pn1N2/1P5P/1P4QK/R1Br4 b - - 0 1"]
+[PlyCount "3"]
+
+1... Nf3+ 2. Qxf3 Qg1# 0-1
+
+[Event "The Complete Chess Workout - Palliser"]
+[Site "chess.edu.vn"]
+[Date "2013.12.06"]
+[Round "?"]
+[White "You"]
+[Black "Opponent"]
+[Result "1-0"]
+[SetUp "1"]
+[FEN "r5rk/p1R2Qpp/1n3p2/4p3/q7/4B2P/P4PP1/2R3K1 w - - 0 1"]
+[PlyCount "7"]
+[EventDate "2013.??.??"]
+
+1. Bh6 Qd7 2. Rxd7 Nxd7 3. Qxd7 gxh6 4. Rc7 1-0
+
+[Event "The Complete Chess Workout - Palliser"]
+[Site "chess.edu.vn"]
+[Date "2013.12.06"]
+[Round "?"]
+[White "You"]
+[Black "Opponent"]
+[Result "1-0"]
+[SetUp "1"]
+[FEN "2r2rk1/4q2p/pn4p1/1pb5/2p5/2B1P1Q1/PPB3PP/3R1R1K w - - 0 1"]
+[PlyCount "15"]
+
+1. Bxg6 Rf6 2. Bxf6 Qxf6 3. Rxf6 Bd6 4. Bf7+ Kh8 5. Rfxd6 Nd7 6. Rxd7 h6 7.
+Bxc4 bxc4 8. Qg7# 1-0
+
+[Event "The Complete Chess Workout - Palliser"]
+[Site "chess.edu.vn"]
+[Date "2013.12.06"]
+[Round "?"]
+[White "You"]
+[Black "Opponent"]
+[Result "1-0"]
+[SetUp "1"]
+[FEN "5k2/qp1r1pp1/4p3/3pP1Q1/8/1R5P/2r2PP1/1R4K1 w - - 0 1"]
+[PlyCount "16"]
+[EventDate "2013.??.??"]
+
+1. Rxb7 Qxf2+ 2. Kh1 g6 3. Rxd7 Kg7 4. Kh2 Rc4 5. Rb8 Ra4 6. Rdd8 Qf4+ 7. Qxf4
+Rxf4 8. Rh8 f6 1-0
+
+[Event "The Complete Chess Workout - Palliser"]
+[Site "chess.edu.vn"]
+[Date "2013.12.06"]
+[Round "?"]
+[White "You"]
+[Black "Opponent"]
+[Result "1-0"]
+[SetUp "1"]
+[FEN "r6k/6pp/8/1p2N3/8/1B2KPP1/1r4P1/4R3 w - - 0 1"]
+[PlyCount "3"]
+
+1. Ng6+ hxg6 2. Rh1# 1-0
+
+[Event "The Complete Chess Workout - Palliser"]
+[Site "chess.edu.vn"]
+[Date "2013.12.06"]
+[Round "?"]
+[White "Opponent"]
+[Black "You"]
+[Result "0-1"]
+[SetUp "1"]
+[FEN "r4nk1/p4p1p/2p4r/3p1B2/3P2bq/4P1N1/P4PP1/RQR3K1 b - - 0 1"]
+[PlyCount "5"]
+
+1... Qh2+ 2. Kf1 Qh1+ 3. Nxh1 Rxh1# 0-1
+
+[Event "The Complete Chess Workout - Palliser"]
+[Site "chess.edu.vn"]
+[Date "2013.12.06"]
+[Round "?"]
+[White "Opponent"]
+[Black "You"]
+[Result "0-1"]
+[SetUp "1"]
+[FEN "2b2rk1/rpp2pp1/p1np1q1p/4p3/4Pn2/1BPP1N1P/PP3PPN/R2QR1K1 b - - 0 1"]
+[PlyCount "7"]
+[EventDate "2013.??.??"]
+
+1... Bxh3 2. gxh3 Qg6+ 3. Ng4 Nxh3+ 4. Kh2 Qxg4 0-1
+
+[Event "The Complete Chess Workout - Palliser"]
+[Site "chess.edu.vn"]
+[Date "2013.12.06"]
+[Round "?"]
+[White "You"]
+[Black "Opponent"]
+[Result "1-0"]
+[SetUp "1"]
+[FEN "R3r3/1k5p/1q3pp1/1p2p3/1Q1rP3/1P5P/5PP1/R5K1 w - - 0 1"]
+[PlyCount "9"]
+[EventDate "2013.??.??"]
+
+1. R1a7+ Qxa7 2. Rxa7+ Kxa7 3. Qa5+ Kb7 4. Qxb5+ Kc7 5. Qxe8 1-0
+
+[Event "The Complete Chess Workout - Palliser"]
+[Site "chess.edu.vn"]
+[Date "2013.12.06"]
+[Round "?"]
+[White "Opponent"]
+[Black "You"]
+[Result "0-1"]
+[Annotator "WANDEROZ"]
+[SetUp "1"]
+[FEN "4r1k1/2p3p1/p3q1Np/1pb3rP/1P2pp2/P1P2P1P/4Q3/R4K1R b - - 0 1"]
+[PlyCount "15"]
+[EventDate "2013.??.??"]
+
+1... Qxh3+ 2. Ke1 Qxh1+ 3. Kd2 Qxa1 4. Ne7+ Bxe7 5. fxe4 Rd8+ 6. Kc2 Qa2+ 7.
+Kc1 Rg1+ 8. Qd1 Rgxd1# (8... Rdxd1#) 0-1
+
+[Event "The Complete Chess Workout - Palliser"]
+[Site "chess.edu.vn"]
+[Date "2013.12.06"]
+[Round "?"]
+[White "You"]
+[Black "Opponent"]
+[Result "1-0"]
+[SetUp "1"]
+[FEN "1n1qbr1k/p4Bbp/1p1NQ1p1/2n1P3/p2P1N2/4BPP1/7P/2R3K1 w - - 0 1"]
+[PlyCount "7"]
+
+1. Nxg6+ hxg6 2. Qh3+ Qh4 3. Qxh4+ Bh6 4. Qxh6# 1-0
+
+[Event "The Complete Chess Workout - Palliser"]
+[Site "chess.edu.vn"]
+[Date "2013.12.06"]
+[Round "?"]
+[White "Opponent"]
+[Black "You"]
+[Result "0-1"]
+[SetUp "1"]
+[FEN "6k1/b5p1/p1n1p2p/1p1qPp2/8/P1N2NP1/1PQ2PKP/8 b - - 0 1"]
+[PlyCount "7"]
+[EventDate "2013.??.??"]
+
+1... Qxf3+ 2. Kxf3 Nd4+ 3. Ke3 Nxc2+ 4. Kd3 Nd4 0-1
+
+[Event "The Complete Chess Workout - Palliser"]
+[Site "chess.edu.vn"]
+[Date "2013.12.06"]
+[Round "?"]
+[White "You"]
+[Black "Opponent"]
+[Result "1-0"]
+[SetUp "1"]
+[FEN "1rbr4/pp2q1k1/6p1/4Np1p/3P1P2/1Q6/PP4PP/3R1RK1 w - - 0 1"]
+[PlyCount "19"]
+[EventDate "2013.??.??"]
+
+1. d5 Bd7 2. d6 Qe6 3. Qa3 a6 4. Rfe1 Qf6 5. Qc3 Bc6 6. d7 Kh7 7. Qa3 Be4 8.
+Rd6 Qe7 9. Nxg6 Qg7 10. Qh3 1-0
