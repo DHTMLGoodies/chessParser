@@ -2059,6 +2059,16 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
 
 		// when
 		$game = $pgnParser->getGameByIndex(0);
+
+		$expectedMoves = array("", "Nf3","c5","c4","Nc6","Nc3","e5","e3","Nf6","Be2", "d5");
+
+		for($i=1;$i<count($expectedMoves);$i++){
+			$m = $game["moves"][$i];
+			$this->assertEquals($expectedMoves[$i], $m["m"]);
+		}
+
+
+
 		$m = $game["moves"][7];
 
 		// then
