@@ -2139,6 +2139,24 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
 
 	}
 
+	/**
+	 * @test
+	 */
+	public function shouldHandleDifficultPgnWithArrowsAndSquares(){
+		// given
+		$pgnParser = new PgnParser("pgn/arrowtest.pgn");
+
+		// when
+		$game = $pgnParser->getGameByIndex(0);
+
+		// then
+		$this->assertEquals(8, count($game["moves"]));
+
+		$this->assertNotEmpty($game["moves"][0]);
+		$m = $game["moves"][1];
+		$this->assertEquals("Qxf7+", $m["m"], "MOVE: ". json_encode($game["moves"][0]));
+	}
+
     /**
      * @test
      */
