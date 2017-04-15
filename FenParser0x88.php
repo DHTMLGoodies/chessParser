@@ -667,6 +667,10 @@ class FenParser0x88
         return $this->validMoves;
     }
 
+    private function validMoves(){
+        $validMovesAndResult = $this->getValidMovesAndResult();
+        return $validMovesAndResult["moves"];
+    }
 
     private function excludeInvalidSquares($squares, $validSquares)
     {
@@ -1324,7 +1328,7 @@ class FenParser0x88
 
         if (!isset($ret['from'])) {
             $msg = "Fen: " . $this->fen . "\ncolor: " . $color . "\nnotation: " . $notation . "\nRank:" . $fromRank . "\nFile:" . $fromFile . "\n" . count($foundPieces) . ", " . implode(",", $foundPieces);
-            throw new Exception($msg);
+            throw new FenParser0x88Exception($msg);
         }
         $ret['from'] = Board0x88Config::$numberToSquareMapping[$ret['from']];
         $ret['to'] = Board0x88Config::$numberToSquareMapping[$ret['to']];
@@ -1443,6 +1447,10 @@ class FenParser0x88
             $move = $this->getFromAndToByNotation($move);
         }
 
+        if(!$this->canMoveFromTo($move["from"], $move["to"])){
+            throw new FenParser0x88Exception("Invalid move " . json_encode($move));
+        }
+
         $this->fen = null;
         $this->validMoves = null;
         $this->piecesInvolved = $this->getPiecesInvolvedInMove($move);
@@ -1458,7 +1466,19 @@ class FenParser0x88
                 $this->notation .= '+';
             }
         }
+    }
 
+    private function canMoveFromTo($from, $to){
+        $validMoves = $this->validMoves();
+
+        $from = Board0x88Config::$mapping[$from];
+        $to = Board0x88Config::$mapping[$to];
+
+        if(empty($validMoves[$from]) || !in_array($to, $validMoves[$from])){
+            return false;
+        }
+
+        return true;
 
     }
 
@@ -1775,4 +1795,9 @@ class FenParser0x88
         }
         return $fen . " " . $this->getColorCode() . " " . $this->getCastle() . " " . $this->fenParts['enPassant'] . " " . $this->getHalfMoves() . " " . $this->getFullMoves();
     }
+}
+
+
+class FenParser0x88Exception extends Exception{
+
 }

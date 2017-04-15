@@ -23,7 +23,7 @@ class CHESS_JSON {
     const GAME_ECO = 'black';
 
     const PGN_KEY_ACTION_ARROW = "ar";
-    const PGN_KEY_ACTION_HIGHLIGHT = "hl";
+    const PGN_KEY_ACTION_HIGHLIGHT = "sq";
 
 
     protected static $jsKeys = array('MOVE_FROM', 'MOVE_TO', 'MOVE_NOTATION', 'FEN','MOVE_COMMENT',

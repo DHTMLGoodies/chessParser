@@ -10,9 +10,9 @@
 [LiveChessVersion "1.4.8"]
 [ECO "A04"]
 
-{[%ar e2e4,e4e5] [%hl e2,e4]}1. Nf3  c5  2. c4  Nc6
+{[%ar e2e4,e4e5] [%sq e2,e4]}1. Nf3  c5  2. c4  Nc6
  3. Nc3  e5  4. e3 {[%ar a1a8,a8h8]}
- Nf6  5. Be2  d5 {[%ar h1h8;#f00,h4a4] [%hl h1,h8,h4]}
+ Nf6  5. Be2  d5 {[%ar h1h8;#f00,h4a4] [%sq h1,h8,h4]}
 6. d4  cxd4  7. exd4  e4
  8. Ne5  dxc4  9. Bxc4
  Nxe5  10. dxe5  Qxd1+
