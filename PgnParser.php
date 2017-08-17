@@ -163,7 +163,6 @@ class PgnParser
     }
 
 
-
     public function getGameByIndex($index)
     {
         $games = $this->getUnparsedGames();
@@ -222,13 +221,24 @@ class PgnParser
     }
 
 
-    private
-    function getParsedGame($unParsedGame)
+    private function getParsedGame($unParsedGame)
     {
         $this->pgnGameParser->setPgn($unParsedGame);
         $ret = $this->pgnGameParser->getParsedData();
         if ($this->fullParsing()) {
             $ret = $this->gameParser->getParsedGame($ret);
+        }
+        return $ret;
+    }
+
+    private function getParsedGameShort($unParsedGame)
+    {
+        $this->pgnGameParser->setPgn($unParsedGame);
+        $ret = $this->pgnGameParser->getParsedData();
+        if ($this->fullParsing()) {
+            $ret = $this->gameParser->getParsedGame($ret, true);
+            $moves = &$ret["moves"];
+            $moves = $this->toShortVersion($moves);
         }
         return $ret;
     }
