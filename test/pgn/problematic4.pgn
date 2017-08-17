@@ -1,0 +1,15 @@
+[Event "e"]
+[Site "s"]
+[Date "????.??.??"]
+[Round "r"]
+[White "w"]
+[Black "b"]
+[Result "*"]
+[FEN "5k2/8/4KP2/8/8/8/8/8 w - - 0 1"]
+[SetUp "1"]
+[WhiteElo "1500"]
+[BlackElo "1500"]
+[ECO ""]
+[CurrentPosition "5k2/8/4KP2/8/8/8/8/8 w - - 0 1"]
+
+1.f7 Kg7 2.Ke7 Kh7 3.f8=Q *

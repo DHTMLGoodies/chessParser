@@ -15,8 +15,8 @@ class PgnParser
         if ($pgnFile) {
             $this->pgnFile = $this->sanitize($pgnFile);
 
-            if(!file_exists($this->pgnFile)){
-                throw new Exception("File not found: ". $this->pgnFile);
+            if (!file_exists($this->pgnFile)) {
+                throw new Exception("File not found: " . $this->pgnFile);
             }
         }
 
@@ -32,7 +32,7 @@ class PgnParser
 
         if (class_exists("LudoDBRegistry")) {
             $tempPath = LudoDBRegistry::get('FILE_UPLOAD_PATH');
-        }else{
+        } else {
             $tempPath = null;
         }
 
@@ -68,7 +68,7 @@ class PgnParser
         $c = preg_replace('/"\]\s{0,10}\[/s', "]\n[", $c);
         $c = preg_replace('/"\]\s{0,10}([\.0-9]|{)/s', "\"]\n\n$1", $c);
 
-        $c = preg_replace("/{\s{0,6}\[%emt[^\}]*?\}/","",$c);
+        $c = preg_replace("/{\s{0,6}\[%emt[^\}]*?\}/", "", $c);
 
         $c = preg_replace("/\\$[0-9]+/s", "", $c);
         $c = str_replace("({", "( {", $c);
@@ -82,7 +82,6 @@ class PgnParser
         $c = str_replace("-SB-", "[", $c);
         $c = str_replace("0-0-0", "O-O-O", $c);
         $c = str_replace("0-0", "O-O", $c);
-
 
 
         return $c;
@@ -105,7 +104,7 @@ class PgnParser
         $games = preg_split("/\n\n\[/s", $content, -1, PREG_SPLIT_DELIM_CAPTURE);
         for ($i = 1, $count = count($games); $i < $count; $i++) {
             $gameContent = trim("[" . $games[$i]);
-            if(strlen($gameContent) > 10){
+            if (strlen($gameContent) > 10) {
                 array_push($ret, $gameContent);
             }
         }
@@ -134,13 +133,15 @@ class PgnParser
 
         return $this->pgnGames;
     }
-    
-    public function countGames(){
+
+    public function countGames()
+    {
         $games = $this->getUnparsedGames();
         return count($games);
     }
 
-    public function getCleanPgn(){
+    public function getCleanPgn()
+    {
         return $this->cleanPgn($this->pgnContent);
     }
 
@@ -160,18 +161,59 @@ class PgnParser
 
     public function getGames()
     {
+        return $this->getParsedGames(false);
+    }
+
+    public function getGamesShort()
+    {
+        return $this->getParsedGames(true);
+    }
+
+    private function getParsedGames($short = false)
+    {
         $games = $this->getUnparsedGames();
         $ret = array();
         for ($i = 0, $count = count($games); $i < $count; $i++) {
-            try{
-                $g = $this->getParsedGame($games[$i]);
+            try {
+                $g = $short ? $this->getParsedGameShort($games[$i]) : $this->getParsedGame($games[$i]);
                 $ret[] = $g;
 
-            }catch(Exception $e){
+            } catch (Exception $e) {
 
             }
         }
         return $ret;
+    }
+
+    private function getParsedGameShort($unParsedGame)
+    {
+        $this->pgnGameParser->setPgn($unParsedGame);
+        $ret = $this->pgnGameParser->getParsedData();
+        if ($this->fullParsing()) {
+            $ret = $this->gameParser->getParsedGame($ret, true);
+            $moves = &$ret["moves"];
+            $moves = $this->toShortVersion($moves);
+        }
+        return $ret;
+    }
+
+
+    private function toShortVersion($branch){
+        foreach ($branch as &$move) {
+            $move["n"] = $move["from"] . $move["to"];
+            unset($move["m"]);
+            unset($move["fen"]);
+            unset($move["from"]);
+            unset($move["to"]);
+            if(isset($move["variations"])){
+                $move["v"] = array();
+                foreach($move["variations"] as $variation){
+                    $move["v"][] = $this->toShortVersion($variation);
+                }
+            }
+            unset($move["variations"]);
+        }
+        return $branch;
     }
 
     private function getParsedGame($unParsedGame)

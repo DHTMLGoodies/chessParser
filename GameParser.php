@@ -7,14 +7,23 @@ class GameParser
     private $game;
     private $fen;
     private $fenParser0x88;
+
+    private $shortVersion;
+
     public function __construct()
     {
         $this->fenParser0x88 = new FenParser0x88();
     }
 
-    public function getParsedGame($game)
+    /**
+     * @param array $game
+     * @param bool $short for only from and to squares
+     * @return mixed
+     */
+    public function getParsedGame($game, $short = false)
     {
         $this->game = $game;
+        $this->shortVersion = $short;
         $this->fen = $this->getStartFen();
 
         $this->fenParser0x88->newGame($this->fen);
@@ -48,6 +57,8 @@ class GameParser
             $this->fenParser0x88->setFen($fen);
         }
         $move = $this->fenParser0x88->getParsed($move);
+
+
     }
 
     private function parseVariations(&$variations)

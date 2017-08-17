@@ -72,11 +72,11 @@ class ParserTest extends PHPUnit_Framework_TestCase
 
         // when
         $parser->move("e2e4");
-        $parser->move("e7e5");
+        $parser->move("c7c5");
 
 
         // then
-        $this->assertEquals("e6", $parser->getEnPassantSquare());
+        $this->assertEquals("c6", $parser->getEnPassantSquare());
 
 
         $parser->move("e4e5");
@@ -2358,4 +2358,79 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
         // then
         $this->assertEquals(30, count($games));
     }
+
+    /**
+     * @test
+     */
+
+    public function shouldParseProblematic_4(){
+        // given
+        $parser = new PgnParser("pgn/problematic4.pgn");
+
+        // when
+        $games = $parser->getGames();
+
+        // then
+        $this->assertEquals(1, count($games));
+    }
+
+    /**
+     * @test
+     */
+    public function shouldBeAbleToImportWithoutFenForEachMove(){
+        // given
+        $parser = new PgnParser("pgn/greatgames.pgn");
+
+        // when
+        $games = $parser->getGamesShort();
+        $game = $games[0];
+        // then
+        $this->assertEquals(10, count($games));
+        $this->assertArrayNotHasKey("fen", $game["moves"][0], json_encode($game["moves"][0]));
+        $this->assertEquals("e2e4", $game["moves"][0]["n"], json_encode($game["moves"][0]));
+
+    }
+
+
+    /**
+     * @test
+     */
+    public function shouldBeAbleToHandleVariationWhenUsingShortVersion()
+    {
+        // given
+        $parser = new PgnParser("pgn/variation.pgn");
+
+        // when
+        $games = $parser->getGamesShort();
+        $this->assertEquals(1, count($games), json_encode($games));
+        $game = $games[0];
+        $variations = $game["moves"][0]["v"];
+        $msg = json_encode($variations);
+
+        // then
+        $this->assertEquals(3, count($variations), $msg);
+        $this->assertEquals(2, count($variations[0]), $msg);
+        $this->assertEquals(1, count($variations[1]), $msg);
+        $this->assertEquals(1, count($variations[2]), $msg);
+
+        $var1 = $variations[0];
+        $this->assertEquals("d2d4", $var1[0]["n"]);
+        $this->assertEquals("d2d4", $var1[0]["n"]);
+        $var2 = $variations[1];
+        $this->assertEquals("c2c4", $var2[0]["n"]);
+        $var2 = $variations[2];
+        $this->assertEquals("f2f4", $var2[0]["n"]);
+
+
+        $var3 = $game["moves"][2]["v"][0];
+        $this->assertEquals("b1c3", $var3[0]["n"], json_encode($game));
+
+
+
+    }
+
+
+
+
+
 }

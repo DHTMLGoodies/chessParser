@@ -1443,12 +1443,13 @@ class FenParser0x88
 
         if (is_string($move) && strlen($move) == 4) {
             $move = $this->getFromAndToByLongNotation($move);
+
         } else if (is_string($move)) {
             $move = $this->getFromAndToByNotation($move);
         }
 
         if(!$this->canMoveFromTo($move["from"], $move["to"])){
-            throw new FenParser0x88Exception("Invalid move " . json_encode($move));
+            throw new FenParser0x88Exception("Invalid move " . $this->getColor() . " - " . json_encode($move));
         }
 
         $this->fen = null;
@@ -1477,9 +1478,7 @@ class FenParser0x88
         if(empty($validMoves[$from]) || !in_array($to, $validMoves[$from])){
             return false;
         }
-
         return true;
-
     }
 
     function setNewColor()
