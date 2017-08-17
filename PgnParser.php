@@ -202,20 +202,24 @@ class PgnParser
     private function toShortVersion($branch)
     {
         foreach ($branch as &$move) {
-            $move["n"] = $move["from"] . $move["to"];
 
-            #$move["n"] = $move["from"] . $move["to"];
-            #unset($move["m"]);
-            unset($move["fen"]);
-            unset($move["from"]);
-            unset($move["to"]);
-            if (isset($move["variations"])) {
-                $move["v"] = array();
-                foreach ($move["variations"] as $variation) {
-                    $move["v"][] = $this->toShortVersion($variation);
+            if (isset($move["from"])) {
+                $move["n"] = $move["from"] . $move["to"];
+
+                #$move["n"] = $move["from"] . $move["to"];
+                #unset($move["m"]);
+                unset($move["fen"]);
+                unset($move["from"]);
+                unset($move["to"]);
+                if (isset($move["variations"])) {
+                    $move["v"] = array();
+                    foreach ($move["variations"] as $variation) {
+                        $move["v"][] = $this->toShortVersion($variation);
+                    }
                 }
+                unset($move["variations"]);
             }
-            unset($move["variations"]);
+
         }
         return $branch;
     }
