@@ -150,6 +150,20 @@ class PgnParser
         return $this->getGameByIndex(0);
     }
 
+    public function getGameByIndexShort($index)
+    {
+        $games = $this->getUnparsedGames();
+        if (count($games) && count($games) > $index) {
+            $game = $this->getParsedGame($games[$index]);
+            $game["moves"] = $this->toShortVersion($game["moves"]);
+            return $game;
+        }
+        return null;
+
+    }
+
+
+
     public function getGameByIndex($index)
     {
         $games = $this->getUnparsedGames();
@@ -185,29 +199,20 @@ class PgnParser
         return $ret;
     }
 
-    private function getParsedGameShort($unParsedGame)
+
+    private function toShortVersion($branch)
     {
-        $this->pgnGameParser->setPgn($unParsedGame);
-        $ret = $this->pgnGameParser->getParsedData();
-        if ($this->fullParsing()) {
-            $ret = $this->gameParser->getParsedGame($ret, true);
-            $moves = &$ret["moves"];
-            $moves = $this->toShortVersion($moves);
-        }
-        return $ret;
-    }
-
-
-    private function toShortVersion($branch){
         foreach ($branch as &$move) {
             $move["n"] = $move["from"] . $move["to"];
-            unset($move["m"]);
+
+            #$move["n"] = $move["from"] . $move["to"];
+            #unset($move["m"]);
             unset($move["fen"]);
             unset($move["from"]);
             unset($move["to"]);
-            if(isset($move["variations"])){
+            if (isset($move["variations"])) {
                 $move["v"] = array();
-                foreach($move["variations"] as $variation){
+                foreach ($move["variations"] as $variation) {
                     $move["v"][] = $this->toShortVersion($variation);
                 }
             }
@@ -216,7 +221,9 @@ class PgnParser
         return $branch;
     }
 
-    private function getParsedGame($unParsedGame)
+
+    private
+    function getParsedGame($unParsedGame)
     {
         $this->pgnGameParser->setPgn($unParsedGame);
         $ret = $this->pgnGameParser->getParsedData();
