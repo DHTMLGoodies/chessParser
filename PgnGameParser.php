@@ -131,7 +131,7 @@ class PgnGameParser{
     }
 
     private function getMoveString() {
-        $tokens = preg_split("/\n\n/s", $this->pgnGame);
+        $tokens = preg_split("/\]\n\n/s", $this->pgnGame);
         if(count($tokens) < 2){
             return "";
         }

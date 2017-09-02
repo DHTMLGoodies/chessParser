@@ -2424,13 +2424,50 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
 
         $var3 = $game["moves"][2]["v"][0];
         $this->assertEquals("b1c3", $var3[0]["n"], json_encode($game));
+    }
 
+    /**
+     * @test
+     */
+    public function shouldHandleProblematic(){
+        // given
+        $pgn = '[Event "?"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[FEN "7k/8/8/8/8/8/8/R6K w - - 0 1"]
+
+{In this position the power of the Rook is demonstrated by the first move,} 1.Ra7 {which immediately confines the Black King to the last rank, and the mate is quickly accomplished by:} 1...Kg8 2.Kg2 {The combined action of King and Rook is needed to arrive at a position in which mate can be forced. The general principle for a beginner to follow is to keep his King as much as possible on the same rank, or, as in this case, file, as the opposing King.
+
+When, in this case, the King has been brought to the sixth rank, it is better to place it, not on the same file, but on the next to it towards the centre.} 2...Kf8 3.Kf3 Ke8 4.Ke4 Kd8 5.Kd5 Kc8 
+    ( {Black could have played} 5...Ke8 {and, according to the principle, White would have continued} 6.Kd6 Kf8 {(the Black King will ultimately be forced
+    to move in front of the White King and be mated by R - R 8);} 7.Ke6 Kg8 8.Kf6 Kh8 9.Kg6 Kg8 10.Ra8# )
+6.Kd6 
+    ( {Not} 6.Kc6 {because then the Black King will go back to d8 and it will take much longer to mate. } )
+6...Kb8 
+    ( {If now the King moves back to d8,} 6...Kd8 7.Ra8# {mates at once} )
+7.Rc7 Ka8 8.Kc6 Kb8 9.Kb6 Ka8 10.Rc8# *';
+
+        // when
+        $parser = new PgnParser();
+        $parser->setPgnContent($pgn);
+        $content = $parser->getUnparsedGames();
+        // when
+        $games = $parser->getGames();
+
+        // then
+        $this->assertEquals(1, count($games));
+        $game = $games[0];
+
+        $moves = $game["moves"];
+
+        $this->assertEquals(20, count($moves), json_encode($content));
 
 
     }
-
-
-
 
 
 }
