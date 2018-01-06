@@ -73,7 +73,9 @@ class MoveBuilder
         }
 
         $comment = preg_replace('/\[%' . CHESS_JSON::PGN_KEY_ACTION_ARROW . '[^\]]+?\]/si', '', $comment);
+        $comment = preg_replace('/\[%' . CHESS_JSON::PGN_KEY_ACTION_CLR_ARROW . '[^\]]+?\]/si', '', $comment);
         $comment = preg_replace('/\[%' . CHESS_JSON::PGN_KEY_ACTION_HIGHLIGHT . '[^\]]+?\]/si', '', $comment);
+        $comment = preg_replace('/\[%' . CHESS_JSON::PGN_KEY_ACTION_CLR_HIGHLIGHT . '[^\]]+?\]/si', '', $comment);
         $comment = trim($comment);
 
         if (empty($comment)) return;
@@ -110,6 +112,35 @@ class MoveBuilder
                 }
             }
         }
+
+
+        if (strstr($comment, '[%' . CHESS_JSON::PGN_KEY_ACTION_CLR_ARROW)) {
+            $arrow = preg_replace('/.*?\[%' . CHESS_JSON::PGN_KEY_ACTION_CLR_ARROW . ' ([^\]]+?)\].*/si', '$1', $comment);
+            $arrows = explode(",", $arrow);
+
+            foreach ($arrows as $arrow) {
+
+                $len = strlen($arrow);
+                $color = "G";
+                if ($len === 5) {
+                    $color = substr($arrow, 0, 1);
+                    $arrow = substr($arrow, 1);
+
+                }
+
+                if (strlen($arrow) === 4) {
+                    $action = array(
+                        "from" => substr($arrow, 0, 2),
+                        "to" => substr($arrow, 2, 2)
+                    );
+                    $action["color"] = $color;
+                    $ret[] = $this->toAction("arrow", $action);
+                }
+
+            }
+        }
+
+
         if (strstr($comment, '[%' . CHESS_JSON::PGN_KEY_ACTION_HIGHLIGHT)) {
             $arrow = preg_replace('/.*?\[%' . CHESS_JSON::PGN_KEY_ACTION_HIGHLIGHT . ' ([^\]]+?)\].*/si', '$1', $comment);
             $arrows = explode(",", $arrow);
@@ -127,6 +158,30 @@ class MoveBuilder
                 }
             }
         }
+
+        if (strstr($comment, '[%' . CHESS_JSON::PGN_KEY_ACTION_CLR_HIGHLIGHT)) {
+            $arrow = preg_replace('/.*?\[%' . CHESS_JSON::PGN_KEY_ACTION_CLR_HIGHLIGHT . ' ([^\]]+?)\].*/si', '$1', $comment);
+            $arrows = explode(",", $arrow);
+
+            foreach ($arrows as $arrow) {
+                $color = "G";
+                if (strlen($arrow) === 3) {
+                    $color = substr($arrow, 0, 1);
+                    $arrow = substr($arrow, 1);
+                }
+
+                if (strlen($arrow) === 2) {
+
+                    $action = array(
+                        "square" => substr($arrow, 0, 2)
+                    );
+                    $action["color"] = $color;
+                    $ret[] = $this->toAction("highlight", $action);
+                }
+            }
+        }
+
+
         return $ret;
     }
 

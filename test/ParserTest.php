@@ -7,7 +7,7 @@
  *
  */
 
-require_once(__DIR__."/../autoload.php");
+require_once(__DIR__ . "/../autoload.php");
 
 
 class ParserTest extends PHPUnit_Framework_TestCase
@@ -64,7 +64,8 @@ class ParserTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldGenerateEnPassantSquareInFen(){
+    public function shouldGenerateEnPassantSquareInFen()
+    {
         // given
         $parser = new FenParser0x88();
         $parser->newGame();
@@ -89,7 +90,8 @@ class ParserTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldSolveProblematicFen1(){
+    public function shouldSolveProblematicFen1()
+    {
         $fen = '[Event "Bundesliga 2014/15"]
 [Site "Solingen GER"]
 [Date "2014.10.18"]
@@ -123,8 +125,7 @@ Qe7 28. e4 Nh7 29. h5 Nf8 30. Qb8 g5 31. Qc8 Ne6 32. Bxe6 Qxe6 33. Qxe6 fxe6
         $parser = new FenParser0x88();
         $parser->setFen('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
         $parser->move("g1f3");
-        $notation =  $parser->getNotation();
-
+        $notation = $parser->getNotation();
 
 
         $this->assertEquals("Nf3", $notation);
@@ -133,10 +134,8 @@ Qe7 28. e4 Nh7 29. h5 Nf8 30. Qb8 g5 31. Qc8 Ne6 32. Bxe6 Qxe6 33. Qxe6 fxe6
         $parser = new FenParser0x88();
         $parser->newGame();
         $parser->move("Nf3");
-        $notation =  $parser->getNotation();
+        $notation = $parser->getNotation();
         $this->assertEquals("Nf3", $notation);
-
-
 
 
     }
@@ -145,8 +144,8 @@ Qe7 28. e4 Nh7 29. h5 Nf8 30. Qb8 g5 31. Qc8 Ne6 32. Bxe6 Qxe6 33. Qxe6 fxe6
     /**
      * @test
      */
-    public function shouldParseProblematic3(){
-
+    public function shouldParseProblematic3()
+    {
 
 
         $pgn = '[Event "Moscow Championship (blitz) 2015"]
@@ -184,7 +183,8 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
     /**
      * @test
      */
-    public function shouldParseProblematic2(){
+    public function shouldParseProblematic2()
+    {
         $game = '[Event "ProofOfConcept"]
 [Site "Exploit"]
 [Date "2015.??.??"]
@@ -260,7 +260,8 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
     /**
      * @test
      */
-    public function shouldNotBeAbleToCastleInInvalidPositions(){
+    public function shouldNotBeAbleToCastleInInvalidPositions()
+    {
         // given
         $fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 
@@ -278,14 +279,15 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
     /**
      * @test
      */
-    public function shouldSetCastleCode(){
+    public function shouldSetCastleCode()
+    {
         // given
         $fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
         // when
         $parser = $this->getParser($fen);
 
         // then
-        $this->assertEquals(8+4+2+1, $parser->getCastleCode());
+        $this->assertEquals(8 + 4 + 2 + 1, $parser->getCastleCode());
     }
 
     /**
@@ -298,7 +300,6 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
         // when
         $parser = new FenParser0x88($fen);
         // then
-
 
 
         $this->assertTrue($parser->canCastleKingSide('white') ? true : false, 'Castle options: ' . $parser->getCastleCode());
@@ -414,18 +415,18 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
     private function assertHasSquares($expectedSquares, $moves)
     {
 
-        if(is_array($moves))$moves = implode(",",$moves);
+        if (is_array($moves)) $moves = implode(",", $moves);
 
         $newMoves = explode(",", $moves);
         $moves = array();
-        foreach($newMoves as $move){
-            if(isset($move) && strlen($move)){
+        foreach ($newMoves as $move) {
+            if (isset($move) && strlen($move)) {
                 $moves[] = $move;
             }
         }
 
         for ($i = 0; $i < count($expectedSquares); $i++) {
-            $this->assertTrue($this->isSquareInPaths($expectedSquares[$i], $moves), $expectedSquares[$i] . ' is not in path(' . $this->getReadableSquares($moves)."), expected squares: ". implode(",", $expectedSquares));
+            $this->assertTrue($this->isSquareInPaths($expectedSquares[$i], $moves), $expectedSquares[$i] . ' is not in path(' . $this->getReadableSquares($moves) . "), expected squares: " . implode(",", $expectedSquares));
         }
 
         $this->assertEquals(count($expectedSquares), count($moves));
@@ -443,11 +444,12 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
         return false;
     }
 
-    private function getReadableSquares($squares){
-        if(!isset($squares) || !is_array($squares))return $squares;
+    private function getReadableSquares($squares)
+    {
+        if (!isset($squares) || !is_array($squares)) return $squares;
         $ret = array();
-        foreach($squares as $square){
-            $ret[] = isset(Board0x88Config::$numberToSquareMapping[$square]) ? $square.":". Board0x88Config::$numberToSquareMapping[$square] : 'Wrong:' . $square;
+        foreach ($squares as $square) {
+            $ret[] = isset(Board0x88Config::$numberToSquareMapping[$square]) ? $square . ":" . Board0x88Config::$numberToSquareMapping[$square] : 'Wrong:' . $square;
         }
         return implode(", ", $ret);
     }
@@ -919,7 +921,7 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
 
         // when
         $moves = $parser->getCaptureAndProtectiveMoves('white');
-        if(!is_array($moves))$moves = explode(",", $moves);
+        if (!is_array($moves)) $moves = explode(",", $moves);
         $this->assertTrue(array_search(Board0x88Config::$mapping['h8'], $moves) >= 0);
     }
 
@@ -950,12 +952,12 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
         $square2 = $this->getNumericSquare('b6');
         $square1 = $this->getNumericSquare('e1');
         // then
-        $this->assertEquals(5, $parser->getDistance($square1, $square2),'a6 vs e1');
+        $this->assertEquals(5, $parser->getDistance($square1, $square2), 'a6 vs e1');
         // when
         $square2 = $this->getNumericSquare('f3');
         $square1 = $this->getNumericSquare('e1');
         // then
-        $this->assertEquals(2, $parser->getDistance($square1, $square2),'f3 vs e1');
+        $this->assertEquals(2, $parser->getDistance($square1, $square2), 'f3 vs e1');
         // when
         $square2 = $this->getNumericSquare('a1');
         $square1 = $this->getNumericSquare('h8');
@@ -1011,7 +1013,8 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
     /**
      * @test
      */
-    public function shouldGetValidMovesInBoardCoordinates(){
+    public function shouldGetValidMovesInBoardCoordinates()
+    {
         // given
         $parser = new FenParser0x88('6k1/6p1/4n3/8/8/8/B7/6K1 b - - 0 1');
 
@@ -1022,10 +1025,10 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
         $validKingMoves = $validBlackMoves["g8"];
         // then
 
-        $expectedSquares = array("f7","h7","f8","h8");
+        $expectedSquares = array("f7", "h7", "f8", "h8");
 
         $this->assertEquals(count($expectedSquares), count($validKingMoves));
-        foreach($validKingMoves as $move){
+        foreach ($validKingMoves as $move) {
             $this->assertTrue(in_array($move, $expectedSquares));
         }
 
@@ -1189,7 +1192,8 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
     /**
      * @test
      */
-    public function shouldFindKingSquare(){
+    public function shouldFindKingSquare()
+    {
         // King on g1(white) and g8(black)
         $parser = new FenParser0x88('6k1/6pp/8/8/8/1B6/8/6K1 b - - 0 1');
 
@@ -1227,7 +1231,7 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
         $this->assertTrue(($blackKing['s'] - $bishop['s']) % 17 === 0);
         $this->assertEquals(5, $parser->getDistance($bishop['s'], $blackKing['s']));
         $this->assertEquals(17, ($blackKing['s'] - $bishop['s']) / $parser->getDistance($bishop['s'], $blackKing['s']));
-        $this->assertEquals(5, count($bishopCheckPaths), 'bishop:' . json_encode($bishop, true).", king: ". json_encode($blackKing, true));
+        $this->assertEquals(5, count($bishopCheckPaths), 'bishop:' . json_encode($bishop, true) . ", king: " . json_encode($blackKing, true));
         // when
         $checks = $parser->getValidSquaresOnCheck('black');
         $expectedSquares = array('b3', 'c4', 'd5', 'e6', 'f7');
@@ -1349,7 +1353,7 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
             $protectiveMoves = $parser->getCaptureAndProtectiveMoves($color);
 
             // then
-            $this->assertEquals(1, $moves['result'], 'Position('.$i.'): ' . $checkMateFens[$i] . ', moves: ' . json_encode($protectiveMoves,true));
+            $this->assertEquals(1, $moves['result'], 'Position(' . $i . '): ' . $checkMateFens[$i] . ', moves: ' . json_encode($protectiveMoves, true));
         }
     }
 
@@ -1365,7 +1369,7 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
         for ($i = 0; $i < count($stalematePos); $i++) {
             $parser = $this->getParser($stalematePos[$i]);
             $moves = $parser->getValidMovesAndResult();
-            $this->assertEquals(.5, $moves['result'],$stalematePos[$i]);
+            $this->assertEquals(.5, $moves['result'], $stalematePos[$i]);
         }
     }
 
@@ -1386,6 +1390,7 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
 
         $this->assertEquals($expectedFen, $newFen);
     }
+
     /**
      * @test
      */
@@ -1813,7 +1818,7 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
             $move = $parser->getFromAndToByNotation($notations[$i]);
             // Then
             $this->assertEquals(substr($moves[$i], 0, 2), $move['from'], $notations[$i]);
-            $this->assertEquals(substr( $moves[$i], 2, 2), $move['to'], $notations[$i]);
+            $this->assertEquals(substr($moves[$i], 2, 2), $move['to'], $notations[$i]);
 
             $parser->makeMove(array('from' => substr($moves[$i], 0, 2), 'to' => substr($moves[$i], 2, 2)));
 
@@ -1968,11 +1973,11 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
     }
 
 
-
     /**
      * @test
      */
-    public function shouldBeAbleToCreateGameMoveByMove(){
+    public function shouldBeAbleToCreateGameMoveByMove()
+    {
         // given
         $parser = new FenParser0x88();
         $parser->newGame();
@@ -1984,10 +1989,12 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
         $this->assertEquals('rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq e6 0 2', $parser->getFen());
 
     }
+
     /**
      * @test
      */
-    public function shouldBeAbleToMoveByNotation(){
+    public function shouldBeAbleToMoveByNotation()
+    {
         $parser = $this->getSpasskyFischerGameWith3FoldReptition();
         $this->assertEquals('8/1p2ppk1/p1np4/6p1/2R1P3/1P4KP/P1R1r1P1/8 b - - 7 45', $parser->getFen());
     }
@@ -1995,7 +2002,8 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
     /**
      * @test
      */
-    public function shouldDetermine3FoldRepetition(){
+    public function shouldDetermine3FoldRepetition()
+    {
         // given
         $parser = new FenParser0x88();
         // when
@@ -2008,7 +2016,8 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
     /**
      * @test
      */
-    public function shouldParseProblematicGame(){
+    public function shouldParseProblematicGame()
+    {
         // given
 
         $pgnParser = new PgnParser("pgn/problematic.pgn");
@@ -2017,13 +2026,14 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
         $game = $pgnParser->getFirstGame();
 
         // then
-        $this->assertEquals((36*2)+1, count($game['moves']));
+        $this->assertEquals((36 * 2) + 1, count($game['moves']));
     }
 
     /**
      * @test
      */
-    public function shouldParseProblemCurio(){
+    public function shouldParseProblemCurio()
+    {
         $pgnParser = new PgnParser("pgn/CURIO.pgn");
 
         $games = $pgnParser->getGames();
@@ -2032,7 +2042,8 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
     /**
      * @test
      */
-    public function shouldParseClockComments(){
+    public function shouldParseClockComments()
+    {
         // given
 
         $pgnParser = new PgnParser("pgn/lcc2016.pgn");
@@ -2044,133 +2055,201 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
         $this->assertNotEmpty($game['white'], $game);
         $this->assertNotEmpty($game['moves'][0]);
         $m = json_encode($game['moves'][0]);
-        $this->assertNotEmpty($game['moves'][0]['clk'], "Move: ". $m);
-        $this->assertEquals('1:59:56',$game['moves'][0]['clk']);
+        $this->assertNotEmpty($game['moves'][0]['clk'], "Move: " . $m);
+        $this->assertEquals('1:59:56', $game['moves'][0]['clk']);
     }
 
+
+
+
     /* START action tests */
-
-	/**
-	 * @test
-	 */
-	public function shouldHandleArrowsInComments(){
-		// given
-		$pgnParser = new PgnParser("pgn/pgn-with-arrows.pgn");
-
-		// when
-		$game = $pgnParser->getGameByIndex(0);
-
-		$expectedMoves = array("", "Nf3","c5","c4","Nc6","Nc3","e5","e3","Nf6","Be2", "d5");
-
-		for($i=1;$i<count($expectedMoves);$i++){
-			$m = $game["moves"][$i];
-			$this->assertEquals($expectedMoves[$i], $m["m"]);
-		}
-
-
-
-		$m = $game["moves"][7];
-
-		// then
-		$this->assertEquals("e3", $m["m"]);
-
-		$this->assertNotEmpty($m[CHESS_JSON::MOVE_ACTIONS]);
-		$this->assertCount(2, $m[CHESS_JSON::MOVE_ACTIONS], json_encode($m));
-		$this->assertFalse(isset($m[CHESS_JSON::MOVE_COMMENT]));
-
-		$actions = $m[CHESS_JSON::MOVE_ACTIONS];
-		$this->assertEquals("a1", $actions[0]["from"]);
-		$this->assertEquals("a8", $actions[0]["to"]);
-		$this->assertEquals("a8", $actions[1]["from"]);
-		$this->assertEquals("h8", $actions[1]["to"]);
-	}
-
-	/**
-	 * @test
-	 */
-	public function shouldParseColorsOfArrows(){
-		// given
-		$pgnParser = new PgnParser("pgn/pgn-with-arrows.pgn");
-
-		// when
-		$game = $pgnParser->getGameByIndex(0);
-		$m = $game["moves"][10];
-
-		// then
-		$this->assertEquals("d5", $m["m"]);
-
-		$this->assertNotEmpty($m[CHESS_JSON::MOVE_ACTIONS]);
-		$this->assertCount(5, $m[CHESS_JSON::MOVE_ACTIONS], json_encode($m));
-
-		$actions = $m[CHESS_JSON::MOVE_ACTIONS];
-		$this->assertEquals("h1", $actions[0]["from"]);
-		$this->assertEquals("h8", $actions[0]["to"]);
-		$this->assertEquals("#f00", $actions[0]["color"]);
-	}
-
-	/**
-	 * @test
-	 */
-	public function shouldHandlePrefaceArrows(){
-		// given
-		$pgnParser = new PgnParser("pgn/pgn-with-arrows.pgn");
-
-		// when
-		$game = $pgnParser->getGameByIndex(0);
-		$m = $game["moves"][0];
-
-		// then
-		$this->assertFalse(isset($m['m']));
-		$this->assertNotEmpty($m[CHESS_JSON::MOVE_ACTIONS]);
-		$this->assertCount(4, $m[CHESS_JSON::MOVE_ACTIONS], json_encode($m));
-		$actions = $m[CHESS_JSON::MOVE_ACTIONS];
-		$this->assertEquals("e2", $actions[0]["from"]);
-		$this->assertEquals("e4", $actions[0]["to"]);
-
-	}
-	/**
-	 * @test
-	 */
-	public function shouldHandleHighlightedSquaresBeforeFirstMove(){
-		// given
-		$pgnParser = new PgnParser("pgn/pgn-with-arrows.pgn");
-
-		// when
-		$game = $pgnParser->getGameByIndex(0);
-		$m = $game["moves"][0];
-
-		// then
-		$this->assertFalse(isset($m['m']));
-		$this->assertNotEmpty($m[CHESS_JSON::MOVE_ACTIONS]);
-		$this->assertCount(4, $m[CHESS_JSON::MOVE_ACTIONS], json_encode($m));
-		$actions = $m[CHESS_JSON::MOVE_ACTIONS];
-		$this->assertEquals("e2", $actions[2]["square"]);
-		$this->assertEquals("highlight", $actions[2]["type"]);
-
-	}
-
-	/**
-	 * @test
-	 */
-	public function shouldHandleDifficultPgnWithArrowsAndSquares(){
-		// given
-		$pgnParser = new PgnParser("pgn/arrowtest.pgn");
-
-		// when
-		$game = $pgnParser->getGameByIndex(0);
-
-		// then
-		$this->assertEquals(8, count($game["moves"]));
-
-		$this->assertNotEmpty($game["moves"][0]);
-		$m = $game["moves"][1];
-		$this->assertEquals("Qxf7+", $m["m"], "MOVE: ". json_encode($game["moves"][0]));
-	}
 
     /**
      * @test
      */
-    public function shouldParseProblematicGame2(){
+    public function shouldHandleStandardArrowComments(){
+        $pgnParser = new PgnParser("pgn/pgn-with-arrows2.pgn");
+
+        // when
+        $game = $pgnParser->getGameByIndex(0);
+
+        $expectedMoves = array("", "Nf3", "c5", "c4", "Nc6", "Nc3", "e5", "e3", "Nf6", "Be2", "d5");
+
+        for ($i = 1; $i < count($expectedMoves); $i++) {
+            $m = $game["moves"][$i];
+            $this->assertEquals($expectedMoves[$i], $m["m"]);
+        }
+
+
+        $m = $game["moves"][7];
+
+        // then
+        $this->assertEquals("e3", $m["m"]);
+
+        $this->assertNotEmpty($m[CHESS_JSON::MOVE_ACTIONS]);
+        $this->assertCount(2, $m[CHESS_JSON::MOVE_ACTIONS], json_encode($m));
+        $this->assertFalse(isset($m[CHESS_JSON::MOVE_COMMENT]), json_encode($game));
+
+        $actions = $m[CHESS_JSON::MOVE_ACTIONS];
+        $this->assertEquals("a1", $actions[0]["from"]);
+        $this->assertEquals("a8", $actions[0]["to"]);
+        $this->assertEquals("a8", $actions[1]["from"]);
+        $this->assertEquals("h8", $actions[1]["to"]);
+        $this->assertEquals("R", $actions[0]["color"]);
+        $this->assertEquals("G", $actions[1]["color"]);
+
+
+    }
+
+    /**
+     * @test
+     */
+    public function shouldHandleArrowsInComments()
+    {
+        // given
+        $pgnParser = new PgnParser("pgn/pgn-with-arrows.pgn");
+
+        // when
+        $game = $pgnParser->getGameByIndex(0);
+
+        $expectedMoves = array("", "Nf3", "c5", "c4", "Nc6", "Nc3", "e5", "e3", "Nf6", "Be2", "d5");
+
+        for ($i = 1; $i < count($expectedMoves); $i++) {
+            $m = $game["moves"][$i];
+            $this->assertEquals($expectedMoves[$i], $m["m"]);
+        }
+
+
+        $m = $game["moves"][7];
+
+        // then
+        $this->assertEquals("e3", $m["m"]);
+
+        $this->assertNotEmpty($m[CHESS_JSON::MOVE_ACTIONS]);
+        $this->assertCount(2, $m[CHESS_JSON::MOVE_ACTIONS], json_encode($m));
+        $this->assertFalse(isset($m[CHESS_JSON::MOVE_COMMENT]));
+
+        $actions = $m[CHESS_JSON::MOVE_ACTIONS];
+        $this->assertEquals("a1", $actions[0]["from"]);
+        $this->assertEquals("a8", $actions[0]["to"]);
+        $this->assertEquals("a8", $actions[1]["from"]);
+        $this->assertEquals("h8", $actions[1]["to"]);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldParseColorsOfArrows()
+    {
+        // given
+        $pgnParser = new PgnParser("pgn/pgn-with-arrows.pgn");
+
+        // when
+        $game = $pgnParser->getGameByIndex(0);
+        $m = $game["moves"][10];
+
+        // then
+        $this->assertEquals("d5", $m["m"]);
+
+        $this->assertNotEmpty($m[CHESS_JSON::MOVE_ACTIONS]);
+        $this->assertCount(5, $m[CHESS_JSON::MOVE_ACTIONS], json_encode($m));
+
+        $actions = $m[CHESS_JSON::MOVE_ACTIONS];
+        $this->assertEquals("h1", $actions[0]["from"]);
+        $this->assertEquals("h8", $actions[0]["to"]);
+        $this->assertEquals("#f00", $actions[0]["color"]);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldHandlePrefaceArrows()
+    {
+        // given
+        $pgnParser = new PgnParser("pgn/pgn-with-arrows.pgn");
+
+        // when
+        $game = $pgnParser->getGameByIndex(0);
+        $m = $game["moves"][0];
+
+        // then
+        $this->assertFalse(isset($m['m']));
+        $this->assertNotEmpty($m[CHESS_JSON::MOVE_ACTIONS]);
+        $this->assertCount(4, $m[CHESS_JSON::MOVE_ACTIONS], json_encode($m));
+        $actions = $m[CHESS_JSON::MOVE_ACTIONS];
+        $this->assertEquals("e2", $actions[0]["from"]);
+        $this->assertEquals("e4", $actions[0]["to"]);
+
+    }
+
+    /**
+     * @test
+     */
+    public function shouldHandleStandardPrefaceArrows()
+    {
+        // given
+        $pgnParser = new PgnParser("pgn/pgn-with-arrows2.pgn");
+
+        // when
+        $game = $pgnParser->getGameByIndex(0);
+        $m = $game["moves"][0];
+
+        // then
+        $this->assertFalse(isset($m['m']));
+        $this->assertNotEmpty($m[CHESS_JSON::MOVE_ACTIONS]);
+        $this->assertCount(4, $m[CHESS_JSON::MOVE_ACTIONS], json_encode($m));
+        $actions = $m[CHESS_JSON::MOVE_ACTIONS];
+        $this->assertEquals("e2", $actions[0]["from"]);
+        $this->assertEquals("e4", $actions[0]["to"]);
+
+    }
+
+    /**
+     * @test
+     */
+    public function shouldHandleHighlightedSquaresBeforeFirstMove()
+    {
+        // given
+        $pgnParser = new PgnParser("pgn/pgn-with-arrows.pgn");
+
+        // when
+        $game = $pgnParser->getGameByIndex(0);
+        $m = $game["moves"][0];
+
+        // then
+        $this->assertFalse(isset($m['m']));
+        $this->assertNotEmpty($m[CHESS_JSON::MOVE_ACTIONS]);
+        $this->assertCount(4, $m[CHESS_JSON::MOVE_ACTIONS], json_encode($m));
+        $actions = $m[CHESS_JSON::MOVE_ACTIONS];
+        $this->assertEquals("e2", $actions[2]["square"]);
+        $this->assertEquals("highlight", $actions[2]["type"]);
+
+    }
+
+    /**
+     * @test
+     */
+    public function shouldHandleDifficultPgnWithArrowsAndSquares()
+    {
+        // given
+        $pgnParser = new PgnParser("pgn/arrowtest.pgn");
+
+        // when
+        $game = $pgnParser->getGameByIndex(0);
+
+        // then
+        $this->assertEquals(8, count($game["moves"]));
+
+        $this->assertNotEmpty($game["moves"][0]);
+        $m = $game["moves"][1];
+        $this->assertEquals("Qxf7+", $m["m"], "MOVE: " . json_encode($game["moves"][0]));
+    }
+
+    /**
+     * @test
+     */
+    public function shouldParseProblematicGame2()
+    {
         // given
 
         $pgnParser = new PgnParser("pgn/problematic.pgn");
@@ -2185,7 +2264,8 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
     /**
      * @test
      */
-    public function shouldParseProblematicGame3(){
+    public function shouldParseProblematicGame3()
+    {
         // given
 
         $pgnParser = new PgnParser("pgn/problematic.pgn");
@@ -2200,7 +2280,8 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
     /**
      * @test
      */
-    public function shouldSplitPgnIntoCorrectGames(){
+    public function shouldSplitPgnIntoCorrectGames()
+    {
         // given
         $pgnParser = new PgnParser("pgn/1001-brilliant-checkmates.pgn");
         // when
@@ -2210,22 +2291,25 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
 
     }
 
-    private function getSpasskyFischerGameWith3FoldReptition(){
+    private function getSpasskyFischerGameWith3FoldReptition()
+    {
         $parser = $this->getParser();
         $moves = 'e4,d6,d4,g6,Nc3,Nf6,f4,Bg7,Nf3,c5,dxc5,Qa5,Bd3,Qxc5,Qe2,O-O,Be3,Qa5,O-O,Bg4,Rad1,Nc6,Bc4,Nh5,Bb3,Bxc3,bxc3,Qxc3,f5,Nf6,h3,Bxf3,Qxf3,Na5,Rd3,Qc7,Bh6,Nxb3,cxb3,Qc5+,Kh1,Qe5,Bxf8,Rxf8,Re3,Rc8,fxg6,hxg6,Qf4,Qxf4,Rxf4,Nd7,Rf2,Ne5,Kh2,Rc1,Ree2,Nc6,Rc2,Re1,Rfe2,Ra1,Kg3,Kg7,Rcd2,Rf1,Rf2,Re1,Rfe2,Rf1,Re3,a6,Rc3,Re1,Rc4,Rf1,Rdc2,Ra1,Rf2,Re1,Rfc2,g5,Rc1,Re2,R1c2,Re1,Rc1,Re2,R1c2';
         $moves = explode(",", $moves);
 
-        foreach($moves as $move){
+        foreach ($moves as $move) {
             $parser->makeMoveByNotation($move);
         }
         return $parser;
     }
-    private function getFenFromSpasskyFischer(){
+
+    private function getFenFromSpasskyFischer()
+    {
         $parser = $this->getParser();
         $moves = 'e4,d6,d4,g6,Nc3,Nf6,f4,Bg7,Nf3,c5,dxc5,Qa5,Bd3,Qxc5,Qe2,O-O,Be3,Qa5,O-O,Bg4,Rad1,Nc6,Bc4,Nh5,Bb3,Bxc3,bxc3,Qxc3,f5,Nf6,h3,Bxf3,Qxf3,Na5,Rd3,Qc7,Bh6,Nxb3,cxb3,Qc5+,Kh1,Qe5,Bxf8,Rxf8,Re3,Rc8,fxg6,hxg6,Qf4,Qxf4,Rxf4,Nd7,Rf2,Ne5,Kh2,Rc1,Ree2,Nc6,Rc2,Re1,Rfe2,Ra1,Kg3,Kg7,Rcd2,Rf1,Rf2,Re1,Rfe2,Rf1,Re3,a6,Rc3,Re1,Rc4,Rf1,Rdc2,Ra1,Rf2,Re1,Rfc2,g5,Rc1,Re2,R1c2,Re1,Rc1,Re2,R1c2';
         $moves = explode(",", $moves);
         $ret = array();
-        foreach($moves as $move){
+        foreach ($moves as $move) {
             $parser->makeMoveByNotation($move);
             $ret[] = $parser->getFen();
         }
@@ -2248,7 +2332,8 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
     /**
      * @test
      */
-    public function shouldParseArtAttack(){
+    public function shouldParseArtAttack()
+    {
         $pgnParser = new PgnParser("pgn/art_attack.pgn");
 
         // when
@@ -2259,13 +2344,13 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
     /**
      * @test
      */
-    public function shouldParseTwoLinesPgn(){
+    public function shouldParseTwoLinesPgn()
+    {
         // given
         $pgnParser = new PgnParser("pgn/greatgames-twolines.pgn");
 
         // when
         $games = $pgnParser->getGames();
-
 
 
         // then
@@ -2277,7 +2362,8 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
     /**
      * @test
      */
-    public function shouldParseGreatGamesSameAsTwoLine(){
+    public function shouldParseGreatGamesSameAsTwoLine()
+    {
         $parser1 = new PgnParser("pgn/greatgames-twolines.pgn");
         $parser2 = new PgnParser("pgn/greatgames.pgn");
 
@@ -2288,7 +2374,7 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
 
         $count = count($games2);
 
-        for($i=0;$i<$count;$i++){
+        for ($i = 0; $i < $count; $i++) {
 
             $expected = $games2[$i];
             $game = $games1[$i];
@@ -2302,10 +2388,12 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
         }
 
     }
+
     /**
      * @test
      */
-    public function shouldParseGreatGamesSameAsOneLine(){
+    public function shouldParseGreatGamesSameAsOneLine()
+    {
         $parser1 = new PgnParser("pgn/greatgames-onelines.pgn");
         $parser2 = new PgnParser("pgn/greatgames.pgn");
 
@@ -2318,7 +2406,7 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
 
 
         $this->assertEquals("Immortal game", $games1[1]["event"]);
-        for($i=0;$i<$count;$i++){
+        for ($i = 0; $i < $count; $i++) {
 
             $expected = $games2[$i];
             $game = $games1[$i];
@@ -2336,18 +2424,20 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
     /**
      * @test
      */
-    public function shouldHandleNullMoves(){
+    public function shouldHandleNullMoves()
+    {
         $parser = new PgnParser("pgn/nullmoves.pgn");
 
         $game = $parser->getGameByIndex(0);
         // No exception
-        $this->assertCount(5, $game["moves"] );
+        $this->assertCount(5, $game["moves"]);
     }
 
     /**
      * @test
      */
-    public function shouldParseProblematic_3(){
+    public function shouldParseProblematic_3()
+    {
         // given
         $parser = new PgnParser("pgn/problematic3.pgn");
 
@@ -2363,7 +2453,8 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
      * @test
      */
 
-    public function shouldParseProblematic_4(){
+    public function shouldParseProblematic_4()
+    {
         // given
         $parser = new PgnParser("pgn/problematic4.pgn");
 
@@ -2377,7 +2468,8 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
     /**
      * @test
      */
-    public function shouldBeAbleToImportWithoutFenForEachMove(){
+    public function shouldBeAbleToImportWithoutFenForEachMove()
+    {
         // given
         $parser = new PgnParser("pgn/greatgames.pgn");
 
@@ -2429,7 +2521,8 @@ Rc8 Ne6+ 72. Kf6 d2 73. c5+ Kd7 0-1';
     /**
      * @test
      */
-    public function shouldHandleProblematic(){
+    public function shouldHandleProblematic()
+    {
         // given
         $pgn = '[Event "?"]
 [Site "?"]
@@ -2470,4 +2563,94 @@ When, in this case, the King has been brought to the sixth rank, it is better to
     }
 
 
+    /**
+     * @test
+     */
+
+    public function shouldHandleProblematic2()
+    {
+        // given
+        $pgn = '[Event "URS-ch23"]
+[Site "Leningrad"]
+[Date "1956.??.??"]
+[Round "?"]
+[White "Boleslavsky, Isaak"]
+[Black "Lisitsin, Georgy"]
+[Result "1-0"]
+[ECO "B76"]
+[PlyCount "59"]
+[EventDate "1956.01.10"]
+[EventRounds "17"]
+[EventCountry "URS"]
+[Source "ChessBase"]
+[SourceDate "1999.07.01"]
+
+{Knight´s Outpost at d5 A good grip on the center almost always guarantees
+the succes of the King-side attack. Boleslavsky´s plan was to anchor his
+Knight on d5 square so firmly that it can never be driven away. Once his
+Knight reaches the magic square d5, combinations appear out of the air as a
+reward, allowing the King-side attack.} 1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4
+Nf6 5. Nc3 g6 6. Be3 Bg7 7. f3 {This move does many things: (a) it stregthens
+the center; (b) it prevents an attack on e3 Bishop (and its exchange) by 7...
+Ng4; (c) it prepares for a later Pawn storm by g4 and h4.} O-O 8. Qd2 Nc6 9.
+O-O-O Nxd4 (9... d5 10. Nxc6 bxc6 11. exd5 cxd5 12. Nxd5 Nxd5 13. Qxd5 Qc7 14.
+Qxa8 Bf5 15. Qxf8+ Kxf8 16. Rd2 $14) 10. Bxd4 Qa5 11. Kb1 {Threatens 12.Nd5} e5
+(11... -- 12. Nd5 Qd8 (12... Qxd2 13. Nxe7+ Kh8 14. Rxd2) 13. Nxf6+ Bxf6 14.
+Bxf6 exf6 15. Qxd6) 12. Be3 Be6 13. a3 Rfd8 {Prepares for an eventual d5,
+which would free his game.} 14. Nb5 {This powerful move interferes with
+Black´s plan.} Qa4 {At this point Boleslavsky had two objectis in mind: (1)
+prevent Black from freeing himself by ...d5; (2) Establish his Knight firmly
+at the outpost station d5, but to bring this about it is necessary to rid the
+board of the two black pieces that guard the square d5: the e6 Bishop and the
+f6 Knight.} (14... Qxd2 15. Rxd2 {thereatening 16.Rxd6 as well as 16.Nc7, Rac8;
+17.Nxe6 and White will have advantage of two Bishops against Knight and Bishop.
+}) 15. c4 $1 {A brilliant sacrifice that must be accepted. Refusing the Pawn
+means that Black could never free himself by ... d5. It would also enable
+White to play 16.Nc3 (attacking the Queen) and thus gain time for 17.Nd5,
+establishing a strongly-supported outpost.} (15. Nxd6 Ne8 $2 (15... a6) 16. Bc5
+$2 (16. Bb5 $1 Qxb5 17. Nxb5 Rxd2 18. Rxd2 $18 {and White has won the exchange.
+}) 16... Nxd6 17. Bxd6 Bf8 18. Qb4 Rxd6 19. Rxd6 (19. Qxa4 $4 Rxd1#) 19... Qxb4
+20. axb4 Bxd6 {and Black has won a piece.}) 15... Bxc4 16. Nc3 Qb3 17. Bxc4
+Qxc4 {One black piece has been disposed of. Now to get rid of the other.} 18.
+Bg5 {White pins the Knight to keep it from running away.} Qe6 19. Bxf6 Qxf6 20.
+Nd5 {Now we shall see whether Boleslavsky´s imaginative strategy is justified.
+The Knight now dominates the board and cannot be driven off, but was that
+worth a Pawn?} Qh4 {Black tries to prevent the advance of the adverse
+King-side Pawns. He intends to meet 21.g3 with 21... Qh6, while the reply to
+21.h3 would be 21... Bh6, followed by 22... Bf4.} 21. Qe2 Bf8 22. Qf1 $1 {A
+subtle preperatory move.} ({the immediate} 22. g3 Qh3 {and black Queen
+blocades the h2 Pawn.}) 22... Rac8 23. g3 {The Pawns begin their advance to
+break up Black´s King-side.} Qg5 24. h4 Qh6 (24... Qxg3 25. Rh3 $1 {and
+Black´s Queen has no escape.} (25. Rd2 $2 Bh6 26. Rg2 $2 (26. Rh3 Bxd2 27.
+Rxg3 Rc1+ 28. Qxc1 Bxc1 29. Kxc1 $18) 26... Rc1+ 27. Qxc1 Qxg2 $11)) 25. g4 {
+Now White intends 26.g5} g5 (25... -- 26. g5 Qg7 (26... Qh5 27. Nf6+) 27. Nf6+
+Kh8 28. h5 {Thretens to win the Queen by 29.h6} gxh5 29. Rxh5 {and the attack
+on h7 Pawn will force Black to give up his Queen.}) 26. hxg5 Qxg5 27. Rh5 Qg6
+28. g5 $1 {The threat is 29.Nf6+ followed by 30.Rxh7+} h6 (28... Qxh5 29. Nf6+
+Kh8 30. Nxh5) (28... Bg7 29. Ne7+ Kh8 30. Nxg6+ fxg6) 29. Rxh6 Qxg5 (29... Bxh6
+30. Ne7+ Kf8 31. Nxg6+) 30. Rh5 (30. Rh5 Qg6 31. Qh1 {threatens 32.Rg1 winning
+the Queen.} Qe6 32. Rh8+ Kg7 33. Qh7# {The King-side Pawn did an amazing job
+of opening up files for the benefit of the heavy pieces.}) 1-0';
+
+        // when
+        $parser = new PgnParser();
+        $parser->setPgnContent($pgn);
+        $content = $parser->getUnparsedGames();
+        // when
+        $games = $parser->getGames();
+
+        // then
+        $this->assertEquals(1, count($games));
+        $game = $games[0];
+
+        $moves = $game["moves"];
+
+        $this->assertEquals(60, count($moves), json_encode($content));
+
+        $m = $moves[59];
+        $this->assertEquals($m["m"], "Rh5");
+
+    }
+
 }
+

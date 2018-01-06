@@ -25,6 +25,9 @@ class CHESS_JSON {
     const PGN_KEY_ACTION_ARROW = "ar";
     const PGN_KEY_ACTION_HIGHLIGHT = "sq";
 
+    const PGN_KEY_ACTION_CLR_HIGHLIGHT = "csl";
+    const PGN_KEY_ACTION_CLR_ARROW = "cal";
+
 
     protected static $jsKeys = array('MOVE_FROM', 'MOVE_TO', 'MOVE_NOTATION', 'FEN','MOVE_COMMENT',
         'MOVE_ACTION', 'MOVE_VARIATIONS', 'MOVE_MOVES','MOVE_CAPTURE','MOVE_PROMOTE_TO','MOVE_CASTLE',
