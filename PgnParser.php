@@ -205,9 +205,6 @@ class PgnParser
 
             if (isset($move["from"])) {
                 $move["n"] = $move["from"] . $move["to"];
-
-                #$move["n"] = $move["from"] . $move["to"];
-                #unset($move["m"]);
                 unset($move["fen"]);
                 unset($move["from"]);
                 unset($move["to"]);

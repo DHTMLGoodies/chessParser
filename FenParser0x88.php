@@ -556,6 +556,7 @@ class FenParser0x88
                             }
                         }
                     }
+                    
                     break;
                 // Sliding pieces
                 case 0x05:
@@ -922,17 +923,28 @@ class FenParser0x88
         $king = $this->cache['king' . $color];
         $pieces = $this->cache[$color === 'white' ? 'black' : 'white'];
 
+        $enPassantSquare = $this->getEnPassantSquare();
+        if ($enPassantSquare) {
+            $enPassantSquare = Board0x88Config::$mapping[$enPassantSquare];
+        }
+
         for ($i = 0, $len = count($pieces); $i < $len; $i++) {
             $piece = $pieces[$i];
 
             switch ($piece['t']) {
                 case 0x01:
                     if ($king['s'] === $piece['s'] + 15 || $king['s'] === $piece['s'] + 17) {
+                        if($enPassantSquare === $piece['s'] - 16){
+                            return array($piece['s'], $enPassantSquare);
+                        }
                         return array($piece['s']);
                     }
                     break;
                 case 0x09:
                     if ($king['s'] === $piece['s'] - 15 || $king['s'] === $piece['s'] - 17) {
+                        if($enPassantSquare === $piece['s'] + 16){
+                            return array($piece['s'], $enPassantSquare);
+                        }
                         return array($piece['s']);
                     }
                     break;
