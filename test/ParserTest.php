@@ -2651,6 +2651,45 @@ of opening up files for the benefit of the heavy pieces.}) 1-0';
         $this->assertEquals($m["m"], "Rh5");
 
     }
+    /**
+     * @test
+     */
+    public function shouldHandleAnotherProblematicPgn(){
+// given
+$pgn = '[Event "URS-ch23"]
+[Site "Leningrad"]
+[Date "1956.??.??"]
+[Round "?"]
+[White "Boleslavsky, Isaak"]
+[Black "Lisitsin, Georgy"]
+[Result "1-0"]
+[ECO "B76"]
+[PlyCount "59"]
+[EventDate "1956.01.10"]
+[EventRounds "17"]
+[EventCountry "URS"]
+[Source "ChessBase"]
+[SourceDate "1999.07.01"]
 
+1. d4 Nf6 2. c4 e6 3.Nf3 Bb4 4.Nbd2 O-O 5.a3 Be7 6.e4 d6 7.Qc2 Nbd7 8.b3 c6 9.Bb2 Qc7 10.g3 e5 11.Bg2 a5 12.O-O Re8 13.c5 ed4 14.cd6 Bd6 15.Nd4 Bf8 16.Rae1 Nc5 17.e5 Nfd7 18.Nc4 Ne6 19.Ne6 Re6 20.f4 b5 21.f5 Rh6 22.Nd6 Bd6 23.ed6 Rd6 24.Re8 Nf8 25.Qc5 f6 26.Bd5';
+
+        // when
+        $parser = new PgnParser();
+        $parser->setPgnContent($pgn);
+        $content = $parser->getUnparsedGames();
+        // when
+        $games = $parser->getGames();
+
+        // then
+        $this->assertEquals(1, count($games));
+        $game = $games[0];
+
+        $moves = $game["moves"];
+
+        $this->assertEquals(51, count($moves), json_encode($content));
+
+
+
+    }
 }
 
