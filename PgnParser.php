@@ -83,6 +83,7 @@ class PgnParser
         $c = str_replace("0-0-0", "O-O-O", $c);
         $c = str_replace("0-0", "O-O", $c);
 
+        $c = preg_replace('/^([^\[])*?\[/', '[', $c);
 
         return $c;
     }
@@ -102,12 +103,16 @@ class PgnParser
         $ret = array();
         $content = "\n\n" . $pgn;
         $games = preg_split("/\n\n\[/s", $content, -1, PREG_SPLIT_DELIM_CAPTURE);
+
+        file_put_contents("parsed.pgn", $content);
+
         for ($i = 1, $count = count($games); $i < $count; $i++) {
             $gameContent = trim("[" . $games[$i]);
             if (strlen($gameContent) > 10) {
                 array_push($ret, $gameContent);
             }
         }
+
         return $ret;
     }
 

@@ -2691,5 +2691,20 @@ $pgn = '[Event "URS-ch23"]
 
 
     }
+
+    /**
+     * @test
+     */
+    public function shouldImportAllGames(){
+        $pgn = file_get_contents("pgn/philadelphiainternational2019.pgn");
+            // when
+            $parser = new PgnParser();
+            $parser->setPgnContent($pgn);
+            $content = $parser->getUnparsedGames();
+            // when
+    
+            // then
+            $this->assertEquals(132, $parser->countGames());
+    }
 }
 
