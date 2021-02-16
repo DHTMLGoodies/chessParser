@@ -1259,7 +1259,7 @@ class FenParser0x88
                 case 0x03:
                 case 0x0B:
 
-                    if (substr($notation, 0, 3) === 'O-O' && substr($notation, 0, 3) !== 'O-O') {
+                    if (substr($notation, 0, 3) === 'O-O' && substr($notation, 0, 5) !== 'O-O-O') {
                         $foundPieces[] = ($offset + 4);
                         $ret['to'] = $offset + 6;
                     } else if (substr($notation, 0, 5) === 'O-O-O') {
