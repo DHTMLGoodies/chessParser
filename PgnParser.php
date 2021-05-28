@@ -65,7 +65,7 @@ class PgnParser
     {
         $c = $this->pgnContent;
 
-        $c = preg_replace('/"\]\s{0,10}\[/s', "]\n[", $c);
+        $c = preg_replace('/"\]\s{0,10}\[/s', "\"]\n[", $c);
         $c = preg_replace('/"\]\s{0,10}([\.0-9]|{)/s', "\"]\n\n$1", $c);
 
         $c = preg_replace("/{\s{0,6}\[%emt[^\}]*?\}/", "", $c);
@@ -103,8 +103,6 @@ class PgnParser
         $ret = array();
         $content = "\n\n" . $pgn;
         $games = preg_split("/\n\n\[/s", $content, -1, PREG_SPLIT_DELIM_CAPTURE);
-
-        file_put_contents("parsed.pgn", $content);
 
         for ($i = 1, $count = count($games); $i < $count; $i++) {
             $gameContent = trim("[" . $games[$i]);
