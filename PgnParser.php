@@ -104,8 +104,6 @@ class PgnParser
         $content = "\n\n" . $pgn;
         $games = preg_split("/\n\n\[/s", $content, -1, PREG_SPLIT_DELIM_CAPTURE);
 
-        file_put_contents("parsed.pgn", $content);
-
         for ($i = 1, $count = count($games); $i < $count; $i++) {
             $gameContent = trim("[" . $games[$i]);
             if (strlen($gameContent) > 10) {
