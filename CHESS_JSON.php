@@ -11,6 +11,7 @@ class CHESS_JSON {
     const MOVE_ACTIONS = 'actions';
     const MOVE_VARIATIONS = 'variations';
     const MOVE_MOVES = 'moves';
+    const MOVE_MOVES_STRING = 'movesStr';
     const MOVE_CAPTURE = 'capture';
     const MOVE_PROMOTE_TO = 'promoteTo';
     const MOVE_CASTLE = 'castle';
@@ -29,10 +30,12 @@ class CHESS_JSON {
     const PGN_KEY_ACTION_CLR_ARROW = "cal";
 
 
-    protected static $jsKeys = array('MOVE_FROM', 'MOVE_TO', 'MOVE_NOTATION', 'FEN','MOVE_COMMENT',
-        'MOVE_ACTION', 'MOVE_VARIATIONS', 'MOVE_MOVES','MOVE_CAPTURE','MOVE_PROMOTE_TO','MOVE_CASTLE',
-        'GAME_METADATA', 'GAME_EVENT', 'GAME_WHITE','GAME_BLACK', 'GAME_ECO',
-
+    protected static $jsKeys = array(
+      'MOVE_FROM',         'MOVE_TO',      'MOVE_NOTATION',   'FEN',
+      'MOVE_COMMENT',      'MOVE_ACTION',  'MOVE_VARIATIONS', 'MOVE_MOVES',
+      'MOVE_MOVES_STRING', 'MOVE_CAPTURE', 'MOVE_PROMOTE_TO', 'MOVE_CASTLE',
+      'GAME_METADATA',     'GAME_EVENT',   'GAME_WHITE',      'GAME_BLACK',
+      'GAME_ECO',
     );
 
     public static function toJavascript(){
