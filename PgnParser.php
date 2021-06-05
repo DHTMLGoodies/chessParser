@@ -69,7 +69,6 @@ class PgnParser
 
         $c = preg_replace("/{\s{0,6}\[%emt[^\}]*?\}/", "", $c);
 
-        $c = preg_replace("/\\$[0-9]+/s", "", $c);
         $c = str_replace("({", "( {", $c);
         $c = preg_replace("/{([^\[]*?)\[([^}]?)}/s", '{$1-SB-$2}', $c);
         $c = preg_replace("/\r/s", "", $c);
