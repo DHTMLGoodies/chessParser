@@ -64,8 +64,7 @@ class PgnParser
     private function cleanPgn()
     {
         $c = $this->pgnContent;
-
-        $c = preg_replace('/"\]\s{0,10}\[/s', "]\n[", $c);
+        $c = preg_replace('/"\]\s{0,10}\[/s', "\"]\n[", $c);
         $c = preg_replace('/"\]\s{0,10}([\.0-9]|{)/s', "\"]\n\n$1", $c);
 
         $c = preg_replace("/{\s{0,6}\[%emt[^\}]*?\}/", "", $c);
