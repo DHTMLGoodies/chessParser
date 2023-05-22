@@ -4,6 +4,7 @@
 class PgnGameParser{
 
     private $pgnGame;
+    private $moveBuilder;
     private $defaultFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 
     private $gameData = array();
