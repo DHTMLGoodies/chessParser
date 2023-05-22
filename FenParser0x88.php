@@ -1259,10 +1259,10 @@ class FenParser0x88
                 case 0x03:
                 case 0x0B:
 
-                    if ($notation === 'O-O') {
+                    if (substr($notation, 0, 3) === 'O-O' && substr($notation, 0, 5) !== 'O-O-O') {
                         $foundPieces[] = ($offset + 4);
                         $ret['to'] = $offset + 6;
-                    } else if ($notation === 'O-O-O') {
+                    } else if (substr($notation, 0, 5) === 'O-O-O') {
                         $foundPieces[] = ($offset + 4);
                         $ret['to'] = $offset + 2;
                     } else {
@@ -1411,7 +1411,7 @@ class FenParser0x88
 
     function getPieceTypeByNotation($notation, $color = null)
     {
-        if ($notation === 'O-O-O' || $notation === 'O-O') {
+        if (substr($notation, 0, 5) === 'O-O-O' || substr($notation, 0, 3) === 'O-O') {
             $pieceType = 'K';
         } else {
             $token = substr($notation, 0, 1);
@@ -1813,3 +1813,4 @@ class FenParser0x88
 class FenParser0x88Exception extends Exception{
 
 }
+
